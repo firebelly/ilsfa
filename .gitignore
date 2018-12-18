@@ -1,0 +1,43 @@
+# Application
+web/app/plugins/*
+!web/app/plugins/.gitkeep
+web/app/mu-plugins/*/
+web/app/upgrade
+web/app/uploads/*
+!web/app/uploads/.gitkeep
+
+# WordPress
+web/wp
+
+# WP-CLI
+db-sync
+sql-dump-*.sql
+
+# Dotenv
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Vendor (e.g. Composer)
+vendor/*
+!vendor/.gitkeep
+
+# Theme folders
+!web/app/themes/*/assets/styles/vendor
+web/app/themes/*/dist
+web/app/themes/*/bower_components
+
+# Node Package Manager
+node_modules
+npm-debug.log
+
+# Vagrant
+bin
+.vagrant
+
+# Mac crap
+.DS_Store
+
+# Gems
+.gems

@@ -1,0 +1,72 @@
+// Firebelly custom admin styles
+
+// Extra CSS for CMB2 tabbed groups, see https://gist.github.com/natebeaty/39672b0d96eedf621dadf24c8ddc9a32
+.no-js .cmb2-tabs {
+  display: none;
+}
+.cmb2-tabs .tabs-nav {
+  margin: 6px 0 0 10px;
+  clear: both;
+  overflow: hidden;
+}
+.cmb2-tabs .tabs-nav li {
+  list-style: none;
+  float: left;
+  position: relative;
+  top: 0;
+  margin: 1px .2em 0 0;
+  padding: 0;
+  white-space: nowrap;
+  border: 1px #ccc solid;
+  background-color: #eee;
+}
+.cmb2-tabs .tabs-nav li a {
+  display: block;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 10px 20px;
+}
+.cmb2-tabs .tabs-nav li.current {
+  background: #fff;
+  border-bottom: 1px #fff solid;
+ }
+.cmb2-tabs ul li a:focus {
+  box-shadow: none
+}
+.cmb2-tabs .tab-content {
+  padding: 10px 20px;
+  border: 1px #ccc solid;
+  border-bottom: 1px #ccc solid;
+  margin-top: -1px;
+  background: #fff;
+  display: none;
+}
+.cmb2-tabs .tab-content.current {
+  display: block;
+}
+
+@media screen and (min-width: 768px) {
+  .cmb-row.-half {
+    border-bottom: none !important;
+    .cmb-th,
+    .cmb-td {
+      float: none;
+      width: 100%;
+      input {
+        width: 100%;
+      }
+    }
+    float: left;
+    width: 48%;
+    &:nth-child(2) {
+      float: right;
+      width: 50%;
+      &:after {
+        content: '';
+        display: table;
+        clear: both;
+      }
+    }
+  }
+}

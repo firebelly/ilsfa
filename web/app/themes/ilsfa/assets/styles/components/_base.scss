@@ -1,0 +1,67 @@
+// Base styles
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  color: $black;
+  font-size: 16px;
+  overflow-x: hidden;
+  font-family: $sans;
+  background: $white;
+}
+
+p {
+  em {
+    font-style: italic;
+  }
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+// Browser alert
+.alert-warning {
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  color: $black;
+  padding: 50px;
+  text-align: center;
+  background: $brand-primary;
+}
+.alert {
+  padding: 50px;
+  background: #fff;
+}
+
+// Disable scrolling when modals are active
+.no-scroll {
+  overflow: hidden;
+}
+
+// Utility classes
+.hide {
+  display: none;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 10px;
+  position: relative;
+  @include clearfix();
+  @include media-md {
+  }
+}

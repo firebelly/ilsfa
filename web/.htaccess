@@ -1,0 +1,33 @@
+# Custom redirects
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+
+# Force single domain
+# RewriteCond %{REQUEST_URI} !\.well-known
+# RewriteCond %{HTTP_HOST} !^fb-bedrock\.webfactional\.com [NC]
+# RewriteCond %{HTTP_HOST} !^fb-bedrock\.firebelly\.co [NC]
+# RewriteCond %{HTTP_HOST} !^fb-bedrock\.localhost [NC]
+# RewriteRule ^(.*)$ https://www\.fb-bedrock\.com%{REQUEST_URI} [R=301,L]
+
+# Force HTTPS
+# RewriteCond %{REQUEST_URI} !\.well-known
+# RewriteCond %{HTTP:X-Forwarded-SSL} !on
+# RewriteCond %{HTTP_HOST} !^fb-bedrock\.firebelly\.co [NC]
+# RewriteCond %{HTTP_HOST} !^fb-bedrock\.webfactional\.com [NC]
+# RewriteCond %{HTTP_HOST} !^fb-bedrock\.localhost [NC]
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+</IfModule>
+# END Custom redirects
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress

@@ -1,0 +1,33 @@
+// Forms
+
+// Custom select styles
+
+.select-wrapper {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    &:after {
+      right: 10px;
+      height: 8px;
+      width: 13px;
+      content: '';
+      bottom: 14px;
+      position: absolute;
+      pointer-events: none;
+      background-size: 13px 8px;
+    }
+}
+
+.select-wrapper select {
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    padding-right: 18px;
+    background-color: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+}
+
+.select-wrapper select:focus {
+    outline: none;
+}
