@@ -47,26 +47,35 @@
 }
 
 @media screen and (min-width: 768px) {
-  .cmb-row.-half {
+  .cmb-row.-one-half,
+  .cmb-row.-one-third {
     border-bottom: none !important;
     .cmb-th,
     .cmb-td {
       float: none;
       width: 100%;
-      input {
+      input[type=text] {
         width: 100%;
       }
     }
+  }
+  .cmb-row.-one-half {
     float: left;
     width: 48%;
     &:nth-child(2) {
       float: right;
       width: 50%;
-      &:after {
-        content: '';
-        display: table;
-        clear: both;
-      }
+    }
+  }
+
+  .cmb-row.-one-third {
+    float: left;
+    width: 31% ;
+    margin-right: 2%;
+    &:nth-child(3) {
+      float: right;
+      width: 33%;
+      margin-right: 0;
     }
   }
 }
