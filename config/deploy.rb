@@ -40,7 +40,9 @@ namespace :deploy do
   before :starting, :map_composer_command do
       on roles(:app) do |server|
         # set previous_release to current_path for use below
-        set :previous_release, capture("readlink #{current_path}")
+        if ENV['NOASSETS'] != nil
+          set :previous_release, capture("readlink #{current_path}")
+        end
         SSHKit.config.command_map[:composer] = "#{fetch(:php)} /home/#{fetch(:login)}/bin/composer.phar"
       end
   end
