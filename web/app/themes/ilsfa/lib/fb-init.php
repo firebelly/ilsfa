@@ -52,7 +52,7 @@ function simplify_tinymce($settings) {
     $settings['formats'] = "{ underline: { inline: 'u', exact: true} }";
 
   // What goes into the toolbars. Add 'wp_adv' to get the Toolbar toggle button back
-  $settings['toolbar1'] = 'styleselect,bold,italic,underline,strikethrough,formatselect,bullist,numlist,blockquote,link,unlink,hr,wp_more,outdent,indent,AccordionShortcode,AccordionItemShortcode,fullscreen';
+  $settings['toolbar1'] = 'formatselect,bold,italic,bullist,numlist,blockquote,link,unlink,hr,fullscreen,styleselect';
   $settings['toolbar2'] = '';
   $settings['toolbar3'] = '';
   $settings['toolbar4'] = '';
@@ -75,6 +75,11 @@ function simplify_tinymce($settings) {
       'block' => 'span',
       'classes' => 'button',
     ),
+    // array(
+    //   'title' => '» Arrow Link',
+    //   'block' => 'span',
+    //   'classes' => 'arrow-link',
+    // ),
  );
   $settings['style_formats'] = json_encode($style_formats);
 
@@ -91,9 +96,7 @@ function clean_up_content($content) {
   return $content;
 }
 add_filter('content_save_pre', __NAMESPACE__ . '\\clean_up_content', 10, 1);
-//
 // ... and support for cmb2 wysiwyg fields:
-//
 function cmb2_sanitize_wysiwyg_callback($override_value, $content) {
   $content = preg_replace('/<span class=\\\"button\\\"><a(.*)<\/a><\/span>/', '<a class=\"button\"$1</a>', $content);
   return $content;
@@ -163,3 +166,11 @@ function search_distinct($where) {
   return $where;
 }
 add_filter('posts_distinct', __NAMESPACE__ . '\search_distinct');
+
+
+/**
+ * Remove unused Posts link in WP admin sidebar
+ */
+add_action('admin_menu', function() {
+  remove_menu_page('edit.php');
+});
