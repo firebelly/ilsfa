@@ -9,20 +9,20 @@ add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\\metaboxes' );
 function metaboxes() {
   $prefix = '_cmb2_';
 
-  $post_is_featured = new_cmb2_box([
-    'id'            => $prefix . 'post_is_featured',
-    'title'         => esc_html__( 'Is this a featured post on the homepage?', 'cmb2' ),
-    'object_types'  => ['post', 'program'],
-    'context'       => 'side',
-    'priority'      => 'default',
-    'show_names'    => false,
-  ]);
-  $post_is_featured->add_field([
-    'name'    => esc_html__( 'Featured', 'cmb2' ),
-    'id'      => $prefix . 'featured',
-    'desc'    => 'Featured?',
-    'type'    => 'checkbox',
-  ]);
+  // $post_is_featured = new_cmb2_box([
+  //   'id'            => $prefix . 'post_is_featured',
+  //   'title'         => esc_html__( 'Is this a featured post on the homepage?', 'cmb2' ),
+  //   'object_types'  => ['post', 'program'],
+  //   'context'       => 'side',
+  //   'priority'      => 'default',
+  //   'show_names'    => false,
+  // ]);
+  // $post_is_featured->add_field([
+  //   'name'    => esc_html__( 'Featured', 'cmb2' ),
+  //   'id'      => $prefix . 'featured',
+  //   'desc'    => 'Featured?',
+  //   'type'    => 'checkbox',
+  // ]);
 
   // $image_slideshow = new_cmb2_box([
   //   'id'            => 'image_slideshow',
