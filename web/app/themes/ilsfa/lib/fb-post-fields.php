@@ -9,6 +9,21 @@ add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\\metaboxes' );
 function metaboxes() {
   $prefix = '_cmb2_';
 
+  // Resources attached to posts (aka Announcements)
+  $resources = new_cmb2_box([
+    'id'            => $prefix . 'resources',
+    'title'         => __( 'Downloadable Resources and Videos', 'cmb2' ),
+    'object_types'  => ['post'],
+    'context'       => 'normal',
+    'priority'      => 'high',
+  ]);
+  $resources->add_field([
+    'name'      => 'Resources',
+    'id'        => $prefix . 'resources',
+    'type'      => 'file_list',
+    'desc'      => 'Associated files and videos shown at bottom of posts',
+  ]);
+
   // $post_is_featured = new_cmb2_box([
   //   'id'            => $prefix . 'post_is_featured',
   //   'title'         => esc_html__( 'Is this a featured post on the homepage?', 'cmb2' ),
