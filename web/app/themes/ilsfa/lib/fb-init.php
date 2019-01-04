@@ -168,9 +168,3 @@ function search_distinct($where) {
 add_filter('posts_distinct', __NAMESPACE__ . '\search_distinct');
 
 
-/**
- * Remove unused Posts link in WP admin sidebar
- */
-add_action('admin_menu', function() {
-  remove_menu_page('edit.php');
-});
