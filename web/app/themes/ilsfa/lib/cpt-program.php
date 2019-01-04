@@ -108,29 +108,33 @@ function metaboxes() {
     ],
   ]);
 
-  // Contact & Vendors
-  $pre_footer = new_cmb2_box([
-    'id'            => $prefix . 'pre_footer',
-    'title'         => __( 'Contact Info & Vendors/Tools Intro', 'cmb2' ),
+  // Contact
+  $contact = new_cmb2_box([
+    'id'            => $prefix . 'contact',
+    'title'         => __( 'Contact Info', 'cmb2' ),
     'object_types'  => ['program'],
     'context'       => 'normal',
     'priority'      => 'high',
   ]);
-  $pre_footer->add_field([
-    'name'      => 'Contact Info',
-    'id'        => $prefix . 'contact_info',
-    'type'      => 'wysiwyg',
-    'options'   => [
-      'textarea_rows' => 5,
-    ],
+  $contact->add_field([
+    'name'      => 'Address',
+    'id'        => $prefix . 'address',
+    'type'      => 'address',
   ]);
-  $pre_footer->add_field([
-    'name'      => 'Vendors & Tools Intro',
-    'id'        => $prefix . 'vendors_intro',
-    'type'      => 'wysiwyg',
-    'options'   => [
-      'textarea_rows' => 5,
-    ],
+  $contact->add_field([
+    'name'      => 'Email',
+    'id'        => $prefix . 'email',
+    'type'      => 'text',
+  ]);
+  $contact->add_field([
+    'name'      => 'Phone',
+    'id'        => $prefix . 'phone',
+    'type'      => 'text',
+  ]);
+  $contact->add_field([
+    'name'      => 'Fax',
+    'id'        => $prefix . 'fax',
+    'type'      => 'text',
   ]);
 
   // Vendor tools
@@ -140,6 +144,14 @@ function metaboxes() {
     'object_types'  => ['program'],
     'context'       => 'normal',
     'priority'      => 'high',
+  ]);
+  $vendors_tools->add_field([
+    'name'      => 'Intro',
+    'id'        => $prefix . 'vendors_intro',
+    'type'      => 'wysiwyg',
+    'options'   => [
+      'textarea_rows' => 5,
+    ],
   ]);
   $group_field_id = $vendors_tools->add_field([
     'id'              => $prefix .'intro_links',
