@@ -2,16 +2,25 @@
 
 // Colors
 
-$black: #202020;
-$black-lite: #444648;
-$white: #fff;
-$gray-lite: #DCDCDC;
-$gray: #969696;
-$gray-dark: #555;
+$black: #16161A;
+// $black-lite: #444648;
+$white: #FDFDFD;
+// $gray-lite: #DCDCDC;
+// $gray: #969696;
+// $gray-dark: #555;
+
+$blurple-dark: #1C245E;
+$blurple: #5062E5;
+$blurple-lite: #D4D9FA;
+$yellow: #FACE0C;
+$green: #57D984;
+$red: #E04E22;
 
 // Brand Swatches
-$brand-primary: $black;
-$brand-secondary: $white;
+$brand-primary: $blurple-dark;
+$brand-secondary: $yellow;
+$brand-tertiary: $green;
+$brand-quaternary: $red;
 
 // Breakpoints
 $breakpoint-small: 480px;
