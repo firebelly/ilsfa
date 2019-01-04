@@ -36,15 +36,15 @@ function metaboxes() {
   /**
     * Homepage fields
     */
-  // $homepage_fields = new_cmb2_box([
-  //   'id'            => 'secondary_content',
-  //   'title'         => __( 'Custom Featured Block', 'cmb2' ),
-  //   'object_types'  => ['page'],
-  //   'context'       => 'normal',
-  //   'show_on'       => ['key' => 'page-template', 'value' => 'front-page.php'],
-  //   'priority'      => 'high',
-  //   'show_names'    => true,
-  // ]);
+  $homepage_fields = new_cmb2_box([
+    'id'            => 'secondary_content',
+    'title'         => __( 'Custom Featured Block', 'cmb2' ),
+    'object_types'  => ['page'],
+    'context'       => 'normal',
+    'show_on'       => ['key' => 'page-template', 'value' => 'front-page.php'],
+    'priority'      => 'high',
+    'show_names'    => true,
+  ]);
 
   /**
     * For IL Residents fields
