@@ -46,7 +46,8 @@
     "wpackagist-plugin/cmb2": "^2.4",
     "wpackagist-plugin/update-from-bottom": "^1.0",
     "wpackagist-plugin/wp-mail-smtp": "^1.1",
-    "wpackagist-plugin/disable-gutenberg": "^1.5"
+    "wpackagist-plugin/disable-gutenberg": "^1.5",
+    "wpackagist-plugin/block-lab": "^1.1"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^2.5.1"
