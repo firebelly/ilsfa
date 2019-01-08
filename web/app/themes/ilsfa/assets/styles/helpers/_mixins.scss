@@ -1,5 +1,12 @@
 // Mixins
 
+// Global UI Transition
+@mixin transition($properties...) {
+  transition-duration: $transition-duration;
+  transition-property: $properties;
+  transition-timing-function: ease-out;
+}
+
 // Clearfix
 @mixin clearfix {
   *zoom: 1;
@@ -14,8 +21,19 @@
   }
 }
 
+@mixin sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
 // Smooth text
-%smooth {
+@mixin smooth {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

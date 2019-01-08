@@ -5,81 +5,86 @@ $font-header: 'GT Pressura', sans-serif;
 $font-regular: 'Cadiz Trial', sans-serif;
 $font-mono: 'GT Pressura Mono', sans-serif;
 
-.font-regular {
+@mixin font-regular {
   font-weight: normal;
   font-family: $font-regular;
 }
-.font-header {
+@mixin font-header {
+  @include smooth;
   font-weight: normal;
   font-family: $font-header;
   margin: 0 0 grid(2);
   letter-spacing: -0.1px;
-  @extend %smooth;
 }
-.font-mono {
+@mixin font-mono {
+  @include smooth;
   font-family: $font-mono;
   font-size: 15px;
   line-height: 24px;
   letter-spacing: 2.41px;
   text-transform: uppercase;
-  @extend %smooth;
 }
 
-h1,
-.h1 {
-  @extend .font-header;
+@mixin h1 {
+  @include font-header;
   font-size: 72px;
   line-height: 80px;
 }
+h1 { @include h1; }
 
-h2,
-.h2 {
-  @extend .font-header;
+@mixin h2 {
+  @include font-header;
   font-size: 36px;
   line-height: 40px;
 }
+h2 { @include h2; }
 
-h3,
-.h3 {
-  @extend .font-header;
+@mixin h3 {
+  @include font-header;
   font-size: 28px;
   line-height: 32px;
 }
+h3 { @include h3; }
 
-h4,
-.h4 {
-  @extend .font-mono;
+@mixin h4 {
+  @include font-mono;
 }
+h4 { @include h4; }
 
-h5,
-.h5 {
-  @extend .font-mono;
+@mixin h5 {
+  @include font-mono;
   font-weight: bold;
 }
+h5 { @include h5; }
 
-.p1,
-.p-intro,
-p.p-intro {
-  @extend .font-regular;
+@mixin p1 {
+  @include font-regular;
   font-size: 32px;
   line-height: 48px;
   letter-spacing: 1px;
 }
+p.intro { @include p1; }
 
-.p2,
-figcaption,
-p {
-  @extend .font-regular;
+@mixin p2 {
+  @include font-regular;
   font-size: 22px;
   line-height: 32px;
   letter-spacing: 0.75px;
 }
+p,
+.p2,
+figcaption {
+  @include p2;
+}
 
-.p3,
-p.p3,
-p.small {
- @extend .font-regular;
+@mixin p3 {
+ @include font-regular;
  font-size: 16px;
  line-height: 24px;
  letter-spacing: 0.47px;
+}
+.p3,
+p.p3,
+p.small {
+  @include p3
 }
