@@ -11,9 +11,9 @@ function metaboxes() {
 
   // Resources attached to posts (aka Announcements)
   $resources = new_cmb2_box([
-    'id'            => $prefix . 'resources',
+    'id'            => $prefix . 'post_resources',
     'title'         => __( 'Downloadable Resources and Videos', 'cmb2' ),
-    'object_types'  => ['post'],
+    'object_types'  => ['post', 'program'],
     'context'       => 'normal',
     'priority'      => 'high',
   ]);
