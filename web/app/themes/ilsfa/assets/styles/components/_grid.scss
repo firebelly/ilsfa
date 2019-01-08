@@ -25,7 +25,7 @@ $column-width: 100% / $global-columns;
 .grid {
   width: 100%;
   display: block;
-  @include min-screen($breakpoint-md) {
+  @include min-screen($breakpoint-medium) {
     display: flex;
     flex-wrap: wrap;
   }
@@ -56,7 +56,7 @@ $column-width: 100% / $global-columns;
   }
 }
 
-@include min-screen($breakpoint-md) {
+@include min-screen($breakpoint-medium) {
   .grid-item {
     flex-basis: auto;
   }

@@ -14,6 +14,12 @@
   }
 }
 
+// Smooth text
+%smooth {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 // Responsive mixins by Andy Richardson (@andimal): https://github.com/andimal/sass-responsive-mixin-madness
 @mixin media-xs() {
   @media screen and (max-width: $breakpoint-small - 1) {
@@ -27,6 +33,11 @@
 }
 @mixin media-md() {
   @media screen and (min-width: $breakpoint-medium) {
+    @content;
+  }
+}
+@mixin media-nav() {
+  @media screen and (min-width: $breakpoint-nav) {
     @content;
   }
 }

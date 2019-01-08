@@ -1,11 +1,268 @@
-// Nav
+// Primary nav
 
-// wp admin bar push
-.admin-bar {}
+$nav-height: 176px;
 
-#menu-main-nav {
+.container {
+  @include media-nav {
+    // Space for fixed nav
+    margin-top: $nav-height;
+  }
 }
 
-// mobile menu toggle
+// WP admin bar push
+.admin-bar {
+  .site-header {
+    @include media-nav {
+    }
+  }
+}
+
+.site-header {
+  height: $nav-height;
+  background: $blurple-dark;
+  padding: grid(6) columns(2);
+
+  .wrap {
+    position: relative;
+  }
+
+  .brand {
+    @extend .h2;
+    margin: 0;
+    padding: 0;
+    a {
+      text-decoration: none;
+      color: $white;
+    }
+    svg {
+      position: absolute;
+    }
+  }
+
+  @include max-screen($breakpoint-medium) {
+    border-left: mobile-grid(2) solid $black;
+    border-right: mobile-grid(2) solid $black;
+  }
+
+  @include media-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    z-index: 10;
+    .brand {
+      svg {
+      }
+    }
+  }
+}
+
+.site-nav {
+  a {
+    display: block;
+    text-decoration: none;
+  }
+  .primary-nav {
+    font: 18px/1.333 $font-regular;
+    letter-spacing: .25px;
+    a {
+      color: $yellow;
+      text-decoration: none;
+      padding: grid(1);
+    }
+  }
+  .utility-nav {
+    font: 16px/1.5 $font-regular;
+    letter-spacing: 0;
+    a {
+      color: $white;
+      padding: grid(1);
+    }
+  }
+
+  @extend %smooth;
+  background: $blurple-dark;
+
+  .logo-wordmark {
+    @include media-nav {
+    }
+  }
+
+  ul {
+    margin: 0 0 0 -#{grid(1)};
+    padding: 0;
+    li {
+      list-style: none;
+      display: inline-block;
+    }
+  }
+
+  @include min-screen($breakpoint-nav) {
+    // Show nav
+    ul {
+      display: block;
+    }
+    #menu-utility-nav {
+      position: absolute;
+      top: 0;
+      right: 0;
+      a {
+        color: $white;
+      }
+    }
+  }
+
+}
+
+// Search form in nav
+.nav-search {
+  display: none;
+  height: 80px;
+
+  @include media-nav {
+    height: auto;
+    float: right;
+    margin-right: $gutter;
+    padding-top: 24px;
+  }
+
+  .search-form {
+    input[type=search] {
+      &::placeholder {
+      }
+    }
+    // Go search button
+    .go-button {
+    }
+  }
+  // Close search button
+  .search-close {
+    display: block;
+    float: right;
+    width: 36px;
+    height: 36px;
+    svg {
+      position: absolute;
+    }
+    &:hover svg {
+    }
+  }
+}
+
+// Hide nav/search button when nav search is active
+.site-header.search-active {
+  #menu-main-nav {
+    display: none;
+  }
+  .nav-search {
+    display: block;
+  }
+}
+
+// Mobile menu toggle
 .menu-toggle {
+  position: absolute;
+  svg {
+  }
+
+  // Mobile nav is open: hide "Menu" and show "X" svg
+  &.menu-open {
+    span {
+      display: none;
+    }
+    svg {
+      display: block;
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  @include min-screen($breakpoint-nav) {
+    top: auto;
+    display: none;
+  }
+}
+
+// Mobile only styling on #menu-main-nav (using max-screen to avoid overwriting all these specific styles)
+@include max-screen($breakpoint-nav) {
+  ul#menu-main-nav {
+    display: none;
+    li {
+      a {
+        display: block;
+        line-height: 1.4;
+        padding: mobile-grid(2) 30px mobile-grid(1.5) 0;
+        border-top: 1px solid $white;
+      }
+    }
+    .menu-search {
+      display: none;
+    }
+    li.-active {
+      a svg {
+        transform: rotate(270deg);
+      }
+      .sub-menu {
+          max-height: none;
+      }
+    }
+  }
+  .nav-search {
+    position: relative;
+    margin: 0 mobile-grid(3);
+    .search-form {
+      width: auto;
+      float: none;
+      margin: 0;
+      input[type=search] {
+        width: 100%;
+      }
+      .go-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 0;
+        width: mobile-grid(12);
+      }
+    }
+  }
+  body.menu-open {
+    // Disable scroll on body + hide WP adminbar
+    overflow: hidden;
+    position: fixed;
+    #wpadminbar {
+      display: none;
+    }
+
+    // Show nav-search when mobile nav is open
+    .nav-search {
+      display: block;
+    }
+    .search-close {
+      display: none;
+    }
+
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: $blurple-dark;
+      height: auto;
+      z-index: 100;
+      overflow-y: scroll;
+      .wrap {
+        position: relative;
+      }
+    }
+    &.admin-bar .site-header {
+      padding-top: 46px;
+    }
+    ul#menu-main-nav {
+      display: block;
+    }
+  }
 }

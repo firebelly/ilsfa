@@ -38,7 +38,6 @@ if (!empty(get_post_meta($post->ID, '_cmb2_intro_links', true))) {
 
 <div class="page-section fb-container-md">
   <h2 class="h1 text-center">Featured</h2>
-  <div class="stories mobile-gutter patterned">
-    <?php echo do_shortcode('[story_carousel type=all]'); ?>
+  <div class="stories mobile-gutter">
   </div>
 </div>

@@ -1,0 +1,69 @@
+// Browser alert
+.old-browser {
+  top: 0;
+  left: 0;
+  right: 0;
+  color: $white;
+  padding: 50px;
+  text-align: center;
+  background: $red;
+}
+
+// Utility classes
+.hidden,
+.hide {
+  display: none;
+}
+.loading {
+  opacity: .5;
+}
+
+// Visually hide, accessibility-friendly
+.screen-reader-text,
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+.clearfix,.cf {
+  @include clearfix;
+}
+
+.bigclicky {
+  cursor: pointer;
+}
+
+// Visibility classes (borrowing nomenclature from Foundation)
+.show-for-medium-up {
+  display: none;
+  @include media-md {
+    display: block;
+    &.-inline {
+      display: inline-block;
+    }
+  }
+}
+.hide-for-medium-up {
+  @include media-md {
+    display: none !important;
+  }
+}
+
+.inset-shadow {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+}

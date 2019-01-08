@@ -1,22 +1,85 @@
 // Typography
 
 // Fonts
-$sans: Helvetica, sans-serif;
-$serif: Georgia, serif;
+$font-header: 'GT Pressura', sans-serif;
+$font-regular: 'Cadiz Trial', sans-serif;
+$font-mono: 'GT Pressura Mono', sans-serif;
 
-// Sans-specific styles to chunk into one include
-@mixin font-sans() {
+.font-regular {
+  font-weight: normal;
+  font-family: $font-regular;
 }
-// Serif-specific styles to chunk into one include
-@mixin font-sans() {
+.font-header {
+  font-weight: normal;
+  font-family: $font-header;
+  margin: 0 0 grid(2);
+  letter-spacing: -0.1px;
+  @extend %smooth;
+}
+.font-mono {
+  font-family: $font-mono;
+  font-size: 15px;
+  line-height: 24px;
+  letter-spacing: 2.41px;
+  text-transform: uppercase;
+  @extend %smooth;
 }
 
-// Hide fonts while loading from Typekit
-.wf-loading {
-  visibility: hidden;
+h1,
+.h1 {
+  @extend .font-header;
+  font-size: 72px;
+  line-height: 80px;
 }
 
-//sizes
-$small: 0.5em;
-$med: 1em;
-$big: 3em;
+h2,
+.h2 {
+  @extend .font-header;
+  font-size: 36px;
+  line-height: 40px;
+}
+
+h3,
+.h3 {
+  @extend .font-header;
+  font-size: 28px;
+  line-height: 32px;
+}
+
+h4,
+.h4 {
+  @extend .font-mono;
+}
+
+h5,
+.h5 {
+  @extend .font-mono;
+  font-weight: bold;
+}
+
+.p1,
+.p-intro,
+p.p-intro {
+  @extend .font-regular;
+  font-size: 32px;
+  line-height: 48px;
+  letter-spacing: 1px;
+}
+
+.p2,
+figcaption,
+p {
+  @extend .font-regular;
+  font-size: 22px;
+  line-height: 32px;
+  letter-spacing: 0.75px;
+}
+
+.p3,
+p.p3,
+p.small {
+ @extend .font-regular;
+ font-size: 16px;
+ line-height: 24px;
+ letter-spacing: 0.47px;
+}
