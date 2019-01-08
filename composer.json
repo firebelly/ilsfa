@@ -43,7 +43,7 @@
     "roots/soil": "^3.7",
     "jjgrainger/posttypes": "^2.0",
     "wpackagist-plugin/intuitive-custom-post-order": "*",
-    "wpackagist-plugin/cmb2": "^2.4",
+    "wpackagist-plugin/cmb2": "^2.5.1",
     "wpackagist-plugin/update-from-bottom": "^1.0",
     "wpackagist-plugin/wp-mail-smtp": "^1.1",
     "wpackagist-plugin/disable-gutenberg": "^1.5",
