@@ -14,7 +14,7 @@ var FBSage = (function($) {
 
   function _init() {
     // Cache some common DOM queries
-    $body = $(body);
+    $body = $(window.body);
     $document = $(document);
 
     // DOM is loaded
@@ -52,7 +52,20 @@ var FBSage = (function($) {
       }
     });
 
+    _initForms();
+
   } // end init()
+
+  function _initForms() {
+    console.log('foo');
+    $('form input, form textarea').on('blur', function() {
+      if($(this).val()!=='') {
+        $(this).parents('.input-wrap').addClass('filled');
+      } else {
+        $(this).parents('.input-wrap').removeClass('filled');
+      }
+    });
+  }
 
   function _scrollBody(element, duration, delay) {
     if ($('#wpadminbar').length) {

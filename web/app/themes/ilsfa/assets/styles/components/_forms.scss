@@ -1,33 +1,152 @@
 // Forms
 
-// Custom select styles
+form {
 
-.select-wrapper {
+  fieldset {
     margin: 0;
     padding: 0;
-    position: relative;
-    &:after {
-      right: 10px;
-      height: 8px;
-      width: 13px;
-      content: '';
-      bottom: 14px;
-      position: absolute;
-      pointer-events: none;
-      background-size: 13px 8px;
+    border: none;
+  }
+
+  .form-row {
+    + .form-row {
+      margin-top: grid(1);
     }
+
+    &.spaced {
+      label:not(.radio) {
+        left: $gutter + 4px;
+      }
+    }
+  }
+
+  .input-wrap {
+    position: relative;
+    color: $blurple-dark;
+  }
+
+  .input-wrap.filled input,
+  input:focus {
+
+    + label {
+      top: 4px;
+      @include h5;
+    }
+  }
+
+  label:not(.radio) {
+    @include h5;
+    top: 22px;
+    left: $gutter;
+    position: absolute;
+    pointer-events: none;
+    @include transition(all);
+  }
+
+  input {
+    width: 100%;
+    @include p2;
+    border: none;
+    height: grid(9);
+    border-radius: 8px 8px 0 0;
+    padding: 21px $gutter 11px;
+    background-color: $white;
+    text-align: left;
+
+    &:focus {
+      outline: none;
+      border-bottom: grid(1) solid $yellow
+    }
+  }
+
+  input[type=search] {
+    box-sizing: border-box;
+  }
+
+  .submit {
+    margin-top: $gutter;
+  }
+
+  // Custom radio styles
+  label.radio {
+    display: block;
+
+    input[type="radio"] {
+      @include sr-only;
+      &:active,
+      &:checked {
+        + .control-indicator {
+          background-color: $red;
+          background-image: url('../svgs/icon-checkmark-white.svg');
+          background-size: 18px 18px;
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+      }
+    }
+
+    .control-indicator {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: grid(1);
+      display: inline-block;
+      background-color: $white;
+    }
+
+    .control-text {
+      @include h3;
+      padding-top: 3px;
+      vertical-align: top;
+      display: inline-block;
+    }
+  }
+
+  // Status
+  .status {
+    @include h5;
+    margin: $gutter 0;
+  }
 }
 
-.select-wrapper select {
+// Custom select styles
+.select-wrap {
+  text-align: left;
+  position: relative;
+  display: inline-block;
+  &:after {
+    top: 19px;
+    width: 18px;
+    content: '';
+    height: 18px;
+    right: $gutter;
+    position: absolute;
+    pointer-events: none;
+    background-image: url('../svgs/icon-arrow-dropdown.svg');
+  }
+
+  select {
+    @include h5;
+    // reset
     border: none;
     box-shadow: none;
-    border-radius: 0;
-    padding-right: 18px;
-    background-color: transparent;
     background-image: none;
     -webkit-appearance: none;
-}
+    //
+    width: 100%;
+    cursor: pointer;
+    height: grid(9);
+    border-radius: 8px 8px 0 0;
+    background-color: $white;
+    padding: $gutter 50px $gutter $gutter;
+    @include transition(background-color);
 
-.select-wrapper select:focus {
-    outline: none;
+    &:hover {
+      background-color: $red;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
 }
