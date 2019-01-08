@@ -13,6 +13,7 @@ $nav-height: 176px;
 .admin-bar {
   .site-header {
     @include media-nav {
+      padding: grid(6)+32px columns(2);
     }
   }
 }
@@ -27,7 +28,7 @@ $nav-height: 176px;
   }
 
   .brand {
-    @extend .h2;
+    @include h2;
     margin: 0;
     padding: 0;
     a {
@@ -36,6 +37,11 @@ $nav-height: 176px;
     }
     svg {
       position: absolute;
+      width: 56px;
+      height: 56px;
+      border: 1px dashed $yellow;
+      left: -76px;
+      top: 0;
     }
   }
 
@@ -70,6 +76,20 @@ $nav-height: 176px;
       text-decoration: none;
       padding: grid(1);
     }
+    .divider {
+      margin-left: grid(1);
+      padding-left: grid(1);
+      position: relative;
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        margin-top: -8px;
+        height: 16px;
+        border-left: 2px solid $white;
+      }
+    }
   }
   .utility-nav {
     font: 16px/1.5 $font-regular;
@@ -80,7 +100,6 @@ $nav-height: 176px;
     }
   }
 
-  @extend %smooth;
   background: $blurple-dark;
 
   .logo-wordmark {
@@ -116,7 +135,6 @@ $nav-height: 176px;
 
 // Search form in nav
 .nav-search {
-  display: none;
   height: 80px;
 
   @include media-nav {

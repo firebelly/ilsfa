@@ -1,1 +1,38 @@
-// Search form
+// Search
+
+.search-form {
+  position: absolute;
+  top: 0;
+  right: 70px;
+
+  border-radius: 16px 16px 0 0;
+  background: $white;
+  width: 50%;
+  height: 72px;
+
+  .search-field {
+  }
+  .button {
+    position: absolute;
+    top: grid(1);
+    right: grid(1);
+  }
+  svg {
+    position: absolute;
+    top: 0;
+    right: -70px;
+    width: 48px;
+    height: 48px;
+    border: 1px dashed $yellow;
+  }
+}
+
+body.search {
+ .search-result {
+  }
+  .pagination {
+  }
+
+  .page-content .search-form {
+  }
+}

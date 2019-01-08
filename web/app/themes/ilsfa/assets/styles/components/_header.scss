@@ -13,7 +13,6 @@
     background-position: center;
     position: relative;
     height: 180px;
-    border-right: mobile-grid(2) solid $black;
 
     @include min-screen(1600px) {
       background-position: center 25%;
@@ -48,7 +47,6 @@
   }
 
   .crumb {
-    @extend %smooth;
     letter-spacing: .06875em;
     font-weight: 500;
     font-size: 12px;
@@ -90,20 +88,12 @@
     .page-meat {
       padding: mobile-grid(3) mobile-grid(3) mobile-grid(2);
     }
-    .page-intro {
-      border-left: mobile-grid(2) solid $black;
-      border-right: mobile-grid(2) solid $black;
-    }
   }
 
   // Wide page headers (secondary landing pages, search)
   &.-wide {
     .page-intro {
       position: relative;
-      background: $black;
-      .color-wrap {
-        background: $white;
-      }
       .one-half {
         hr {}
       }
@@ -280,10 +270,10 @@
     padding: mobile-grid(5) mobile-grid(3) mobile-grid(5) mobile-grid(5);
     color: $white;
     p {
-      @extend .p-intro;
+      @include p1;
     }
     a {
-      @extend .font-mono;
+      @include font-mono;
       color: $white;
     }
   }
@@ -319,16 +309,6 @@
     }
     .page-intro {
       padding: 170px columns(1,18) $global-padding columns(11,18);
-    }
-
-    .window-sill {
-      margin-left: columns(1,18);
-      background: $black;
-      > .color-wrap {
-        min-height: grid(4);
-        margin-left: columns(1,17);
-        background: $red;
-      }
     }
   }
 }
