@@ -34,16 +34,128 @@ function metaboxes() {
   ]);
 
   /**
-    * Homepage fields
-    */
-  $homepage_fields = new_cmb2_box([
-    'id'            => 'secondary_content',
-    'title'         => __( 'Custom Featured Block', 'cmb2' ),
+   * Page footer outro
+   */
+  $page_footer_outro = new_cmb2_box([
+    'id'            => $prefix . 'page_footer_outro',
+    'title'         => __( 'Footer Outro', 'cmb2' ),
     'object_types'  => ['page'],
     'context'       => 'normal',
-    'show_on'       => ['key' => 'page-template', 'value' => 'front-page.php'],
-    'priority'      => 'high',
+    'priority'      => 'default',
     'show_names'    => true,
+  ]);
+  $page_footer_outro->add_field([
+    'name' => esc_html__( 'Intro Title', 'cmb2' ),
+    'id'   => $prefix .'footer_outro',
+    'type' => 'wysiwyg',
+    'options' => [
+      'textarea_rows' => 6,
+    ],
+  ]);
+
+  /**
+    * Homepage fields
+    */
+  $homepage_overview_blocks = new_cmb2_box([
+    'id'            => $prefix . 'homepage_overview_blocks',
+    'title'         => esc_html__( 'Overview Blocks', 'cmb2' ),
+    'object_types'  => ['page'],
+    'show_on'       => ['key' => 'page-template', 'value' => 'front-page.php'],
+    'context'       => 'normal',
+    'priority'      => 'high',
+  ]);
+  $group_field_id = $homepage_overview_blocks->add_field([
+    'id'              => 'overview_blocks',
+    'type'            => 'group',
+    'options'         => [
+      'group_title'   => __( 'Block {#}', 'cmb2' ),
+      'add_button'    => __( 'Add Another Block', 'cmb2' ),
+      'remove_button' => __( 'Remove Block', 'cmb2' ),
+      'sortable'      => true,
+    ],
+  ]);
+  $homepage_overview_blocks->add_group_field( $group_field_id, [
+    'name' => 'Body',
+    'id'   => 'body',
+    'type' => 'wysiwyg',
+    'options' => [
+      'textarea_rows' => 6,
+    ],
+  ]);
+  $homepage_overview_blocks->add_group_field( $group_field_id, [
+    'name' => 'Image',
+    'id'   => 'image',
+    'type' => 'file',
+  ]);
+
+  $homepage_highlight_blocks = new_cmb2_box([
+    'id'            => $prefix . 'homepage_highlight_blocks',
+    'title'         => esc_html__( 'Highlight Blocks', 'cmb2' ),
+    'object_types'  => ['page'],
+    'show_on'       => ['key' => 'page-template', 'value' => 'front-page.php'],
+    'context'       => 'normal',
+    'priority'      => 'high',
+  ]);
+  $group_field_id = $homepage_highlight_blocks->add_field([
+    'id'              => 'highlight_blocks',
+    'type'            => 'group',
+    'options'         => [
+      'group_title'   => __( 'Block {#}', 'cmb2' ),
+      'add_button'    => __( 'Add Another Block', 'cmb2' ),
+      'remove_button' => __( 'Remove Block', 'cmb2' ),
+      'sortable'      => true,
+    ],
+  ]);
+  $homepage_highlight_blocks->add_group_field( $group_field_id, [
+    'name'    => 'Icon',
+    'id'      => 'icon',
+    'type'    => 'select',
+    'options' => array(
+      'standard' => __( 'Vendors Icon', 'cmb2' ),
+      'custom'   => __( 'Equitable Icon', 'cmb2' ),
+      'none'     => __( 'Savings Icon', 'cmb2' ),
+    ),  ]);
+  $homepage_highlight_blocks->add_group_field( $group_field_id, [
+    'name' => 'Body',
+    'id'   => 'body',
+    'type' => 'wysiwyg',
+    'options' => [
+      'textarea_rows' => 6,
+    ],
+  ]);
+
+  $homepage_action_blocks = new_cmb2_box([
+    'id'            => $prefix . 'homepage_action_blocks',
+    'title'         => esc_html__( 'Action Blocks', 'cmb2' ),
+    'object_types'  => ['page'],
+    'show_on'       => ['key' => 'page-template', 'value' => 'front-page.php'],
+    'context'       => 'normal',
+    'priority'      => 'high',
+  ]);
+  $group_field_id = $homepage_action_blocks->add_field([
+    'id'              => 'action_blocks',
+    'type'            => 'group',
+    'options'         => [
+      'group_title'   => __( 'Block {#}', 'cmb2' ),
+      'add_button'    => __( 'Add Another Block', 'cmb2' ),
+      'remove_button' => __( 'Remove Block', 'cmb2' ),
+      'sortable'      => true,
+    ],
+  ]);
+  $homepage_action_blocks->add_group_field( $group_field_id, [
+    'name' => 'Subhead',
+    'id'   => 'subhead',
+    'type' => 'text',
+  ]);
+  $homepage_action_blocks->add_group_field( $group_field_id, [
+    'name' => 'Header',
+    'id'   => 'header',
+    'type' => 'text',
+  ]);
+  $homepage_action_blocks->add_group_field( $group_field_id, [
+    'name' => 'Link',
+    'id'   => 'url',
+    'type' => 'text',
   ]);
 
   /**
@@ -95,4 +207,10 @@ function metaboxes() {
 function sanitize_text_callback( $value, $field_args, $field ) {
   $value = strip_tags( $value, '<b><strong><i><em>' );
   return $value;
+}
+
+// Remove page body support
+add_action('init', __NAMESPACE__ . '\\init_remove_support',100);
+function init_remove_support() {
+   remove_post_type_support( 'page', 'editor');
 }
