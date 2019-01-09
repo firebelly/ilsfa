@@ -11,7 +11,7 @@ $mobile-global-padding: 24px;
 $global-columns: 20;
 $column-width: 100% / $global-columns;
 
-// Quickie columns() function
+// Quickie columns($num-columns, $parent-num-columns) function
 @function columns($num-columns, $parent-num-columns: $global-columns) {
   @return $column-width * $num-columns * ($global-columns / $parent-num-columns);
 }

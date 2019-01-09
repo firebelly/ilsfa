@@ -1,21 +1,13 @@
 body#tinymce {
   margin: 12px !important;
 }
-// Buttons
-.button a {
-  display: inline-block;
-  padding: 10px;
-  margin: 0 5px;
-  background: $yellow;
-  color: $black;
-  border-radius: 5px;
-  text-decoration: none;
-}
 // Tinymce editing link styles
+.mce-content-body a.button[data-mce-selected],
 .mce-content-body .button a[data-mce-selected] {
-  padding: 10px;
-  margin: 0 5px;
-  border-radius: 5px;
-  box-shadow: 0 0 0 1px #bfe6ff;
+  line-height: 1.4;
+  padding: grid(2) grid(3);
+  margin: 0;
+  border-radius: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25);
   background: #bfe6ff;
 }

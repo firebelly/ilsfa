@@ -8,11 +8,17 @@ html {
 }
 
 body {
-  color: $black;
+  color: $blurple-dark;
   font-size: 16px;
   overflow-x: hidden;
   background: $white;
   font: 18px/1.333 $font-regular;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
 p {
@@ -21,6 +27,14 @@ p {
   }
 }
 
+h2,
+h3,
+h4 {
+  margin: grid(3) 0;
+  padding: 0;
+}
+
+
 a {
   color: inherit;
 }
@@ -28,6 +42,10 @@ a {
 img {
   max-width: 100%;
   height: auto;
+}
+
+address {
+  font-style: normal;
 }
 
 // Browser alert
@@ -59,7 +77,7 @@ img {
 .container {
   width: 100%;
   margin: 0 auto;
-  padding: 0 10px;
+  padding: 0;
   position: relative;
   @include clearfix();
   @include media-md {

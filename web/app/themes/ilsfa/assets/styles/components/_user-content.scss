@@ -1,34 +1,59 @@
 // Styling of content that is editable in wysiwyg
 
+.mce-content-body,
 .user-content {
   @include clearfix();
 
-  h1,h2,h3,h4,h5,h6 {
-    
-  }
-
-  p {
-
-  }
-
-  a {
-    
+  a.button {
+    margin-right: grid(1);
   }
 
   ol,
   ul {
-    li {
-      ol,
-      ul {
+  }
+  > {
+    h2,h3,h4,p {
+      margin-top: 0;
+    }
+  }
 
-      }
+  p {
+    margin: 0 0 grid(6);
+  }
+  a {
+    text-decoration: underline;
+  }
+  // for some reason a:not(.button) wasn't working in WP
+  a.button {
+    text-decoration: none;
+  }
+
+  ol,
+  ul {
+    margin: 0;
+    padding: 0 0 0 2.25em;
+    li {
+      margin: 0 0 grid(2);
+    }
+  }
+
+  // Smaller bullets than "disc" on lists
+  ul li {
+    list-style-type: none;
+    position: relative;
+    &:before {
+      content: '•';
+      display: block;
+      position: absolute;
+      left: -1.5em;
     }
   }
 
   hr {
     height: 0;
     border: 0;
-    border-bottom: 1px solid $brand-secondary;
+    border-bottom: 1px solid $blurple-dark;
+    margin: grid(4) 0;
     + p {
       margin-bottom: 0;
     }
@@ -41,6 +66,5 @@
   strong {
     font-weight: bold;
   }
-
 
 }
