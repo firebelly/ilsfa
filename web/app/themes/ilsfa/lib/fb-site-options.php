@@ -114,25 +114,25 @@ class FbSiteOptions {
 
     // Set our CMB2 fields
 
-    $cmb->add_field( array(
-      'name'       => __( 'PayPal ID', 'cmb2' ),
-      'id'         => 'paypal_id',
-      'type'       => 'text',
-      'before_row' => '<h3>Donations</h3>',
-    ) );
+    // $cmb->add_field( array(
+    //   'name'       => __( 'PayPal ID', 'cmb2' ),
+    //   'id'         => 'paypal_id',
+    //   'type'       => 'text',
+    //   'before_row' => '<h3>Donations</h3>',
+    // ) );
 
-    $cmb->add_field( array(
-      'name'       => __( 'Twitter ID', 'cmb2' ),
-      'id'         => 'twitter_id',
-      'type'       => 'text',
-      'before_row' => '<h3>Footer Links & Info</h3>',
-    ) );
+    // $cmb->add_field( array(
+    //   'name'       => __( 'Twitter ID', 'cmb2' ),
+    //   'id'         => 'twitter_id',
+    //   'type'       => 'text',
+    //   'before_row' => '<h3>Footer Links & Info</h3>',
+    // ) );
 
-    $cmb->add_field( array(
-      'name' => __( 'Facebook ID', 'cmb2' ),
-      'id'   => 'facebook_id',
-      'type' => 'text',
-    ) );
+    // $cmb->add_field( array(
+    //   'name' => __( 'Facebook ID', 'cmb2' ),
+    //   'id'   => 'facebook_id',
+    //   'type' => 'text',
+    // ) );
 
     // $cmb->add_field( array(
     //   'name' => __( 'Vimeo ID', 'cmb2' ),
@@ -143,14 +143,21 @@ class FbSiteOptions {
     $cmb->add_field( array(
       'name' => __( 'Contact Street Address', 'cmb2' ),
       'id'   => 'contact_address',
-      'desc' => __( 'e.g. 555 N Western Ave #2'),
+      'desc' => __( 'e.g. 555 N. Western Ave.'),
+      'type' => 'text',
+    ) );
+
+    $cmb->add_field( array(
+      'name' => __( 'Contact Street Address 2', 'cmb2' ),
+      'id'   => 'contact_address_2',
+      'desc' => __( 'e.g. Suite 55'),
       'type' => 'text',
     ) );
 
     $cmb->add_field( array(
       'name' => __( 'Contact City, State & Postal Code', 'cmb2' ),
       'id'   => 'contact_locality',
-      'desc' => __( 'e.g. Chicago, IL 60605'),
+      'desc' => __( 'e.g. Chicago, IL 60622'),
       'type' => 'text',
     ) );
 
@@ -161,17 +168,23 @@ class FbSiteOptions {
     ) );
 
     $cmb->add_field( array(
+      'name' => __( 'Contact Fax Number', 'cmb2' ),
+      'id'   => 'contact_fax',
+      'type' => 'text',
+    ) );
+
+    $cmb->add_field( array(
       'name' => __( 'Contact Email', 'cmb2' ),
       'id'   => 'contact_email',
       'type' => 'text_email',
     ) );
 
-    $cmb->add_field( array(
-      'name' => __( 'Footer Statement', 'cmb2' ),
-      'id'   => 'footer_statement',
-      'desc' => __( 'Statement shown in the footer'),
-      'type' => 'textarea_small',
-    ) );
+    // $cmb->add_field( array(
+    //   'name' => __( 'Footer Statement', 'cmb2' ),
+    //   'id'   => 'footer_statement',
+    //   'desc' => __( 'Statement shown in the footer'),
+    //   'type' => 'textarea_small',
+    // ) );
 
     $cmb->add_field( array(
       'name'       => __( 'Facebook App ID', 'cmb2' ),
