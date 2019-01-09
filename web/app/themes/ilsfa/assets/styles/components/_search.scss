@@ -1,38 +1,61 @@
 // Search
 
+// General search form styles
 .search-form {
-  position: absolute;
-  top: 0;
-  right: 70px;
-
-  border-radius: 16px 16px 0 0;
-  background: $white;
-  width: 50%;
-  height: 72px;
-
-  .search-field {
+  .search-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-  .button {
-    position: absolute;
-    top: grid(1);
-    right: grid(1);
+  .input-wrap {
+    flex: 2 1 auto;
   }
-  svg {
-    position: absolute;
-    top: 0;
-    right: -70px;
-    width: 48px;
-    height: 48px;
-    border: 1px dashed $yellow;
+  .button-wrap {
+    flex: 0 1 70px;
+    margin-left: grid(2);
+  }
+}
+
+// Search form in nav
+.nav-search {
+  display: none;
+  @include media-md {
+    .search-form {
+      position: absolute;
+      top: 0;
+      right: 70px;
+      width: 50%;
+
+      svg {
+        position: absolute;
+        top: 12px;
+        right: -70px;
+        width: 48px;
+        height: 48px;
+        border: 1px dashed $yellow;
+      }
+    }
+  }
+}
+
+// Search open/close
+body.search-open {
+  @include media-md {
+    #menu-main-nav,
+    #menu-utility-nav {
+      display: none;
+    }
+    .nav-search {
+      display: block;
+    }
   }
 }
 
 body.search {
  .search-result {
-  }
+ }
   .pagination {
   }
-
   .page-content .search-form {
   }
 }
