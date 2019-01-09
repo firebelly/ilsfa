@@ -22,7 +22,7 @@ function metaboxes() {
   $page_intro->add_field([
     'name' => esc_html__( 'Intro Title', 'cmb2' ),
     'id'   => $prefix .'intro_title',
-    'type' => 'text',
+    'type' => 'textarea_small',
   ]);
   $page_intro->add_field([
     'name' => esc_html__( 'Supporting Statement', 'cmb2' ),
@@ -65,7 +65,7 @@ function metaboxes() {
     'priority'      => 'high',
   ]);
   $group_field_id = $homepage_overview_blocks->add_field([
-    'id'              => 'overview_blocks',
+    'id'              => $prefix . 'overview_blocks',
     'type'            => 'group',
     'options'         => [
       'group_title'   => __( 'Block {#}', 'cmb2' ),
@@ -97,7 +97,7 @@ function metaboxes() {
     'priority'      => 'high',
   ]);
   $group_field_id = $homepage_highlight_blocks->add_field([
-    'id'              => 'highlight_blocks',
+    'id'              => $prefix . 'highlight_blocks',
     'type'            => 'group',
     'options'         => [
       'group_title'   => __( 'Block {#}', 'cmb2' ),
@@ -133,7 +133,7 @@ function metaboxes() {
     'priority'      => 'high',
   ]);
   $group_field_id = $homepage_action_blocks->add_field([
-    'id'              => 'action_blocks',
+    'id'              => $prefix . 'action_blocks',
     'type'            => 'group',
     'options'         => [
       'group_title'   => __( 'Block {#}', 'cmb2' ),
@@ -146,16 +146,31 @@ function metaboxes() {
     'name' => 'Subhead',
     'id'   => 'subhead',
     'type' => 'text',
+    'attributes' => [
+      'placeholder' => 'Realize Savings',
+    ],
   ]);
   $homepage_action_blocks->add_group_field( $group_field_id, [
     'name' => 'Header',
     'id'   => 'header',
     'type' => 'text',
+    'attributes' => [
+      'placeholder' => 'Discover solar power\'s benefits',
+    ],
   ]);
   $homepage_action_blocks->add_group_field( $group_field_id, [
     'name' => 'Link',
     'id'   => 'url',
     'type' => 'text',
+    'attributes' => [
+      'placeholder' => 'https://foo.com/ or /foo/',
+    ],
+  ]);
+  $homepage_action_blocks->add_group_field( $group_field_id, [
+    'name' => 'Disabled Text',
+    'id'   => 'disabled_text',
+    'type' => 'text',
+    'desc' => 'If set, will disable block and show this text in the button, e.g. "Coming April"',
   ]);
 
   /**
