@@ -1,8 +1,33 @@
 // Primary nav
 
+$nav-height-mobile: 72px;
 $nav-height: 176px;
+$admin-bar-height-mobile: 46px;
+$admin-bar-height: 32px;
+
+// Shared with footer
+.brand {
+  @include p3;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  a {
+    text-decoration: none;
+    color: $white;
+  }
+  svg {
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    border: 1px dashed $yellow;
+    left: -76px;
+    top: 0;
+  }
+}
 
 .container {
+  margin-top: $nav-height-mobile;
   @include media-nav {
     // Space for fixed nav
     margin-top: $nav-height;
@@ -12,51 +37,44 @@ $nav-height: 176px;
 // WP admin bar push
 .admin-bar {
   .site-header {
-    @include media-nav {
-      padding: grid(6)+32px columns(2);
+    top: $admin-bar-height-mobile;
+  }
+
+  // Desktop styles
+  @include min-screen(782px) {
+    .site-header {
+      top: $admin-bar-height;
     }
   }
 }
 
 .site-header {
-  height: $nav-height;
+  height: $nav-height-mobile;
   background: $blurple-dark;
-  padding: grid(6) columns(2);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.5);
 
   .wrap {
     position: relative;
+    padding: grid(2) $mobile-global-padding;
   }
 
-  .brand {
-    @include h2;
-    margin: 0;
-    padding: 0;
-    a {
-      text-decoration: none;
-      color: $white;
-    }
-    svg {
-      position: absolute;
-      width: 56px;
-      height: 56px;
-      border: 1px dashed $yellow;
-      left: -76px;
-      top: 0;
-    }
+  @include max-screen($breakpoint-nav) {
   }
 
-  @include max-screen($breakpoint-medium) {
-    border-left: mobile-grid(2) solid $black;
-    border-right: mobile-grid(2) solid $black;
-  }
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  z-index: 10;
 
   @include media-nav {
+    height: $nav-height;
     position: fixed;
-    top: 0;
-    right: 0;
-    width: 100%;
-    z-index: 10;
+    .wrap {
+      padding: grid(6) columns(2);
+    }
     .brand {
+      @include h2;
       svg {
       }
     }

@@ -2,313 +2,41 @@
 
 .page-header {
   position: relative;
+}
 
-  @include media-md {
-    margin-left: columns(1);
-  }
-
-  .bg-image {
-    width: 100%;
+.image-wrap {
+  position: relative;
+  .image {
     background-size: cover;
     background-position: center;
-    position: relative;
-    height: 180px;
-
-    @include min-screen(1600px) {
-      background-position: center 25%;
-    }
-
-    @include media-md {
-      border: none;
-      height: 600px;
-    }
-  }
-
-  // Notches at bottom left and right (only on desktop)
-  .icon-notch {
-    display: none;
-
-    @include media-md {
-      display: block;
-      width: 42px;
-      height: 42px;
-      position: absolute;
-      bottom: -42px;
-      z-index: 1;
-      &.bottom-left {
-        left: -42px;
-        transform: rotate(270deg);
-      }
-      &.bottom-right {
-        right: -42px;
-        transform: rotate(180deg);
-      }
-    }
-  }
-
-  .crumb {
-    letter-spacing: .06875em;
-    font-weight: 500;
-    font-size: 12px;
-  }
-  .page-intro {
-    position: relative;
-  }
-
-  // Mobile only styles
-  @include max-screen($breakpoint-medium) {
-    .crumb {
-      position: absolute;
-      // Bottom-align text
-      bottom: calc(100% + 20px);
-      color: $white;
-      a {
-        color: $white;
-      }
-    }
-    &.-text-only {
-      .crumb {
-        position: relative;
-        bottom: auto;
-        margin: 0 0 mobile-grid(2);
-      }
-      .intro-wrap {
-        background: $red;
-        color: $white;
-      }
-    }
-    // Wide headers have .crumb inside bg-image
-    &.-wide:not(.-text-only) .crumb {
-      left: mobile-grid(3);
-      bottom: 20px;
-    }
-    .page-titles {
-      padding: mobile-grid(3) mobile-grid(3) mobile-grid(2);
-    }
-    .page-meat {
-      padding: mobile-grid(3) mobile-grid(3) mobile-grid(2);
-    }
-  }
-
-  // Wide page headers (secondary landing pages, search)
-  &.-wide {
-    .page-intro {
-      position: relative;
-      .one-half {
-        hr {}
-      }
-      .intro-text {
-        padding: mobile-grid(5) mobile-grid(3);
-        background: $white;
-      }
-      .page-titles {
-        color: $white;
-      }
-    }
-
-    @include media-md {
-      .crumb {
-        color: $white;
-        a {
-          color: $white;
-        }
-      }
-      .bg-image {
-        height: 460px;
-      }
-      .page-intro {
-        padding-left: columns(1,19);
-        margin-left: columns(1,19);
-        .color-wrap {
-          padding-right: columns(1,17);
-        }
-        .one-half {
-          padding: grid(4) columns(1,17);
-          hr {
-            margin-right: -#{columns(2,6)};
-          }
-        }
-      }
-
-      // Breadcrumb nav
-      .crumb {
-        position: absolute;
-        bottom: grid(4);
-        left: columns(3,19);
-      }
-    }
-
-    // Text-only headers with no bg image (search, workshops/pages with no featured image)
-    &.-text-only {
-      .color-wrap {
-        padding-right: 0;
-      }
-      .color-wrap-secondary {
-        background: $red;
-        .intro-wrap {
-          padding: mobile-grid(2) mobile-grid(3);
-        }
-        .page-meat {
-          background: $white;
-          padding: mobile-grid(3) mobile-grid(3);
-        }
-      }
-      .page-content {
-        background: $white;
-      }
-      .page-titles {
-        width: 100%;
-        h1 {
-          margin-bottom: 0;
-        }
-      }
-
-      @include media-md {
-        .crumb {
-          position: relative;
-          bottom: auto;
-          left: auto;
-          margin-bottom: grid(8);
-        }
-        .page-titles {
-          padding: grid(4) columns(1,17);
-          h3 {
-            margin-bottom: grid(2);
-          }
-          h1 {
-            margin-bottom: 0;
-          }
-        }
-        .page-content {
-          padding-right: columns(1,17);
-        }
-        .color-wrap-secondary {
-          padding-left: columns(8,16);
-          .page-meat,
-          .intro-wrap {
-            background: $white;
-            // overflow: hidden; // Avoid collapsing margins
-            padding-left: columns(1,7);
-          }
-          .intro-wrap {
-            position: relative;
-            .registration {
-              top: grid(4);
-              left: -#{columns(7,8)};
-              width: columns(6,8);
-            }
-          }
-        }
-      }
-    }
-
-  }
-
-  // Half page headers (tertiary landing pages)
-  &.-half {
-    .page-titles {
-      h1 {}
-      .p-intro {}
-    }
-    .bg-image {
-      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
-    }
-    .page-intro {
-      position: relative;
-      background: $black;
-      .color-wrap {
-      }
-      .page-content {
-        background: $white;
-      }
-    }
-
-    @include media-md {
-      .gradient-l,
-      .gradient-b {
-        display: none;
-      }
-      .page-content {
-        min-height: 450px;
-      }
-
-      .bg-image {
-        border: none;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: columns(10,19);
-        height: 400px;
-        z-index: 2;
-      }
-      .page-titles {
-        h1 {
-          margin: grid(4) 0 grid(4);
-        }
-        .p-intro {
-          margin-bottom: grid(4);
-        }
-      }
-      .page-intro {
-        margin-left: columns(1,19);
-        padding-left: columns(1,19);
-        .color-wrap {
-          padding-left: columns(8,17);
-        }
-        .page-content {
-          padding: grid(4) columns(1,9);
-        }
-      }
-    }
   }
 }
 
-// Minimal page header (Thank You pages, 404)
-.page-header.minimal {
-  .page-intro {
-    border-left: none;
-    padding: mobile-grid(5) mobile-grid(3) mobile-grid(5) mobile-grid(5);
-    color: $white;
-    p {
-      @include p1;
-    }
-    a {
-      @include font-mono;
-      color: $white;
-    }
+.banner-image-wrap {
+  position: relative;
+  .banner-image {
+    background-size: cover;
+    background-position: center;
   }
-  .bg-image {
-    border-right: none;
-    height: auto;
-  }
-  .search-form {
-    .search-field {
-      border-color: $white;
-      &::placeholder {
-        color: $white;
-      }
-    }
-    .go-button {
-      &::before {
-        background: $white;
-      }
-      border-color: $white;
 
-      @include media-md {
-        &:hover {
-          color: $black;
-        }
-      }
+  // Mobile only
+  @include max-screen($breakpoint-medium) {
+    height: 50vh;
+    max-height: 430px;
+    .banner-image {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
     }
   }
 
+  // Desktop styles
   @include media-md {
-    margin-right: columns(1);
-    .bg-image {
-      border: none;
-    }
-    .page-intro {
-      padding: 170px columns(1,18) $global-padding columns(11,18);
+    .banner-image {
+      height: 0;
+      padding-bottom: 43%;
     }
   }
 }
