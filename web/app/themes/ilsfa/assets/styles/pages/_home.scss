@@ -1,4 +1,160 @@
 // Home page
 
 .home.page {
+  .page-header {
+    position: relative;
+    .page-title {
+      @include h2;
+      position: absolute;
+      bottom: $mobile-global-padding;
+      left: $mobile-global-padding;
+      color: $white;
+    }
+    .banner-image-wrap {
+      @extend %inset-shadow;
+    }
+
+    // Desktop styles
+    @include media-md {
+      .page-title {
+        @include h1-jumbo;
+        bottom: grid(12);
+        left: columns(2);
+      }
+      .banner-image-wrap {
+        .banner-image {
+          padding-bottom: 50%;
+        }
+      }
+    }
+  }
+
+  // Supporting statement
+  .supporting-statement {
+    background: $blurple;
+    color: $white;
+    padding: $mobile-global-padding;
+    p {
+      @include p3;
+    }
+
+    // Desktop styles
+    @include media-md {
+      padding: grid(12) columns(2);
+      p {
+        @include p1;
+      }
+    }
+  }
+
+  // Overview blocks
+  .overview-blocks {
+    >li {
+      // Mobile-only styles
+      @include max-screen($breakpoint-medium) {
+        .image {
+          @include aspect-ratio(320,160);
+        }
+        .text {
+          padding: $mobile-global-padding;
+        }
+      }
+    }
+
+    // Desktop styles
+    @include media-md {
+      >li {
+        .text {
+          padding: grid(12) columns(2);
+        }
+        .image-wrap {
+          height: 100%;
+        }
+        .image {
+          position: absolute;
+          top: 0;
+          right: 0;
+          left: 0;
+          bottom: 0;
+        }
+        &:nth-child(even) {
+          .grid-item:nth-child(1) {
+            order: 2;
+          }
+          .grid-item:nth-child(2) {
+            order: 1;
+          }
+        }
+
+      }
+    }
+  }
+
+  // Highlight blocks
+  .highlight-blocks {
+    background: $blurple-lite;
+    padding: $mobile-global-padding;
+    > h2 {
+      margin: 0;
+    }
+    h2,
+    h3 {
+      color: $blurple;
+    }
+    // Desktop styles
+    @include media-md {
+      padding: grid(12) columns(2);
+    }
+  }
+
+  // Action blocks
+  .action-blocks {
+    background: url('../images/temp.jpg');
+    background-size: cover;
+    padding: $mobile-global-padding;
+    >h2 {
+      margin: 0;
+      color: $white;
+    }
+    .cards {
+      margin-top: grid(7);
+      li {
+        > h4 {
+          margin: 0;
+        }
+        border-radius: grid(1);
+        padding: grid(3) grid(4);
+        background: $white;
+        h3 {
+          color: $blurple;
+        }
+        .button {
+          width: 100%;
+        }
+
+        &.inactive {
+          background: $blurple-lite;
+          h3 {
+            color: $blurple-dark;
+          }
+          .button {
+            background: $blurple-lite;
+          }
+        }
+      }
+    }
+
+    // Desktop styles
+    @include media-md {
+      padding: grid(12) columns(2);
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 33.3%);
+        align-items: flex-start;
+        grid-column-gap: grid(2);
+        grid-row-gap: grid(2);
+      }
+    }
+  }
+
 }
