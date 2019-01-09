@@ -98,7 +98,7 @@ function clean_up_content($content) {
 add_filter('content_save_pre', __NAMESPACE__ . '\\clean_up_content', 10, 1);
 // ... and support for cmb2 wysiwyg fields:
 function cmb2_sanitize_wysiwyg_callback($override_value, $content) {
-  $content = preg_replace('/<span class=\\\"button\\\"><a(.*)<\/a><\/span>/', '<a class=\"button\"$1</a>', $content);
+  $content = preg_replace('/<span class=\\\"button\\\">(\s+)?<a(.*)<\/a>(\s+)?<\/span>/', '<a class=\"button\"$2</a>', $content);
   return $content;
 }
 add_filter('cmb2_sanitize_wysiwyg', __NAMESPACE__ . '\\cmb2_sanitize_wysiwyg_callback', 10, 2);
