@@ -1,14 +1,41 @@
 // Footer
 
 .site-footer {
-  .contact {
-    @include media-sm {
-
+  background: $night;
+  color: $white;
+  h3 {
+    @include h5;
+  }
+  address,
+  p {
+    @include p3;
+  }
+  address {
+    span {
+      display: block;
     }
   }
 
-  .secondary-nav {
-    @include media-sm {}
-    @include media-md {}
+  .contact-items {
+    display: flex;
+    flex-wrap: wrap;
+    li {
+      flex: 1 0 200px;
+      padding-right: grid(2);
+    }
+  }
+
+  .orgs {
+  }
+
+  .contact {
+  }
+
+  // Desktop styles
+  @include media-md {
+    padding: grid(7) columns(2) grid(20) columns(2);
+    .contact-items {
+      margin-right: -#{columns(2,16)};
+    }
   }
 }
