@@ -11,7 +11,7 @@ $font-mono: 'GT Pressura Mono', sans-serif;
 }
 @mixin font-header {
   @include smooth;
-  font-weight: normal;
+  font-weight: bold;
   font-family: $font-header;
   margin: 0 0 grid(2);
   letter-spacing: -0.1px;
@@ -25,37 +25,45 @@ $font-mono: 'GT Pressura Mono', sans-serif;
   text-transform: uppercase;
 }
 
+@mixin h1-jumbo {
+  @include font-header;
+  font-weight: bold;
+  font-size: 96px;
+  line-height: 96px;
+  letter-spacing: -0.89px;
+}
 @mixin h1 {
   @include font-header;
   font-size: 72px;
   line-height: 80px;
 }
-h1 { @include h1; }
+.h1,h1 { @include h1; }
 
 @mixin h2 {
   @include font-header;
   font-size: 36px;
   line-height: 40px;
 }
-h2 { @include h2; }
+.h2,h2 { @include h2; }
 
 @mixin h3 {
   @include font-header;
   font-size: 28px;
   line-height: 32px;
 }
-h3 { @include h3; }
+.h3,h3 { @include h3; }
 
 @mixin h4 {
   @include font-mono;
+  font-weight: normal;
 }
-h4 { @include h4; }
+.h4,h4 { @include h4; }
 
 @mixin h5 {
   @include font-mono;
   font-weight: bold;
 }
-h5 { @include h5; }
+.h5,h5 { @include h5; }
 
 @mixin p1 {
   @include font-regular;
@@ -71,6 +79,9 @@ p.intro { @include p1; }
   line-height: 32px;
   letter-spacing: 0.75px;
 }
+
+// Basic paragraph style
+address,
 p,
 .p2,
 figcaption {
