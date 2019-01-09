@@ -38,6 +38,11 @@ var FBSage = (function($) {
       }
     });
 
+    // Null links
+    $('body').on('click', 'a[href="#"]', function(e) {
+      e.preventDefault();
+    });
+
     // Smoothscroll links
     $('a.smoothscroll').click(function(e) {
       e.preventDefault();
@@ -57,7 +62,6 @@ var FBSage = (function($) {
   } // end init()
 
   function _initForms() {
-    console.log('foo');
     $('form input, form textarea').on('blur', function() {
       if($(this).val()!=='') {
         $(this).parents('.input-wrap').addClass('filled');
