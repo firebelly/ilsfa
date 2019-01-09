@@ -15,7 +15,6 @@
       ?>
       <div class="nav-search">
         <?= get_search_form() ?>
-        <a href="#" class="search-close button"><svg class="icon icon-x" aria-hidden="true"><use xlink:href="#icon-x"/></svg></a>
       </div>
     </nav>
   </div>
