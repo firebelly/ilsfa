@@ -10,6 +10,14 @@ var FB_admin = (function($) {
 
   function _init() {
 
+    // Support for cmd-s to trigger save in WP
+    $(window).bind('keydown', function(e) {
+      if ((e.ctrlKey || e.metaKey) && e.which==83){
+        e.preventDefault();
+        $('#publish').click();
+      }
+    });
+
     // Hack the update from bottom plugin to show it earlier
     _submitDivHeight = $('#submitdiv').height();
     $(window).scroll(function(){
