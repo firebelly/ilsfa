@@ -13,14 +13,12 @@ $admin-bar-height: 32px;
   padding: 0;
   position: relative;
   a {
-    text-decoration: none;
     color: $white;
   }
   svg {
     position: absolute;
     width: 56px;
     height: 56px;
-    border: 1px dashed $yellow;
     left: -76px;
     top: 0;
   }
@@ -84,14 +82,14 @@ $admin-bar-height: 32px;
 .site-nav {
   a {
     display: block;
-    text-decoration: none;
   }
+
+  // Primary links
   .primary-nav {
     font: 18px/1.333 $font-regular;
     letter-spacing: .25px;
     a {
       color: $yellow;
-      text-decoration: none;
       padding: grid(1);
     }
     .divider {
@@ -109,6 +107,8 @@ $admin-bar-height: 32px;
       }
     }
   }
+
+  // Utility links
   .utility-nav {
     font: 16px/1.5 $font-regular;
     letter-spacing: 0;
@@ -141,8 +141,8 @@ $admin-bar-height: 32px;
     }
     #menu-utility-nav {
       position: absolute;
-      top: 0;
-      right: 0;
+      top: grid(5);
+      right: columns(2);
       a {
         color: $white;
       }
