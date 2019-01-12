@@ -12,9 +12,9 @@ var FB_admin = (function($) {
 
     // Support for cmd-s to trigger save in WP
     $(window).bind('keydown', function(e) {
-      if ((e.ctrlKey || e.metaKey) && e.which==83){
+      if ((e.ctrlKey || e.metaKey) && e.which==83 && $('#publish,#submit').length){
         e.preventDefault();
-        $('#publish').click();
+        $('#publish,#submit').click();
       }
     });
 
