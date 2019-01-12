@@ -111,9 +111,9 @@ function metaboxes() {
     'id'      => 'icon',
     'type'    => 'select',
     'options' => array(
-      'standard' => __( 'Vendors Icon', 'cmb2' ),
-      'custom'   => __( 'Equitable Icon', 'cmb2' ),
-      'none'     => __( 'Savings Icon', 'cmb2' ),
+      'vendors'     => __( 'Vendors Icon', 'cmb2' ),
+      'equitable'   => __( 'Equitable Icon', 'cmb2' ),
+      'savings'     => __( 'Savings Icon', 'cmb2' ),
     ),  ]);
   $homepage_highlight_blocks->add_group_field( $group_field_id, [
     'name' => 'Body',

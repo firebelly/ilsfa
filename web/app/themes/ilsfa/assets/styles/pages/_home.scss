@@ -65,7 +65,10 @@
     @include media-md {
       >li {
         .text {
-          padding: grid(12) columns(2);
+          padding: grid(12) columns(2,10);
+          >h2 {
+            color: $blurple;
+          }
         }
         .image-wrap {
           height: 100%;
@@ -92,8 +95,8 @@
 
   // Highlight blocks
   .highlight-blocks {
+    @include global-padding;
     background: $blurple-lite;
-    padding: $mobile-global-padding;
     > h2 {
       margin: 0;
     }
@@ -101,52 +104,27 @@
     h3 {
       color: $blurple;
     }
-    // Desktop styles
-    @include media-md {
-      padding: grid(12) columns(2);
+    .icon {
+      margin: grid(5) 0 grid(2);
+      img {
+        display: block;
+        width: 280px;
+      }
     }
   }
 
   // Action blocks
   .action-blocks {
+    @include global-padding;
     background: url('../images/temp.jpg');
     background-size: cover;
-    padding: $mobile-global-padding;
     >h2 {
-      margin: 0;
+      margin: 0 0 grid(5);
       color: $white;
-    }
-    .cards {
-      margin-top: grid(7);
-      li {
-        > h4 {
-          margin: 0;
-        }
-        border-radius: grid(1);
-        padding: grid(3) grid(4);
-        background: $white;
-        h3 {
-          color: $blurple;
-        }
-        .button {
-          width: 100%;
-        }
-
-        &.inactive {
-          background: $blurple-lite;
-          h3 {
-            color: $blurple-dark;
-          }
-          .button {
-            background: $blurple-lite;
-          }
-        }
-      }
     }
 
     // Desktop styles
     @include media-md {
-      padding: grid(12) columns(2);
       .cards {
         display: grid;
         grid-template-columns: repeat(auto-fill, 33.3%);
@@ -157,4 +135,83 @@
     }
   }
 
+  // Events
+  .events {
+    @include global-padding;
+    background: $blurple-dark;
+    >h2 {
+      color: $white;
+      margin: 0 0 grid(4);
+    }
+    article {
+      >h3 {
+        margin: 0 0 grid(2);
+      }
+    }
+
+    // Desktop styles
+    @include media-md {
+      p {
+        @include p1;
+      }
+    }
+  }
+
+  // Announcements
+  .announcements {
+    @include global-padding;
+    >h2 {
+      color: $blurple;
+      margin: 0;
+    }
+    li {
+      border-bottom: 2px solid $blurple-dark;
+      &:last-of-type {
+        border-bottom: none;
+      }
+      h3 {
+        &, a {
+          color: $red;
+        }
+        margin: grid(2) 0 grid(1);
+      }
+      p {
+        @include p3;
+      }
+    }
+
+  }
+
+
+}
+
+.cards {
+  >li {
+    >h4 {
+      margin: 0;
+    }
+    border-radius: grid(1);
+    padding: grid(3) grid(4);
+    background: $white;
+    h3 {
+      color: $blurple;
+      a {
+        color: $blurple;
+        text-decoration: none;
+      }
+    }
+    .button {
+      width: 100%;
+    }
+
+    &.inactive {
+      background: $blurple-lite;
+      h3 {
+        color: $blurple-dark;
+      }
+      .button {
+        background: $blurple-lite;
+      }
+    }
+  }
 }

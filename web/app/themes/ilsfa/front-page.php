@@ -29,7 +29,7 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
 </div>
 <?php endif; ?>
 
-<?php /* Overview Blocks */ ?>
+<?php // Overview Blocks // ?>
 <?php if (!empty($post_meta['_cmb2_overview_blocks'])): ?>
   <ul class="overview-blocks">
     <?php foreach (unserialize($post_meta['_cmb2_overview_blocks'][0]) as $block): ?>
@@ -49,14 +49,14 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
   </ul>
 <?php endif; ?>
 
-<?php /* Highlight Blocks */ ?>
+<?php // Highlight Blocks // ?>
 <?php if (!empty($post_meta['_cmb2_highlight_blocks'])): ?>
   <div class="highlight-blocks">
     <h2 class="h1">How the program works</h2>
     <ul class="grid">
     <?php foreach (unserialize($post_meta['_cmb2_highlight_blocks'][0]) as $block): ?>
         <li class="grid-item one-third">
-          <div class="icon-<?= $block['icon'] ?>"><?= $block['icon'] ?></div>
+          <div class="icon"><img src="<?= \Roots\Sage\Assets\asset_path('images/icon-'.$block['icon'].'.png'); ?>"></div>
           <div class="user-content">
             <?= apply_filters('the_content', $block['body']) ?>
           </div>
@@ -66,7 +66,7 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
   </div>
 <?php endif; ?>
 
-<?php /* Action Blocks */ ?>
+<?php // Action Blocks // ?>
 <?php if (!empty($post_meta['_cmb2_action_blocks'])): ?>
   <div class="action-blocks">
     <h2 class="h1">What you can do</h2>
@@ -85,3 +85,36 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
     </ul>
   </div>
 <?php endif; ?>
+
+<?php // Events & Announcements // ?>
+<div class="grid">
+
+  <div class="grid-item one-half events">
+    <?php if ($events = \Firebelly\PostTypes\Event\get_events(['output' => 'array'])): ?>
+      <h2>Events</h2>
+      <ul class="cards">
+      <?php foreach ($events as $event): ?>
+        <li>
+          <?php \Firebelly\Utils\get_template_part_with_vars('templates/article', 'event', ['event_post' => $event]); ?>
+        </li>
+      <?php endforeach; ?>
+      </ul>
+    <?php endif; ?>
+  </div>
+
+  <div class="grid-item one-half announcements">
+    <?php $announcements = get_posts(['numberposts' => 5]) ?>
+    <?php if (!empty($announcements)): ?>
+      <h2>Announcements</h2>
+      <ul>
+      <?php foreach ($announcements as $announcement): ?>
+        <li>
+          <?php \Firebelly\Utils\get_template_part_with_vars('templates/article', 'announcement', ['announcement_post' => $announcement]); ?>
+        </li>
+      <?php endforeach; ?>
+      </ul>
+      </div>
+    <?php endif; ?>
+  </div>
+
+</div>
