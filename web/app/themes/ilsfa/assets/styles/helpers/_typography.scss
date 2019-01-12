@@ -37,33 +37,28 @@ $font-mono: 'GT Pressura Mono', sans-serif;
   font-size: 72px;
   line-height: 80px;
 }
-.h1,h1 { @include h1; }
 
 @mixin h2 {
   @include font-header;
   font-size: 36px;
   line-height: 40px;
 }
-.h2,h2 { @include h2; }
 
 @mixin h3 {
   @include font-header;
   font-size: 28px;
   line-height: 32px;
 }
-.h3,h3 { @include h3; }
 
 @mixin h4 {
   @include font-mono;
   font-weight: normal;
 }
-.h4,h4 { @include h4; }
 
 @mixin h5 {
   @include font-mono;
   font-weight: bold;
 }
-.h5,h5 { @include h5; }
 
 @mixin p1 {
   @include font-regular;
@@ -80,14 +75,6 @@ p.intro { @include p1; }
   letter-spacing: 0.75px;
 }
 
-// Basic paragraph style
-address,
-p,
-.p2,
-figcaption {
-  @include p2;
-}
-
 @mixin p3 {
  @include font-regular;
  font-size: 16px;
@@ -98,4 +85,40 @@ figcaption {
 p.p3,
 p.small {
   @include p3
+}
+
+// Global header styles
+.h1,h1 {
+  @include h2;
+  @include media-md {
+    @include h1;
+  }
+}
+.h2,h2 {
+  @include h3;
+  @include media-md {
+    @include h2;
+  }
+}
+.h3,h3 {
+  @include h3;
+}
+.h4,h4 {
+  @include h4;
+}
+.h5,h5 {
+  @include h5;
+}
+
+
+// Basic paragraph styles
+address,
+p,
+.p2,
+figcaption {
+  @include p3;
+
+  @include media-md {
+    @include p2;
+  }
 }

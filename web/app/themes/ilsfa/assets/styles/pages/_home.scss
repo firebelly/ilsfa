@@ -148,6 +148,16 @@
         margin: 0 0 grid(2);
       }
     }
+    .details {
+      li {
+        padding-right: grid(6);
+      }
+    }
+    a.button.icon {
+      position: absolute;
+      bottom: grid(3);
+      right: grid(3);
+    }
 
     // Desktop styles
     @include media-md {
@@ -190,8 +200,10 @@
     >h4 {
       margin: 0;
     }
+    position: relative;
     border-radius: grid(1);
     padding: grid(3) grid(4);
+    margin: 0 0 grid(2);
     background: $white;
     h3 {
       color: $blurple;
@@ -200,7 +212,7 @@
         text-decoration: none;
       }
     }
-    .button {
+    .button:not(.icon) {
       width: 100%;
     }
 

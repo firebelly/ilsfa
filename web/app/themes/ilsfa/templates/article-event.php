@@ -17,5 +17,5 @@ $post_image = \Firebelly\Media\get_header_bg($event_post, ['size' => 'medium']);
   	</li>
   </ul>
 
-  <a class="arrow" href="<?= $event_post->meta['_cmb2_event_url'][0] ?>" title="Event Details"><svg class="icon-arrow" aria-hidden="true"><use xlink:href="#icon-arrow"/></svg></a>
+  <a class="button icon round" href="<?= $event_post->meta['_cmb2_event_url'][0] ?>" title="Event Details"><svg class="icon-arrow" aria-hidden="true"><use xlink:href="#icon-arrow"/></svg></a>
 </article>

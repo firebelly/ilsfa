@@ -4,7 +4,7 @@
 @mixin transition($properties...) {
   transition-duration: $transition-duration;
   transition-property: $properties;
-  transition-timing-function: ease-out;
+  transition-timing-function: $transition-easing;
 }
 
 // Clearfix

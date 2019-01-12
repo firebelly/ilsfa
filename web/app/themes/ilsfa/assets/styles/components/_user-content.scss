@@ -19,6 +19,9 @@
 
   p {
     margin: 0 0 grid(6);
+    &:last-of-type {
+      margin: 0;
+    }
   }
   a {
     text-decoration: underline;
