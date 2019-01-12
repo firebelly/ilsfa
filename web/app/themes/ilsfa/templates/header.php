@@ -1,7 +1,7 @@
 <header class="site-header">
   <div class="wrap">
     <h1 class="brand"><a href="<?= esc_url(home_url('/')); ?>">
-      <svg class="icon icon-logo" aria-hidden="true"><use xlink:href="#icon-logo"/></svg>
+      <svg class="icon logo-icon" aria-hidden="true"><use xlink:href="#logo-icon"/></svg>
       <span class="name"><?= get_bloginfo('name'); ?></span>
     </a></h1>
     <nav class="site-nav">
