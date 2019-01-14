@@ -11,6 +11,7 @@
 @import "helpers/animations";
 @import "helpers/variables";
 @import "helpers/mixins";
+@import "helpers/grid";
 @import "helpers/typography";
 @import "helpers/accessibility";
 @import "helpers/utility";
@@ -19,7 +20,6 @@
 // Vendor
 
 // Components
-@import "components/grid";
 @import "components/base";
 @import "components/buttons";
 @import "components/user-content";
@@ -31,6 +31,7 @@
 
 // Pages
 @import "pages/home";
+@import "pages/for-il-residents";
 @import "pages/single-post";
 @import "pages/search-results";
 
