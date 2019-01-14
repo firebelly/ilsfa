@@ -13,7 +13,7 @@ $post_image = \Firebelly\Media\get_header_bg($event_post, ['size' => 'medium']);
   		<?= \Firebelly\PostTypes\Event\get_dates($event_post); ?>
   	</li>
   	<li class="location">
-			<?= $address['city'] ?>, <?= $address['state'] ?>
+			<?= $address['city'] ?><?= !empty($address['state']) ? ', '.$address['state'] : '' ?>
   	</li>
   </ul>
 
