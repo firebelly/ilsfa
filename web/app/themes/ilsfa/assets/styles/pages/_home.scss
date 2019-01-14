@@ -1,17 +1,34 @@
 // Home page
 
-.home.page {
-  .page-header {
+.page.home {
+  .page-header-homepage {
     position: relative;
     .page-title {
       @include h2;
+      margin: 0;
       position: absolute;
       bottom: $mobile-global-padding;
       left: $mobile-global-padding;
       color: $white;
     }
+
+    // Homepage image banner gets different treatment (inset shadow, no margins)
     .banner-image-wrap {
       @extend %inset-shadow;
+      // Mobile only
+      @include max-screen($breakpoint-medium) {
+        height: 50vh;
+        max-height: 430px;
+        .banner-image {
+          padding: 0;
+          height: auto;
+          position: absolute;
+          top: 0;
+          right: 0;
+          left: 0;
+          bottom: 0;
+        }
+      }
     }
 
     // Desktop styles
@@ -31,16 +48,15 @@
 
   // Supporting statement
   .supporting-statement {
+    @include global-padding(12);
     background: $blurple;
     color: $white;
-    padding: $mobile-global-padding;
     p {
       @include p3;
     }
 
     // Desktop styles
     @include media-md {
-      padding: grid(12) columns(2);
       p {
         @include p1;
       }
@@ -115,24 +131,6 @@
 
   // Action blocks
   .action-blocks {
-    @include global-padding;
-    background: url('../images/temp.jpg');
-    background-size: cover;
-    >h2 {
-      margin: 0 0 grid(5);
-      color: $white;
-    }
-
-    // Desktop styles
-    @include media-md {
-      .cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, 33.3%);
-        align-items: flex-start;
-        grid-column-gap: grid(2);
-        grid-row-gap: grid(2);
-      }
-    }
   }
 
   // Events
@@ -189,10 +187,18 @@
         @include p3;
       }
     }
-
   }
+}
 
-
+.cards-image-block {
+  @include global-padding;
+  // Default background
+  background: url('../images/temp.jpg');
+  background-size: cover;
+  >h2 {
+    margin: 0 0 grid(5);
+    color: $white;
+  }
 }
 
 .cards {
@@ -213,7 +219,9 @@
       }
     }
     .button:not(.icon) {
+      margin-top: grid(2);
       width: 100%;
+      min-width: 0;
     }
 
     &.inactive {
@@ -225,5 +233,14 @@
         background: $blurple-lite;
       }
     }
+  }
+
+  // Desktop styles
+  @include media-md {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 33.3%);
+    align-items: flex-start;
+    grid-column-gap: grid(2);
+    grid-row-gap: grid(2);
   }
 }

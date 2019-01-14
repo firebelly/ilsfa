@@ -2,6 +2,38 @@
 
 .page-header {
   position: relative;
+
+  .title-wrap {
+    @include global-padding(12)
+    background: $blurple;
+    color: $white;
+    h1 {
+      margin: 0;
+    }
+  }
+
+  .banner-image-wrap {
+    padding: 0 $mobile-global-padding;
+    background-image: linear-gradient(to top, rgba(0,0,0,0) 50%, $blurple 50%);
+    @include media-md {
+      padding: 0 columns(2);
+    }
+  }
+
+  // Supporting statement
+  .supporting-statement {
+    @include global-padding(6);
+    p {
+      @include p3;
+    }
+
+    // Desktop styles
+    @include media-md {
+      p {
+        @include p1;
+      }
+    }
+  }
 }
 
 .image-wrap {
@@ -19,24 +51,11 @@
     background-position: center;
   }
 
-  // Mobile only
-  @include max-screen($breakpoint-medium) {
-    height: 50vh;
-    max-height: 430px;
-    .banner-image {
-      position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-      bottom: 0;
-    }
-  }
-
   // Desktop styles
-  @include media-md {
+  // @include media-md {
     .banner-image {
       height: 0;
       padding-bottom: 43%;
     }
-  }
+  // }
 }

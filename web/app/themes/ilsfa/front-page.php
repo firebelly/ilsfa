@@ -16,7 +16,7 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
 }
 ?>
 
-<header class="page-header">
+<header class="page-header-homepage">
   <div class="banner-image-wrap">
     <div class="banner-image" <?= \Firebelly\Media\get_header_bg($post) ?>></div>
   </div>
@@ -29,7 +29,7 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
 </div>
 <?php endif; ?>
 
-<?php // Overview Blocks // ?>
+<?php // Overview Blocks ?>
 <?php if (!empty($post_meta['_cmb2_overview_blocks'])): ?>
   <ul class="overview-blocks">
     <?php foreach (unserialize($post_meta['_cmb2_overview_blocks'][0]) as $block): ?>
@@ -49,7 +49,7 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
   </ul>
 <?php endif; ?>
 
-<?php // Highlight Blocks // ?>
+<?php // Highlight Blocks ?>
 <?php if (!empty($post_meta['_cmb2_highlight_blocks'])): ?>
   <div class="highlight-blocks">
     <h2 class="h1">How the program works</h2>
@@ -66,9 +66,9 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
   </div>
 <?php endif; ?>
 
-<?php // Action Blocks // ?>
+<?php // Action Blocks ?>
 <?php if (!empty($post_meta['_cmb2_action_blocks'])): ?>
-  <div class="action-blocks">
+  <div class="cards-image-block action-blocks">
     <h2 class="h1">What you can do</h2>
     <ul class="cards">
     <?php foreach (unserialize($post_meta['_cmb2_action_blocks'][0]) as $block): ?>
@@ -86,7 +86,7 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
   </div>
 <?php endif; ?>
 
-<?php // Events & Announcements // ?>
+<?php // Events & Announcements ?>
 <div class="grid">
 
   <div class="grid-item one-half events">

@@ -1,10 +1,10 @@
 // Common padding
-@mixin global-padding {
+@mixin global-padding($desktop-padding:12) {
   padding: $mobile-global-padding;
 
   // Desktop styles
   @include media-md {
-    padding: grid(12) columns(2);
+    padding: grid($desktop-padding) columns(2);
   }
 }
 

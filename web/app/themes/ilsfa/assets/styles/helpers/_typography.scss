@@ -13,7 +13,6 @@ $font-mono: 'GT Pressura Mono', sans-serif;
   @include smooth;
   font-weight: bold;
   font-family: $font-header;
-  margin: 0 0 grid(2);
   letter-spacing: -0.1px;
 }
 @mixin font-mono {
@@ -108,6 +107,17 @@ p.small {
 }
 .h5,h5 {
   @include h5;
+}
+
+// Reset all margins
+p,
+ol,
+ul,
+h2,
+h3,
+h4 {
+  margin: 0;
+  padding: 0;
 }
 
 
