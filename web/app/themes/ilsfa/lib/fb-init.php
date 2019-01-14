@@ -43,7 +43,7 @@ add_filter('mce_buttons_2', __NAMESPACE__ . '\\mce_buttons_2');
 
 function simplify_tinymce($settings) {
   // What goes into the 'formatselect' list
-  $settings['block_formats'] = 'H2=h2;H3=h3;Paragraph=p';
+  $settings['block_formats'] = 'H2=h2;H3=h3;H4=h4;H5=h5;Paragraph=p';
 
   $settings['inline_styles'] = 'false';
   if (!empty($settings['formats']))
@@ -63,24 +63,13 @@ function simplify_tinymce($settings) {
   // Clear most formatting when pasting text directly in the editor
   $settings['paste_as_text'] = 'true';
 
-  $style_formats = array(
-    // array(
-    //   'title' => 'Two Column',
-    //   'block' => 'div',
-    //   'classes' => 'two-column',
-    //   'wrapper' => true,
-    // ),
-    array(
+  $style_formats = [
+    [
       'title' => 'Button',
       'block' => 'span',
       'classes' => 'button',
-    ),
-    // array(
-    //   'title' => '» Arrow Link',
-    //   'block' => 'span',
-    //   'classes' => 'arrow-link',
-    // ),
- );
+    ],
+  ];
   $settings['style_formats'] = json_encode($style_formats);
 
   return $settings;

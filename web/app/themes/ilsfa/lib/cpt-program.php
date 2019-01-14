@@ -102,7 +102,6 @@ function metaboxes() {
     'name'      => 'Supporting Copy',
     'id'        => $prefix . 'application_supporting_copy',
     'type'      => 'wysiwyg',
-    // 'desc'      => 'e.g. https://foo.com/',
     'options'   => [
       'textarea_rows' => 5,
     ],
@@ -117,9 +116,18 @@ function metaboxes() {
     'priority'      => 'high',
   ]);
   $contact->add_field([
+    'name'      => 'Contact Intro Copy',
+    'id'        => $prefix . 'contact_intro',
+    'type'      => 'wysiwyg',
+    'options'   => [
+      'textarea_rows' => 5,
+    ],
+  ]);
+  $contact->add_field([
     'name'      => 'Address',
     'id'        => $prefix . 'address',
     'type'      => 'address',
+    'desc'      => 'Will default to address/email/phone/fax set in <a target="_blank" href="/wp/wp-admin/admin.php?page=fb_site_options">Site Options</a>',
   ]);
   $contact->add_field([
     'name'      => 'Email',
@@ -146,7 +154,7 @@ function metaboxes() {
     'priority'      => 'high',
   ]);
   $vendors_tools->add_field([
-    'name'      => 'Intro',
+    'name'      => 'Vendors Intro Copy',
     'id'        => $prefix . 'vendors_intro',
     'type'      => 'wysiwyg',
     'options'   => [
@@ -186,7 +194,7 @@ add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\metaboxes' );
 /**
  * Get program posts
  */
-function get_program($opts=[]) {
+function get_programs($opts=[]) {
   $args = [
     'numberposts' => (!empty($opts['numberposts']) ? $opts['numberposts'] : -1),
     'post_type'   => 'program',
@@ -200,10 +208,12 @@ function get_program($opts=[]) {
       ]
     ];
   }
-
   // Display all matching posts using article-{$post_type}.php
   $programs_posts = get_posts($args);
   if (!$programs_posts) return false;
+  if (!empty($opts['output']) && $opts['output']=='array') {
+    return $programs_posts;
+  }
   $output = '';
   foreach ($programs_posts as $program_post) {
     ob_start();
