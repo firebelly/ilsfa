@@ -79,6 +79,27 @@ function metaboxes() {
     'type'      => 'address',
   ]);
   $event_info->add_field([
+    'name'      => 'Lat',
+    'id'        => $prefix . 'lat',
+    'type'      => 'text_small',
+    'save_field'  => false,
+    'attributes'  => array(
+      'readonly' => 'readonly',
+      'disabled' => 'disabled',
+    ),
+  ]);
+  $event_info->add_field([
+    'name'      => 'Lng',
+    'id'        => $prefix . 'lng',
+    'type'      => 'text_small',
+    'save_field'  => false,
+    'attributes'  => array(
+      'readonly' => 'readonly',
+      'disabled' => 'disabled',
+    ),
+  ]);
+
+  $event_info->add_field([
     'name'        => 'Event URL',
     'id'          => $prefix . 'event_url',
     'type'        => 'text',
@@ -189,3 +210,79 @@ function get_dates($post) {
   $output .= '</div>';
   return $output;
 }
+
+/**
+ * Update lookup table for events geodata, if post_id isn't sent, all posts are updates/inserted into wp_events_lat_lng
+ */
+function update_events_lat_lng($post_id='') {
+  global $wpdb;
+  // CREATE TABLE `wp_events_lat_lng` (
+  //   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  //   `post_id` int(11) unsigned NOT NULL,
+  //   `lat` varchar(15) NOT NULL DEFAULT '',
+  //   `lng` varchar(15) NOT NULL DEFAULT '',
+  //   PRIMARY KEY (`id`),
+  //   KEY `post_id` (`post_id`),
+  //   KEY `lat` (`lat`),
+  //   KEY `lng` (`lng`)
+  // ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+  $event_cache = [];
+  $post_id_sql = empty($post_id) ? '' : ' AND post_id='.(int)$post_id;
+  $event_posts = $wpdb->get_results("SELECT post_id, meta_key, meta_value FROM $wpdb->postmeta WHERE meta_key IN ('_cmb2_lat','_cmb2_lng') AND meta_value != '' {$post_id_sql} ORDER BY post_id");
+  if ($event_posts) {
+    foreach ($event_posts as $event) {
+      $event_cache[$event->post_id][$event->meta_key] = $event->meta_value;
+    }
+    foreach ($event_cache as $event_id=>$arr) {
+      $cnt = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM wp_events_lat_lng WHERE post_id=%d", $event_id) );
+      if ($cnt>0) {
+        $wpdb->query( $wpdb->prepare("UPDATE wp_events_lat_lng SET lat=%s, lng=%s WHERE post_id=%d", $arr['_cmb2_lat'], $arr['_cmb2_lng'], $event_id) );
+      } else {
+        $wpdb->query( $wpdb->prepare("INSERT INTO wp_events_lat_lng (post_id,lat,lng) VALUES (%d,%s,%s)", $event_id, $arr['_cmb2_lat'], $arr['_cmb2_lng']) );
+      }
+    }
+  }
+}
+
+/**
+ * Geocode address for event and save in custom fields
+ */
+function geocode_address($post_id, $post='') {
+  if (empty($_POST['_cmb2_address'])) return;
+  $address = wp_parse_args($_POST['_cmb2_address'], [
+    'address-1' => '',
+    'address-2' => '',
+    'city'      => '',
+    'state'     => '',
+    'zip'       => '',
+   ]);
+
+  if (!empty($address['address-1'])):
+    $address_combined = $address['address-1'] . ' ' . $address['address-2'] . ' ' . $address['city'] . ', ' . $address['state'] . ' ' . $address['zip'];
+    $request_url = "https://maps.googleapis.com/maps/api/geocode/xml?address=" . urlencode($address_combined) . '&key=' . getenv('GOOGLE_API_KEY');
+    $xml = simplexml_load_file($request_url);
+    $status = $xml->status;
+    if(strcmp($status, 'OK')===0):
+        $lat = $xml->result->geometry->location->lat;
+        $lng = $xml->result->geometry->location->lng;
+        update_post_meta($post_id, '_cmb2_lat', (string)$lat);
+        update_post_meta($post_id, '_cmb2_lng', (string)$lng);
+        // Update wp_events_lat_lng cache table
+        update_events_lat_lng($post_id);
+    endif;
+  endif;
+}
+add_action('save_post_event', __NAMESPACE__ . '\\geocode_address', 20, 2);
+
+/**
+ * Make sure date_end is populated — set to date_start if empty
+ */
+function check_dates($post_id) {
+  if (empty($_POST['_cmb2_date_start'])) return;
+  $date_start = $_POST['_cmb2_date_start'];
+  $date_end = $_POST['_cmb2_date_end'];
+  if (empty($date_end['date'])) {
+    $_POST['_cmb2_date_end'] = $_POST['_cmb2_date_start'];
+  }
+}
+add_action('save_post_event', __NAMESPACE__ . '\\check_dates', 20, 1);
