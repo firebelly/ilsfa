@@ -16,7 +16,7 @@ function metaboxes() {
     'id'            => $prefix . 'page_intro',
     'title'         => esc_html__( 'Page Intro', 'cmb2' ),
     'object_types'  => ['page'],
-    'context'       => 'normal',
+    'context'       => 'top',
     'priority'      => 'high',
   ]);
   $page_intro->add_field([
@@ -53,6 +53,7 @@ function metaboxes() {
     ],
   ]);
 
+
   /**
     * Homepage fields
     */
@@ -68,7 +69,7 @@ function metaboxes() {
     'id'              => $prefix . 'overview_blocks',
     'type'            => 'group',
     'options'         => [
-      'group_title'   => __( 'Block {#}', 'cmb2' ),
+      'group_title'   => __( 'Overview Block {#}', 'cmb2' ),
       'add_button'    => __( 'Add Another Block', 'cmb2' ),
       'remove_button' => __( 'Remove Block', 'cmb2' ),
       'sortable'      => true,
@@ -100,7 +101,7 @@ function metaboxes() {
     'id'              => $prefix . 'highlight_blocks',
     'type'            => 'group',
     'options'         => [
-      'group_title'   => __( 'Block {#}', 'cmb2' ),
+      'group_title'   => __( 'Highlight Block {#}', 'cmb2' ),
       'add_button'    => __( 'Add Another Block', 'cmb2' ),
       'remove_button' => __( 'Remove Block', 'cmb2' ),
       'sortable'      => true,
@@ -132,11 +133,16 @@ function metaboxes() {
     'context'       => 'normal',
     'priority'      => 'high',
   ]);
+  $homepage_action_blocks->add_field([
+    'name' => esc_html__( 'Image Background', 'cmb2' ),
+    'id'   => $prefix .'image_background',
+    'type' => 'file',
+  ]);
   $group_field_id = $homepage_action_blocks->add_field([
     'id'              => $prefix . 'action_blocks',
     'type'            => 'group',
     'options'         => [
-      'group_title'   => __( 'Block {#}', 'cmb2' ),
+      'group_title'   => __( 'Action Block {#}', 'cmb2' ),
       'add_button'    => __( 'Add Another Block', 'cmb2' ),
       'remove_button' => __( 'Remove Block', 'cmb2' ),
       'sortable'      => true,
@@ -173,27 +179,43 @@ function metaboxes() {
     'desc' => 'If set, will disable block and show this text in the button, e.g. "Coming April"',
   ]);
 
+
   /**
     * For IL Residents fields
     */
-  // $residents_fields = new_cmb2_box([
-  //   'id'            => 'secondary_content',
-  //   'title'         => __( 'For Residents', 'cmb2' ),
-  //   'object_types'  => ['page'],
-  //   'context'       => 'normal',
-  //   'show_slugs'    => array('for-il-residents'),
-  //   'show_on_cb'    => '\Firebelly\CMB2\show_for_slugs',
-  //   'priority'      => 'high',
-  //   'show_names'    => true,
-  // ]);
-  // $residents_fields->add_field([
-  //   'name' => esc_html__( 'Supporting Statement', 'cmb2' ),
-  //   'id'   => $prefix .'intro_supporting_statement',
-  //   'type' => 'wysiwyg',
-  //   'options' => [
-  //     'textarea_rows' => 8,
-  //   ],
-  // ]);
+  $residents_fields = new_cmb2_box([
+    'id'            => $prefix . 'resident_fields',
+    'title'         => __( 'Elibility Blocks', 'cmb2' ),
+    'object_types'  => ['page'],
+    'context'       => 'normal',
+    'show_slugs'    => array('for-il-residents'),
+    'show_on_cb'    => '\Firebelly\CMB2\show_for_slugs',
+    'priority'      => 'high',
+    'show_names'    => true,
+  ]);
+  $group_field_id = $residents_fields->add_field([
+    'id'              => $prefix . 'eligibility_blocks',
+    'type'            => 'group',
+    'options'         => [
+      'group_title'   => __( 'Elibility Block {#}', 'cmb2' ),
+      'add_button'    => __( 'Add Another Block', 'cmb2' ),
+      'remove_button' => __( 'Remove Block', 'cmb2' ),
+      'sortable'      => true,
+    ],
+  ]);
+  $residents_fields->add_group_field( $group_field_id, [
+    'name' => 'Headline',
+    'id'   => 'headline',
+    'type' => 'text',
+  ]);
+  $residents_fields->add_group_field( $group_field_id, [
+    'name' => 'Body',
+    'id'   => 'body',
+    'type' => 'wysiwyg',
+    'options' => [
+      'textarea_rows' => 6,
+    ],
+  ]);
 
   /**
     * For Vendors fields
@@ -225,7 +247,14 @@ function sanitize_text_callback( $value, $field_args, $field ) {
 }
 
 // Remove page body support
-add_action('init', __NAMESPACE__ . '\\init_remove_support',100);
-function init_remove_support() {
-   remove_post_type_support( 'page', 'editor');
-}
+// add_action('init', __NAMESPACE__ . '\\init_remove_support',100);
+// function init_remove_support() {
+//    remove_post_type_support( 'page', 'editor');
+// }
+
+// Create 'top' section and move that to the top
+add_action('edit_form_after_title', function() {
+  global $post, $wp_meta_boxes;
+  do_meta_boxes(get_current_screen(), 'top', $post);
+  unset($wp_meta_boxes[get_post_type($post)]['top']);
+});
