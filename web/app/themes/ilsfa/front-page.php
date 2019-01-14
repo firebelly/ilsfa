@@ -99,6 +99,10 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
         </li>
       <?php endforeach; ?>
       </ul>
+
+      <div class="actions">
+        <a href="/events/" class="button">All Events</a>
+      </div>
     <?php endif; ?>
   </div>
 
@@ -113,6 +117,9 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
         </li>
       <?php endforeach; ?>
       </ul>
+
+      <div class="actions">
+        <a href="/announcements/" class="button">All Announcements</a>
       </div>
     <?php endif; ?>
   </div>
