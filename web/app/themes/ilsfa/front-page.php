@@ -17,8 +17,8 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
 ?>
 
 <header class="page-header-homepage">
-  <div class="banner-image-wrap">
-    <div class="banner-image" <?= \Firebelly\Media\get_header_bg($post) ?>></div>
+  <div class="image-wrap">
+    <div class="image" <?= \Firebelly\Media\get_header_bg($post) ?>></div>
   </div>
   <h2 class="page-title"><?= nl2br($intro_title); ?></h2>
 </header>
@@ -35,7 +35,7 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
     <?php foreach (unserialize($post_meta['_cmb2_overview_blocks'][0]) as $block): ?>
       <li class="grid">
         <div class="grid-item one-half">
-          <div class="image-wrap inset-shadow">
+          <div class="image-wrap -inset-shadow -expanded">
             <div class="image" <?= \Firebelly\Media\get_header_bg($block['image_id'], ['size' => 'large']) ?>></div>
           </div>
         </div>
@@ -70,7 +70,7 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
 <?php if (!empty($post_meta['_cmb2_action_blocks'])): ?>
   <div class="cards-image-block action-blocks">
     <h2 class="h1">What you can do</h2>
-    <ul class="cards">
+    <ul class="cards compact-grid">
     <?php foreach (unserialize($post_meta['_cmb2_action_blocks'][0]) as $block): ?>
         <li<?= !empty($block['disabled_text']) ? ' class="inactive"' : '' ?>>
           <h4><?= $block['subhead'] ?></h4>
