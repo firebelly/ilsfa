@@ -221,6 +221,7 @@ gulp.task('images', function() {
   return gulp.src(globs.images)
     .pipe(imagemin([
       imagemin.svgo({plugins: [
+        {removeUselessStrokeAndFill: true},
         {removeUnknownsAndDefaults: false},
         {cleanupIDs: false}
       ]})

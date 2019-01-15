@@ -41,8 +41,8 @@ function metaboxes() {
   ]);
   $program_info->add_field([
     'name'      => 'Stat Label',
-    'id'        => $prefix . 'stat',
-    'type'      => 'text',
+    'id'        => $prefix . 'stat_label',
+    'type'      => 'textarea_small',
     // 'desc'      => '',
   ]);
   $program_info->add_field([
@@ -162,7 +162,7 @@ function metaboxes() {
     ],
   ]);
   $group_field_id = $vendors_tools->add_field([
-    'id'              => $prefix .'intro_links',
+    'id'              => $prefix .'vendors_tools',
     'type'            => 'group',
     'options'         => [
       'group_title'   => __( 'Vendor/Tool {#}', 'cmb2' ),
