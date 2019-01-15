@@ -15,14 +15,18 @@ function metaboxes() {
   $page_intro = new_cmb2_box([
     'id'            => $prefix . 'page_intro',
     'title'         => esc_html__( 'Page Intro', 'cmb2' ),
-    'object_types'  => ['page'],
+    'object_types'  => ['page','program'],
     'context'       => 'top',
     'priority'      => 'high',
   ]);
   $page_intro->add_field([
     'name' => esc_html__( 'Intro Title', 'cmb2' ),
     'id'   => $prefix .'intro_title',
-    'type' => 'textarea_small',
+    'type' => 'textarea',
+    'attributes' => [
+      'rows' => '2'
+    ],
+    'desc' => 'If left blank, uses post title',
   ]);
   $page_intro->add_field([
     'name' => esc_html__( 'Supporting Statement', 'cmb2' ),
@@ -216,28 +220,53 @@ function metaboxes() {
       'textarea_rows' => 6,
     ],
   ]);
+  $residents_fields->add_field([
+    'name' => esc_html__( 'Programs Image Background', 'cmb2' ),
+    'id'   => $prefix .'programs_background',
+    'type' => 'file',
+  ]);
 
-  /**
+    /**
     * For Vendors fields
     */
-  // $residents_fields = new_cmb2_box([
-  //   'id'            => 'secondary_content',
-  //   'title'         => __( 'For Vendors', 'cmb2' ),
-  //   'object_types'  => ['page'],
-  //   'context'       => 'normal',
-  //   'show_slugs'    => array('for-vendors'),
-  //   'show_on_cb'    => '\Firebelly\CMB2\show_for_slugs',
-  //   'priority'      => 'high',
-  //   'show_names'    => true,
-  // ]);
-  // $residents_fields->add_field([
-  //   'name' => esc_html__( 'Supporting Statement', 'cmb2' ),
-  //   'id'   => $prefix .'intro_supporting_statement',
-  //   'type' => 'wysiwyg',
-  //   'options' => [
-  //     'textarea_rows' => 8,
-  //   ],
-  // ]);
+  $vendor_fields = new_cmb2_box([
+    'id'            => $prefix . 'vendor_fields',
+    'title'         => __( 'Vendor Requirements', 'cmb2' ),
+    'object_types'  => ['page'],
+    'context'       => 'normal',
+    'show_slugs'    => array('for-vendors'),
+    'show_on_cb'    => '\Firebelly\CMB2\show_for_slugs',
+    'priority'      => 'high',
+    'show_names'    => true,
+  ]);
+  $vendor_fields->add_field([
+    'name' => esc_html__( 'Image Background', 'cmb2' ),
+    'id'   => $prefix .'vendor_requirements_background',
+    'type' => 'file',
+  ]);
+  $group_field_id = $vendor_fields->add_field([
+    'id'              => $prefix . 'vendor_requirements_blocks',
+    'type'            => 'group',
+    'options'         => [
+      'group_title'   => __( 'Vendor Requirement {#}', 'cmb2' ),
+      'add_button'    => __( 'Add Another Block', 'cmb2' ),
+      'remove_button' => __( 'Remove Block', 'cmb2' ),
+      'sortable'      => true,
+    ],
+  ]);
+  $vendor_fields->add_group_field( $group_field_id, [
+    'name' => 'Headline',
+    'id'   => 'headline',
+    'type' => 'text',
+  ]);
+  $vendor_fields->add_group_field( $group_field_id, [
+    'name' => 'Body',
+    'id'   => 'body',
+    'type' => 'wysiwyg',
+    'options' => [
+      'textarea_rows' => 6,
+    ],
+  ]);
 
 }
 
@@ -252,7 +281,7 @@ function sanitize_text_callback( $value, $field_args, $field ) {
 //    remove_post_type_support( 'page', 'editor');
 // }
 
-// Create 'top' section and move that to the top
+// Create 'top' section for metaboxes and move that to the top of admin edit page (above body)
 add_action('edit_form_after_title', function() {
   global $post, $wp_meta_boxes;
   do_meta_boxes(get_current_screen(), 'top', $post);
