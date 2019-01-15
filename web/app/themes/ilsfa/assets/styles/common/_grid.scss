@@ -22,10 +22,21 @@ $column-width: 100% / $global-columns;
   @return $mobile-grid * $num;
 }
 
+// Common padding
+@mixin global-padding($desktop-padding:12, $desktop-parent-columns:$global-columns) {
+  padding: $mobile-global-padding;
+
+  // Desktop styles
+  @include media-md {
+    padding: grid($desktop-padding) columns(2, $desktop-parent-columns);
+  }
+}
+
+// Global flexbox grid styles
 .grid {
   width: 100%;
   display: block;
-  @include min-screen($breakpoint-medium) {
+  @include min-screen($breakpoint-md) {
     display: flex;
     flex-wrap: wrap;
   }
@@ -56,7 +67,7 @@ $column-width: 100% / $global-columns;
   }
 }
 
-@include min-screen($breakpoint-medium) {
+@include min-screen($breakpoint-md) {
   .grid-item {
     flex-basis: auto;
   }

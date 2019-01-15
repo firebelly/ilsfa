@@ -13,13 +13,13 @@
     }
 
     // Homepage image banner gets different treatment (inset shadow, no margins)
-    .banner-image-wrap {
+    .image-wrap {
       @extend %inset-shadow;
       // Mobile only
-      @include max-screen($breakpoint-medium) {
+      @include max-screen($breakpoint-md) {
         height: 50vh;
         max-height: 430px;
-        .banner-image {
+        .image {
           padding: 0;
           height: auto;
           position: absolute;
@@ -38,8 +38,8 @@
         bottom: grid(12);
         left: columns(2);
       }
-      .banner-image-wrap {
-        .banner-image {
+      .image-wrap {
+        .image {
           padding-bottom: 50%;
         }
       }
@@ -67,7 +67,7 @@
   .overview-blocks {
     >li {
       // Mobile-only styles
-      @include max-screen($breakpoint-medium) {
+      @include max-screen($breakpoint-md) {
         .image {
           @include aspect-ratio(320,160);
         }
@@ -192,55 +192,12 @@
 
 .cards-image-block {
   @include global-padding;
+  @extend %inset-shadow;
   // Default background
   background: url('../images/temp.jpg');
   background-size: cover;
   >h2 {
     margin: 0 0 grid(5);
     color: $white;
-  }
-}
-
-.cards {
-  >li {
-    >h4 {
-      margin: 0;
-    }
-    position: relative;
-    border-radius: grid(1);
-    padding: grid(3) grid(4);
-    margin: 0 0 grid(2);
-    background: $white;
-    h3 {
-      color: $blurple;
-      a {
-        color: $blurple;
-        text-decoration: none;
-      }
-    }
-    .button:not(.icon) {
-      margin-top: grid(2);
-      width: 100%;
-      min-width: 0;
-    }
-
-    &.inactive {
-      background: $blurple-lite;
-      h3 {
-        color: $blurple-dark;
-      }
-      .button {
-        background: $blurple-lite;
-      }
-    }
-  }
-
-  // Desktop styles
-  @include media-md {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 33.3%);
-    align-items: flex-start;
-    grid-column-gap: grid(2);
-    grid-row-gap: grid(2);
   }
 }

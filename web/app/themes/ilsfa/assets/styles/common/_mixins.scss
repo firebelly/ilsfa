@@ -21,6 +21,12 @@
   }
 }
 
+@mixin vertical-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 // Screen reader only
 @mixin sr-only {
   position: absolute;
@@ -54,17 +60,17 @@
 
 // Responsive mixins by Andy Richardson (@andimal): https://github.com/andimal/sass-responsive-mixin-madness
 @mixin media-xs() {
-  @media screen and (max-width: $breakpoint-small - 1) {
+  @media screen and (max-width: $breakpoint-sm - 1) {
     @content;
   }
 }
 @mixin media-sm() {
-  @media screen and (min-width: $breakpoint-small) {
+  @media screen and (min-width: $breakpoint-sm) {
     @content;
   }
 }
 @mixin media-md() {
-  @media screen and (min-width: $breakpoint-medium) {
+  @media screen and (min-width: $breakpoint-md) {
     @content;
   }
 }
@@ -74,7 +80,7 @@
   }
 }
 @mixin media-lg() {
-  @media screen and (min-width: $breakpoint-large) {
+  @media screen and (min-width: $breakpoint-lg) {
     @content;
   }
 }

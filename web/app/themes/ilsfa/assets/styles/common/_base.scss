@@ -78,3 +78,10 @@ address {
 .page-content {
   @include global-padding(6);
 }
+
+// Default svg icon sizes
+svg.icon {
+  width: 24px;
+  height: 24px;
+  fill: $blurple-dark;
+}

@@ -16,6 +16,10 @@ $red: #E04E22;
 $transition-duration: 0.1s;
 $transition-easing: ease-in-out;
 
+// Custom cubic easings
+$cubic-ease1: cubic-bezier(0.77, 0, 0.175, 1);
+$cubic-ease2: cubic-bezier(0.165, 0.84, 0.44, 1);
+
 // Brand Swatches
 $brand-primary: $blurple-dark;
 $brand-secondary: $yellow;
@@ -23,8 +27,8 @@ $brand-tertiary: $green;
 $brand-quaternary: $red;
 
 // Breakpoints
-$breakpoint-small: 480px;
-$breakpoint-medium: 920px;
-$breakpoint-large: 1000px;
-$breakpoint-huge: 1200px;
+$breakpoint-sm: 480px;
+$breakpoint-md: 920px;
+$breakpoint-lg: 1000px;
+$breakpoint-xl: 1200px;
 $breakpoint-nav: 960px;

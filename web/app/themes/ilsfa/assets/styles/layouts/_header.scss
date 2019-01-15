@@ -1,0 +1,101 @@
+// Headers
+
+.page-header {
+  position: relative;
+
+  .title-wrap {
+    @include global-padding(12)
+    @include media-md {
+      padding: grid(12) columns(5) grid(2) columns(2);
+    }
+    background: $blurple;
+    color: $white;
+    h1 {
+      margin: 0;
+    }
+  }
+
+  .image-wrap {
+    padding: 0 $mobile-global-padding;
+    background-image: linear-gradient(to top, rgba(0,0,0,0) 50%, $blurple 50%);
+    @include media-md {
+      padding: 0 columns(2);
+    }
+  }
+
+  // Supporting statement
+  .supporting-statement {
+    @include global-padding(6);
+    p {
+      @include p2;
+    }
+
+    // Desktop styles
+    @include media-md {
+      p {
+        @include p1;
+      }
+    }
+  }
+}
+
+// Tertiary headers
+.page-header.tertiary {
+  .title-wrap {
+    @include media-md {
+      padding: grid(12) columns(5) grid(2) columns(2);
+    }
+  }
+  .supporting-statement {
+    padding: 0$mobile-global-padding;
+    background: $blurple;
+    color: $white;
+
+    @include media-md {
+      padding: grid(2) columns(5) grid(2) columns(2);
+    }
+  }
+}
+
+.image-wrap {
+  position: relative;
+  .image {
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+.image-wrap {
+  position: relative;
+  .image {
+    background-size: cover;
+    background-position: center;
+    height: 0;
+    padding-bottom: 43%;
+  }
+
+  &.-expanded {
+    height: 100%;
+    .image {
+      padding: 0;
+      height: auto;
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+
+    }
+  }
+}
+
+.jump-to {
+  background: $blurple;
+  @include global-padding(4);
+  @include h5;
+  svg {
+    vertical-align: middle;
+  }
+  @include media-md {
+  }
+}

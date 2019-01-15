@@ -1,24 +1,3 @@
-// Common padding
-@mixin global-padding($desktop-padding:12) {
-  padding: $mobile-global-padding;
-
-  // Desktop styles
-  @include media-md {
-    padding: grid($desktop-padding) columns(2);
-  }
-}
-
-// Browser alert
-.old-browser {
-  top: 0;
-  left: 0;
-  right: 0;
-  color: $white;
-  padding: 50px;
-  text-align: center;
-  background: $red;
-}
-
 // Utility classes
 .hidden,
 .hide {
@@ -60,7 +39,9 @@
 
 // Inset shadows for images
 @mixin inset-shadow {
+  position: relative;
   &::after {
+    pointer-events: none;
     content: "";
     position: absolute;
     top: 0;
@@ -70,7 +51,16 @@
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
   }
 }
-.inset-shadow,
+.-inset-shadow,
 %inset-shadow {
   @include inset-shadow;
+}
+
+// Global box-shadow style
+@mixin shadow($opacity:0.5) {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, $opacity);
+}
+.-shadow,
+%shadow {
+  @include shadow;
 }

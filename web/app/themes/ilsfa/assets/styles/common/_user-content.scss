@@ -23,7 +23,7 @@
   ul {}
 
   a {
-    text-decoration: underline;
+    border-bottom: 2px solid $blurple-dark;
   }
   .button a,
   a.button {

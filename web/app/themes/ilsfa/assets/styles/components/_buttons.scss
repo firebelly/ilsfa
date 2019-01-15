@@ -28,7 +28,9 @@
 
   @include max-screen($breakpoint-nav) {
     width: 100%;
-    margin-bottom: grid(2);
+    + .button {
+      margin-top: grid(2);
+    }
   }
 
   &.icon {

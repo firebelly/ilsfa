@@ -5,36 +5,37 @@
 // endbower
 
 // Reset
-@import "helpers/normalize";
+@import "common/normalize";
 
-// Helpers and Variables
-@import "helpers/animations";
-@import "helpers/variables";
-@import "helpers/mixins";
-@import "helpers/grid";
-@import "helpers/typography";
-@import "helpers/accessibility";
-@import "helpers/utility";
-@import "helpers/ie";
-
-// Vendor
+// Variables & Globals
+@import "common/variables";
+@import "common/mixins";
+@import "common/grid";
+@import "common/typography";
+@import "common/accessibility";
+@import "common/utility";
+@import "common/user-content";
+@import 'common/wp-classes';
+@import 'common/tinymce';
+@import "common/base";
 
 // Components
-@import "components/base";
 @import "components/buttons";
-@import "components/user-content";
-@import "components/header";
-@import "components/nav";
-@import "components/search";
 @import "components/forms";
-@import "components/footer";
+@import "components/cards";
+
+// Layout specifics
+@import "layouts/header";
+@import "layouts/nav";
+@import "layouts/footer";
+@import "layouts/search";
+// @import "layouts/pages";
+// @import "layouts/landing-pages";
+// @import "layouts/posts";
 
 // Pages
 @import "pages/home";
 @import "pages/for-il-residents";
-@import "pages/single-post";
-@import "pages/search-results";
-
-// WP specifics
-@import 'helpers/wp-classes';
-@import 'helpers/tinymce';
+@import "pages/for-vendors";
+@import "pages/programs";
+@import "pages/search";
