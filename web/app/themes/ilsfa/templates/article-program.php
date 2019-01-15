@@ -9,6 +9,5 @@ $post_image = \Firebelly\Media\get_header_bg($program_post, ['size' => 'medium']
   <h3><?= $program_post->post_title ?></h3>
   <ul class="details">
   </ul>
-
   <a class="button" href="<?= get_permalink($program_post) ?>">More</a>
 </article>
