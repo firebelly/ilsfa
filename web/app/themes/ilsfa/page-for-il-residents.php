@@ -36,13 +36,13 @@ get_template_part('templates/page', 'header');
 <?php // Program Blocks ?>
 <?php $programs = \Firebelly\PostTypes\Program\get_programs(['output' => 'array']); ?>
 <?php  if (!empty($programs)): ?>
-  <div class="cards-image-block programs">
+  <div class="cards-image-block programs" <?= !empty($post_meta['_cmb2_programs_background']) ? ' style="background-image: url('.$post_meta['_cmb2_programs_background'][0].')"' : '' ?>>
     <h2 class="h1">Programs</h2>
-    <ul class="cards">
+    <ul class="cards compact-grid">
     <?php foreach ($programs as $program): ?>
         <li>
           <h3><?= $program->post_title ?></h3>
-          <a href="<?= get_permalink($post) ?>" class="button">More</a>
+          <a href="<?= get_permalink($program) ?>" class="button">More</a>
         </li>
     <?php endforeach; ?>
     </ul>
