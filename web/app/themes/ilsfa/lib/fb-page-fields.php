@@ -38,18 +38,18 @@ function metaboxes() {
   ]);
 
   /**
-   * Page footer outro
+   * Page/Program footer outro
    */
   $page_footer_outro = new_cmb2_box([
     'id'            => $prefix . 'page_footer_outro',
     'title'         => __( 'Footer Outro', 'cmb2' ),
-    'object_types'  => ['page'],
+    'object_types'  => ['page','program'],
     'context'       => 'normal',
     'priority'      => 'default',
-    'show_names'    => true,
+    'show_names'    => false,
   ]);
   $page_footer_outro->add_field([
-    'name' => esc_html__( 'Intro Title', 'cmb2' ),
+    // 'name' => esc_html__( 'Body', 'cmb2' ),
     'id'   => $prefix .'footer_outro',
     'type' => 'wysiwyg',
     'options' => [

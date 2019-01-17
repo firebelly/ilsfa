@@ -16,6 +16,7 @@ function metaboxes() {
     'object_types'  => ['post', 'program'],
     'context'       => 'normal',
     'priority'      => 'high',
+    'show_names'    => false,
   ]);
   $resources->add_field([
     'name'      => 'Resources',
