@@ -11,17 +11,6 @@
     }
   }
 
-  h2,h3 {
-    color: $blurple;
-  }
-
-  a.button {
-    margin-right: grid(1);
-  }
-
-  ol,
-  ul {}
-
   a {
     border-bottom: 2px solid $blurple-dark;
   }
@@ -29,6 +18,27 @@
   a.button {
     text-decoration: none;
   }
+
+  h2,h3 {
+    color: $blurple;
+    a {
+      border: none;
+    }
+  }
+
+  a.button {
+    margin-right: grid(1);
+  }
+
+  // Small paragraph block style
+  .p3 {
+    p {
+      @extend %p3;
+    }
+  }
+
+  ol,
+  ul {}
 
   ol,
   ul {

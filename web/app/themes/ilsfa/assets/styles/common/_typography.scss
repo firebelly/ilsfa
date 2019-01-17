@@ -80,6 +80,7 @@ p.intro { @include p1; }
  line-height: 24px;
  letter-spacing: 0.47px;
 }
+%p3,
 .p3,
 p.p3,
 p.small {
@@ -127,6 +128,7 @@ h4 {
 // Basic paragraph styles
 address,
 p,
+%p2,
 .p2,
 figcaption {
   @include p3;

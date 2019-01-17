@@ -1,12 +1,13 @@
 body#tinymce {
   margin: 12px !important;
   a.button {
+    border: none;
   	display: inline-block;
   	width: auto;
   	margin: 0 0 10px;
   }
 }
-// Tinymce editing link styles
+// Tinymce editing a.button link styles
 .mce-content-body a.button[data-mce-selected],
 .mce-content-body .button a[data-mce-selected] {
   line-height: 1.4;
@@ -15,4 +16,11 @@ body#tinymce {
   border-radius: 16px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.25);
   background: #bfe6ff;
+}
+
+// Small paragraph block style
+.p3 {
+  p {
+    @extend %p3;
+  }
 }
