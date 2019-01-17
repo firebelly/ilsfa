@@ -17,10 +17,33 @@
 }
 
 body.search {
- .search-result {
- }
-  .pagination {
+  .page-header {
+    .title-wrap {
+      background: $blurple-dark;
+      @include media-md {
+        padding: grid(6) columns(5) grid(6) columns(2);
+      }
+    }
   }
-  .page-content .search-form {
+  .search-large {
+    background: $blurple;
+    @include global-padding(6);
+    .search-close {
+      display: none;
+    }
+  }
+
+  // Desktop styles
+  @include media-md {
+    .search-large {
+      .search-form {
+        width: columns(10, 16);
+      }
+    }
+    .page-content {
+      article {
+        width: columns(10, 16);
+      }
+    }
   }
 }

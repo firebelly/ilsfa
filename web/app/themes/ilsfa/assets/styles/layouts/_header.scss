@@ -6,7 +6,8 @@
   .title-wrap {
     @include global-padding(12)
     @include media-md {
-      padding: grid(12) columns(5) grid(2) columns(2);
+      // Override bottom padding
+      padding: grid(12) columns(5) grid(6) columns(2);
     }
     background: $blurple;
     color: $white;
@@ -43,7 +44,7 @@
 .page-header.tertiary {
   .title-wrap {
     @include media-md {
-      padding: grid(12) columns(5) grid(2) columns(2);
+      padding: grid(12) columns(5) grid(6) columns(2);
     }
   }
   .supporting-statement {
@@ -52,7 +53,8 @@
     color: $white;
 
     @include media-md {
-      padding: grid(2) columns(5) grid(2) columns(2);
+      margin-top: grid(-4); // todo: better handling of margins w/ optional secondary-statement + jump links
+      padding: grid(2) columns(5) grid(6) columns(2);
     }
   }
 }
