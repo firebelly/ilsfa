@@ -286,3 +286,23 @@ function check_dates($post_id) {
   }
 }
 add_action('save_post_event', __NAMESPACE__ . '\\check_dates', 20, 1);
+
+
+/**
+ * Show Edit Page link when viewing Events archive
+ */
+function custom_admin_bar() {
+  global $wp_admin_bar, $post;
+
+  // If workshop archive/taxonomy page, add Edit Page link to edit Upcoming Workshops post
+  if (!is_admin() && (is_post_type_archive('event'))) {
+    $event_post = get_page_by_title('Events');
+    $wp_admin_bar->add_menu( array(
+      'parent' => false,
+      'id' => 'edit',
+      'title' => 'Edit Page',
+      'href' => get_edit_post_link($event_post->ID),
+    ));
+  }
+}
+add_action('wp_before_admin_bar_render', __NAMESPACE__ . '\custom_admin_bar');
