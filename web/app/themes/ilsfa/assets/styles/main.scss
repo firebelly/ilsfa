@@ -23,19 +23,19 @@
 @import "components/buttons";
 @import "components/forms";
 @import "components/cards";
+@import "components/shared";
 
 // Layout specifics
 @import "layouts/header";
 @import "layouts/nav";
 @import "layouts/footer";
 @import "layouts/search";
-// @import "layouts/pages";
-// @import "layouts/landing-pages";
-// @import "layouts/posts";
 
 // Pages
 @import "pages/home";
 @import "pages/for-il-residents";
 @import "pages/for-vendors";
 @import "pages/programs";
+@import "pages/announcements";
+@import "pages/events";
 @import "pages/search";

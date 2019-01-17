@@ -1,0 +1,91 @@
+// Shared components
+
+// Wrappers around buttons
+.actions {
+  margin: grid(2) 0;
+}
+
+// Stats / Quotes
+.stat-content {
+  @include vertical-center;
+  grid-area: stat;
+  background: $blurple-lite;
+  text-align: center;
+  padding: grid(4) columns(1,6);
+  .stat {
+    dt {
+      @include h1;
+    }
+    dd {
+      margin-top: grid(1);
+      @include h4;
+    }
+  }
+}
+
+// Shared icon-list styles between ul.requirements (programs listing), ul.contact-items (single programs), ul.details (event listing)
+ul.icon-list {
+  margin: grid(3) 0;
+  padding: 0;
+  outline-style: none;
+  li {
+    // Remove any user-content bullets
+    &::before {
+      display: none;
+    }
+    position: relative;
+    padding-left: grid(5);
+    @include p3;
+    margin: grid(1) 0;
+    a {
+      border-bottom: 1px solid $blurple-dark;
+    }
+    svg {
+      position: absolute;
+      top: 2px;
+      left: 0;
+      fill: $red;
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &.-small {
+    li {
+      padding-left: grid(4);
+      @include h4;
+      svg {
+        top: 4px;
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+}
+
+// "Vendors & tools" section at bottom of single program
+ul.resources {
+  margin: grid(3) 0;
+  padding: 0;
+  list-style: none;
+  li {
+    margin: 0;
+    &::before {
+      display: none;
+    }
+    a {
+      border: none;
+      display: block;
+      position: relative;
+      color: $red;
+      @include h5;
+      padding: grid(2) grid(6) grid(2) 0;
+    }
+    svg {
+      position: absolute;
+      top: grid(2);
+      right: 0;
+      fill: $red;
+    }
+  }
+}
