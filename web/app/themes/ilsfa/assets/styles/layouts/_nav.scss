@@ -1,37 +1,5 @@
 // Primary nav
 
-$nav-height-mobile: 72px;
-$nav-height: 176px;
-$admin-bar-height-mobile: 46px;
-$admin-bar-height: 32px;
-
-// Shared with footer
-.brand {
-  @include p3;
-  font-weight: bold;
-  margin: 0;
-  padding: 0;
-  position: relative;
-  a {
-    color: $white;
-  }
-  svg {
-    position: absolute;
-    width: 56px;
-    height: 56px;
-    left: -76px;
-    top: 0;
-  }
-}
-
-.container {
-  margin-top: $nav-height-mobile;
-  @include media-nav {
-    // Space for fixed nav
-    margin-top: $nav-height;
-  }
-}
-
 // WP admin bar push
 .admin-bar {
   .site-header {
@@ -53,7 +21,7 @@ $admin-bar-height: 32px;
 
   .wrap {
     position: relative;
-    padding: grid(2) $mobile-global-padding;
+    margin: grid(2) $mobile-global-padding;
   }
 
   @include max-screen($breakpoint-nav) {
@@ -65,123 +33,212 @@ $admin-bar-height: 32px;
   width: 100%;
   z-index: 10;
 
+  // Logo + wordmark
+  .brand {
+    margin: 0;
+    padding: 0;
+    line-height: 40px;
+    a {
+      display: inline-block;
+    }
+    .logo-icon {
+      fill: $yellow;
+      width: 40px;
+      height: 40px;
+      vertical-align: middle;
+    }
+    .logo-wordmark-mobile {
+      width: 66px;
+      height: 28px;
+      fill: $white;
+      margin-left: 5px;
+      vertical-align: middle;
+    }
+    .logo-wordmark {
+      display: none;
+      fill: $white;
+      width: 283px;
+      height: 26px;
+      vertical-align: middle;
+    }
+  }
+
+  // Desktop styles
   @include media-nav {
     height: $nav-height;
     position: fixed;
     .wrap {
-      padding: grid(6) columns(2);
+      margin: grid(5) columns(2) grid(6);
     }
     .brand {
-      @include h2;
-      svg {
+      .logo-icon {
+        fill: $yellow;
+        position: absolute;
+        width: 56px;
+        height: 56px;
+        left: -74px;
+        top: -4px;
+      }
+      .logo-wordmark {
+        display: inline-block;
+      }
+      .logo-wordmark-mobile {
+        display: none;
       }
     }
   }
 }
 
-.site-nav {
-  a {
-    display: block;
+// Mobile menu toggle
+.menu-toggle {
+  display: none;
+  .icon-cross {
+    display: none;
   }
+}
 
+.site-nav {
   // Primary links
   .primary-nav {
     font: 18px/1.333 $font-regular;
-    letter-spacing: .25px;
+    letter-spacing: 0.07em;
+    margin-top: grid(3);
     a {
+      display: block;
       color: $yellow;
       padding: grid(1);
     }
+    a:hover,
+    li.active a {
+      color: $white;
+    }
+
+    // Divider class added in wp admin menus
     .divider {
-      margin-left: grid(1);
-      padding-left: grid(1);
-      position: relative;
-      &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 50%;
-        margin-top: -8px;
-        height: 16px;
-        border-left: 2px solid $white;
+      margin: grid(1) 0 0;
+      padding: grid(1) 0 0;
+      border-top: 2px solid $white;
+    }
+
+    @include media-nav {
+      white-space: nowrap;
+      .divider {
+        margin: 0 0 0 grid(1);
+        padding: 0 0 0 grid(1);
+        border: none;
+        position: relative;
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 50%;
+          margin-top: -8px;
+          height: 16px;
+          border-left: 2px solid $white;
+        }
       }
     }
   }
 
   // Utility links
   .utility-nav {
-    font: 16px/1.5 $font-regular;
-    letter-spacing: 0;
+    @extend %h5;
     a {
-      color: $white;
-      padding: grid(1);
-    }
-  }
-
-  background: $blurple-dark;
-
-  .logo-wordmark {
-    @include media-nav {
-    }
-  }
-
-  ul {
-    margin: 0 0 0 -#{grid(1)};
-    padding: 0;
-    li {
-      list-style: none;
-      display: inline-block;
-    }
-  }
-
-  @include min-screen($breakpoint-nav) {
-    // Show nav
-    ul {
       display: block;
+      color: $white;
+      padding: 5px 0 10px;
     }
-    #menu-utility-nav {
+    li.active a,
+    a:hover {
+      text-decoration: underline;
+    }
+    border-top: 2px solid $white;
+    padding: grid(2) 0 0;
+    margin: grid(2) 0 0;
+
+    // Desktop styles
+    @include media-nav {
       position: absolute;
-      top: grid(5);
-      right: columns(2);
+      top: 0;
+      right: 0;
+      font: 16px/1.5 $font-regular;
+      text-transform: none;
+      letter-spacing: 0;
+      margin: 0;
+      padding: 0;
+      border: none;
       a {
-        color: $white;
+        padding: grid(1);
       }
     }
   }
 
+  // Desktop styles
+  @include min-screen($breakpoint-nav) {
+    margin-top: grid(2.5);
+
+    ul {
+      display: block;
+      margin: 0 0 0 -#{grid(1)};
+      padding: 0;
+      li {
+        list-style: none;
+        display: inline-block;
+      }
+    }
+  }
 }
 
 // Search form in nav
 .nav-search {
-  height: 80px;
+  display: none;
+  margin-top: grid(2);
 
   @include media-nav {
-    height: auto;
-    float: right;
-    margin-right: $gutter;
-    padding-top: 24px;
-  }
-
-  .search-form {
-    input[type=search] {
-      &::placeholder {
-      }
-    }
-    // Go search button
-    .go-button {
-    }
-  }
-  // Close search button
-  .search-close {
-    display: block;
-    float: right;
-    width: 36px;
-    height: 36px;
-    svg {
+    margin: 0;
+    .search-form {
       position: absolute;
+      top: -12px;
+      right: 0;
+      width: 50%;
     }
-    &:hover svg {
+    .search-close {
+      position: absolute;
+      right: -70px;
+      top: 12px;
+      width: 48px;
+      height: 48px;
     }
+  }
+}
+
+// Search open/close
+body.search-open {
+  @include media-nav {
+    #menu-main-nav,
+    #menu-utility-nav {
+      display: none;
+    }
+    .nav-search {
+      display: block;
+    }
+    .search-toggle {
+      display: none;
+    }
+  }
+}
+
+// Icon in nav to toggle .nav-search
+.search-toggle {
+  display: none;
+  position: absolute;
+  right: -70px;
+  top: 0;
+  width: 48px;
+  height: 48px;
+
+  @include media-nav {
+    display: block;
   }
 }
 
@@ -195,42 +252,40 @@ $admin-bar-height: 32px;
   }
 }
 
-// Mobile menu toggle
-.menu-toggle {
-  position: absolute;
-  svg {
-  }
-
-  // Mobile nav is open: hide "Menu" and show "X" svg
-  &.menu-open {
-    span {
-      display: none;
-    }
-    svg {
-      display: block;
-    }
-  }
-
-  &:focus {
-    outline: none;
-  }
-
-  @include min-screen($breakpoint-nav) {
-    top: auto;
-    display: none;
-  }
-}
-
 // Mobile only styling on #menu-main-nav (using max-screen to avoid overwriting all these specific styles)
 @include max-screen($breakpoint-nav) {
-  ul#menu-main-nav {
+
+  .menu-toggle {
+    display: block;
+    position: absolute;
+    top: 8px;
+    right: 0;
+    svg {
+      fill: $yellow;
+      width: 24px;
+      height: 24px;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    @include min-screen($breakpoint-nav) {
+      top: auto;
+      display: none;
+    }
+  }
+
+  ul#menu-main-nav,
+  ul#menu-utility-nav {
     display: none;
+  }
+  ul#menu-main-nav {
     li {
       a {
         display: block;
-        line-height: 1.4;
-        padding: mobile-grid(2) 30px mobile-grid(1.5) 0;
-        border-top: 1px solid $white;
+        padding: grid(1) 0;
+        margin: 0;
       }
     }
     .menu-search {
@@ -242,25 +297,6 @@ $admin-bar-height: 32px;
       }
       .sub-menu {
           max-height: none;
-      }
-    }
-  }
-  .nav-search {
-    position: relative;
-    margin: 0 mobile-grid(3);
-    .search-form {
-      width: auto;
-      float: none;
-      margin: 0;
-      input[type=search] {
-        width: 100%;
-      }
-      .go-button {
-        position: absolute;
-        top: 0;
-        right: 0;
-        padding: 0;
-        width: mobile-grid(12);
       }
     }
   }
@@ -280,6 +316,16 @@ $admin-bar-height: 32px;
       display: none;
     }
 
+    // Show X button
+    .menu-toggle {
+      .icon-hamburger {
+        display: none;
+      }
+      .icon-cross {
+        display: block;
+      }
+    }
+
     .site-header {
       position: fixed;
       top: 0;
@@ -297,7 +343,8 @@ $admin-bar-height: 32px;
     &.admin-bar .site-header {
       padding-top: 46px;
     }
-    ul#menu-main-nav {
+    ul#menu-main-nav,
+    ul#menu-utility-nav {
       display: block;
     }
   }
