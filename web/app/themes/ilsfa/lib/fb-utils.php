@@ -82,7 +82,7 @@ function get_total_pages($category, $per_page) {
 
 /**
  * Support for sending vars to get_template_part()
- * e.g. \Firebelly\Utils\get_template_part_with_vars('templates/page', 'header', ['foo' => 'bar']);
+ * usage: \Firebelly\Utils\get_template_part_with_vars('templates/page', 'header', ['foo' => 'bar']);
  * (from https://github.com/JolekPress/Get-Template-Part-With-Variables)
  */
 function get_template_part_with_vars($slug, $name = null, array $namedVariables = []) {
@@ -120,10 +120,11 @@ function get_template_part_with_vars($slug, $name = null, array $namedVariables 
       continue;
     }
 
-    if (isset($$variableName)) {
-      trigger_error("{$variableName} already existed, probably set by WordPress, so it wasn't set to {$value} like you wanted. Instead it is set to: " . print_r($$variableName, true));
-      continue;
-    }
+    // Allowing var overrides to set $post, let's see if it causes issues –nate
+    // if (isset($$variableName)) {
+    //   trigger_error("{$variableName} already existed, probably set by WordPress, so it wasn't set to {$value} like you wanted. Instead it is set to: " . print_r($$variableName, true));
+    //   continue;
+    // }
 
     $$variableName = $value;
   }

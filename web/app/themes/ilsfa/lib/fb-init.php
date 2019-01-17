@@ -69,6 +69,11 @@ function simplify_tinymce($settings) {
       'block' => 'span',
       'classes' => 'button',
     ],
+    [
+      'title' => 'Small Paragraph',
+      'block' => 'div',
+      'classes' => 'p3',
+    ],
   ];
   $settings['style_formats'] = json_encode($style_formats);
 

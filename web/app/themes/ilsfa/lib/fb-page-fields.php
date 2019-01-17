@@ -15,7 +15,7 @@ function metaboxes() {
   $page_intro = new_cmb2_box([
     'id'            => $prefix . 'page_intro',
     'title'         => esc_html__( 'Page Intro', 'cmb2' ),
-    'object_types'  => ['page','program'],
+    'object_types'  => ['page','program','post'],
     'context'       => 'top',
     'priority'      => 'high',
   ]);
