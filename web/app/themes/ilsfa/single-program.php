@@ -120,9 +120,7 @@ get_template_part('templates/page', 'header-tertiary');
       <ul class="resources">
         <?php foreach (unserialize($post_meta['_cmb2_vendors_tools'][0]) as $vendor_tool): ?>
           <?php if (!empty($vendor_tool['resource'])): ?>
-            <?php foreach ($vendor_tool['resource'] as $id => $url): ?>
-              <li><a target="_blank" href="<?= $url ?>"><?= $vendor_tool['title'] ?> <svg class="icon icon-document" aria-hidden="true"><use xlink:href="#icon-document"/></svg></a></li>
-            <?php endforeach; ?>
+            <li><a target="_blank" href="<?= $vendor_tool['resource'] ?>"><?= $vendor_tool['title'] ?> <svg class="icon icon-document" aria-hidden="true"><use xlink:href="#icon-document"/></svg></a></li>
           <?php else: ?>
             <li><a target="_blank" href="<?= $vendor_tool['url'] ?>"><?= $vendor_tool['title'] ?> <svg class="icon icon-link" aria-hidden="true"><use xlink:href="#icon-link"/></svg></a></li>
           <?php endif ?>
