@@ -42,11 +42,13 @@
   // Desktop styles
   @include media-md {
     &.compact-grid {
+      li {
+        margin: 0;
+      }
       display: grid;
-      grid-template-columns: repeat(auto-fill, 33.3%);
-      align-items: flex-start;
-      grid-column-gap: grid(2);
-      grid-row-gap: grid(2);
+      grid-gap: grid(2);
+      grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+      grid-auto-rows: 1px;
     }
   }
 }
