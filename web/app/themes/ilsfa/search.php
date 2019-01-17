@@ -2,32 +2,22 @@
 global $wp_query;
 $total_results = $wp_query->found_posts;
 ?>
-<header class="page-header -wide -text-only">
-  <div class="page-intro">
-    <div class="grid">
-      <div class="page-titles">
-        <h3>Showing results for</h3>
-        <h1>&ldquo;<?= get_search_query() ?>&rdquo;</h1>
-      </div>
-    </div>
-
-    <div class="page-content grid">
-      <div class="one-half -left">
-        <?php if (have_posts()) : ?>
-          <h1><?= $total_results ?> Results Found</h1>
-        <?php else: ?>
-          <h1>No Results Found</h1>
-        <?php endif; ?>
-        <?= get_search_form() ?>
-      </div>
-      <div class="one-half -right">
-        <?php while (have_posts()) : the_post(); ?>
-          <?php get_template_part('templates/content', 'search'); ?>
-        <?php endwhile; ?>
-      </div>
-    </div>
+<header class="page-header tertiary">
+  <div class="title-wrap">
+    <h1 class="page-title"><?= $total_results ?> results for <br>&ldquo;<?= get_search_query() ?>&rdquo;</h1>
   </div>
+  <div class="jump-to hidden">Jump To <svg class="icon icon-arrow" aria-hidden="true"><use xlink:href="#icon-arrow"/></svg></div>
 </header>
+
+<div class="search-large">
+  <?= get_search_form() ?>
+</div>
+
+<div class="page-content">
+  <?php while (have_posts()) : the_post(); ?>
+    <?php \Firebelly\Utils\get_template_part_with_vars('templates/article', get_post_type(), [get_post_type().'_post' => $post]); ?>
+  <?php endwhile; ?>
+</div>
 
 <div class="column-wrap">
   <?= \Firebelly\Utils\pagination(); ?>
