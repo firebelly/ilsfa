@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "763e5882dd752e66bd611e206828f457",
+    "content-hash": "6e2d5d4cc4cc88755e38cdf066562cb9",
     "packages": [
         {
             "name": "composer/installers",
@@ -533,26 +533,6 @@
             "time": "2018-10-30T17:29:25+00:00"
         },
         {
-            "name": "wpackagist-plugin/block-lab",
-            "version": "1.1.1",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/block-lab/",
-                "reference": "trunk"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/block-lab.zip?timestamp=1545276421",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "composer/installers": "~1.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/block-lab/"
-        },
-        {
             "name": "wpackagist-plugin/cmb2",
             "version": "2.5.1",
             "source": {
@@ -611,6 +591,26 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/intuitive-custom-post-order/"
+        },
+        {
+            "name": "wpackagist-plugin/redirection",
+            "version": "3.7.2",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/redirection/",
+                "reference": "tags/3.7.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/redirection.3.7.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/redirection/"
         },
         {
             "name": "wpackagist-plugin/update-from-bottom",
@@ -731,6 +731,26 @@
                 "standards"
             ],
             "time": "2018-11-07T22:31:41+00:00"
+        },
+        {
+            "name": "wpackagist-plugin/block-lab",
+            "version": "1.1.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/block-lab/",
+                "reference": "trunk"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/block-lab.zip?timestamp=1545276421",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/block-lab/"
         }
     ],
     "aliases": [],
