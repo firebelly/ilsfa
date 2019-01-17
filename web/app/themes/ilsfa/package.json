@@ -38,6 +38,7 @@
     "gulp-if": "^2.0.1",
     "gulp-imagemin": "^3.0.3",
     "gulp-jshint": "^2.0.1",
+    "gulp-notify": "^3.2.0",
     "gulp-plumber": "^1.0.1",
     "gulp-rename": "^1.2.2",
     "gulp-rev": "^7.1.2",
