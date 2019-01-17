@@ -21,6 +21,7 @@ var uglify       = require('gulp-uglify');
 var rename       = require('gulp-rename');
 var svgstore     = require('gulp-svgstore');
 var svgmin       = require('gulp-svgmin');
+var notify       = require('gulp-notify');
 
 // See https://github.com/austinpray/asset-builder
 var manifest = require('asset-builder')('./assets/manifest.json');
@@ -119,7 +120,8 @@ var cssTasks = function(filename) {
       return gulpif(enabled.maps, sourcemaps.write('.', {
         sourceRoot: 'assets/styles/'
       }));
-    })();
+    })
+    .pipe(notify, {message: 'Styles smashed.', onLast: true})();
 };
 
 // ### JS processing pipeline
@@ -147,7 +149,8 @@ var jsTasks = function(filename) {
       return gulpif(enabled.maps, sourcemaps.write('.', {
         sourceRoot: 'assets/scripts/'
       }));
-    })();
+    })
+    .pipe(notify, {message: 'Scripts smashed.', onLast: true})();
 };
 
 // ### Write to rev manifest
