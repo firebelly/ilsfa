@@ -14,8 +14,8 @@ var FBSage = (function($) {
 
   function _init() {
     // Cache some common DOM queries
-    $body = $(window.body);
     $document = $(document);
+    $body = $(document.body);
 
     // DOM is loaded
     $body.addClass('loaded');
@@ -26,8 +26,8 @@ var FBSage = (function($) {
     // Fit them vids!
     $('main').fitVids();
 
-    // _initNav();
-    // _initSearch();
+    _initNav();
+    _initSearch();
     // _initLoadMore();
 
     // Esc handlers
@@ -85,45 +85,37 @@ var FBSage = (function($) {
   }
 
   function _initSearch() {
-    $('.search-form:not(.mobile-search) .search-submit').on('click', function (e) {
-      if ($('.search-form').hasClass('active')) {
-
-      } else {
-        e.preventDefault();
-        $('.search-form').addClass('active');
+    $('a.search-toggle').on('click', function (e) {
+      e.preventDefault();
+      $body.toggleClass('search-open');
+      if ($body.hasClass('search-open')) {
         $('.search-field:first').focus();
       }
     });
-    $('.search-form .close-button').on('click', function() {
+    $('a.search-close').on('click', function(e) {
+      e.preventDefault();
       _hideSearch();
-      _hideMobileNav();
     });
   }
 
   function _hideSearch() {
-    $('.search-form').removeClass('active');
+    $body.removeClass('search-open');
+    _hideMobileNav();
   }
 
   // Handles main nav
   function _initNav() {
-    // SEO-useless nav toggler
-    $('<div class="menu-toggle"><div class="menu-bar"><span class="sr-only">Menu</span></div></div>')
-      .prependTo('header.banner')
-      .on('click', function(e) {
-        _showMobileNav();
-      });
-    var mobileSearch = $('.search-form').clone().addClass('mobile-search');
-    mobileSearch.prependTo('.site-nav');
+    $('a.menu-toggle').on('click', _toggleMobileNav);
+    // var mobileSearch = $('.search-form').clone().addClass('mobile-search');
+    // mobileSearch.prependTo('.site-nav');
   }
 
-  function _showMobileNav() {
-    $('.menu-toggle').addClass('menu-open');
-    $('.site-nav').addClass('active');
+  function _toggleMobileNav() {
+    $body.toggleClass('menu-open');
   }
 
   function _hideMobileNav() {
-    $('.menu-toggle').removeClass('menu-open');
-    $('.site-nav').removeClass('active');
+    $body.removeClass('menu-open');
   }
 
   function _initLoadMore() {
