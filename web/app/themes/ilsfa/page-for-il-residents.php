@@ -40,10 +40,25 @@ get_template_part('templates/page', 'header');
     <h2 class="h1">Programs</h2>
     <ul class="cards compact-grid">
     <?php foreach ($programs as $program): ?>
-        <li>
-          <h3><?= $program->post_title ?></h3>
-          <a href="<?= get_permalink($program) ?>" class="button">More</a>
-        </li>
+      <?php $program_post_meta = get_post_meta($program->ID); ?>
+      <li>
+        <h3><?= $program->post_title ?></h3>
+        <ul class="icon-list requirements">
+          <?php foreach([
+            'income' => 'income_requirements',
+            'household-size' => 'household_size',
+            'install-cost' => 'installation_cost',
+            'savings' => 'savings',
+          ] as $requirement_icon => $requirement): ?>
+
+            <?php if (!empty($program_post_meta['_cmb2_'.$requirement])): ?>
+              <li><svg class="icon icon-<?= $requirement_icon ?>" aria-hidden="true"><use xlink:href="#icon-<?= $requirement_icon ?>"/></svg><?= $program_post_meta['_cmb2_'.$requirement][0] ?></li>
+            <?php endif; ?>
+
+          <?php endforeach; ?>
+        </ul>
+        <a href="<?= get_permalink($program) ?>" class="button">More</a>
+      </li>
     <?php endforeach; ?>
     </ul>
   </div>
