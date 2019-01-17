@@ -16,7 +16,8 @@
   }
   .button a,
   a.button {
-    text-decoration: none;
+    border: none;
+    margin-right: grid(1);
   }
 
   h2,h3 {
@@ -24,10 +25,6 @@
     a {
       border: none;
     }
-  }
-
-  a.button {
-    margin-right: grid(1);
   }
 
   // Small paragraph block style
