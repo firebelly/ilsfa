@@ -10,19 +10,32 @@ function metaboxes() {
   $prefix = '_cmb2_';
 
   // Resources attached to posts (aka Announcements)
-  $resources = new_cmb2_box([
+  $post_resources = new_cmb2_box([
     'id'            => $prefix . 'post_resources',
-    'title'         => __( 'Downloadable Resources and Videos', 'cmb2' ),
-    'object_types'  => ['post', 'program'],
+    'title'         => esc_html__( 'Downloadable Resources and Videos', 'cmb2' ),
+    'object_types'  => ['post'],
     'context'       => 'normal',
     'priority'      => 'high',
-    'show_names'    => false,
   ]);
-  $resources->add_field([
-    'name'      => 'Resources',
-    'id'        => $prefix . 'resources',
-    'type'      => 'file_list',
-    'desc'      => 'Associated files and videos shown at bottom of posts',
+  $group_field_id = $post_resources->add_field([
+    'id'              => $prefix .'post_resources',
+    'type'            => 'group',
+    'options'         => [
+      'group_title'   => __( 'Resource {#}', 'cmb2' ),
+      'add_button'    => __( 'Add Another Resource', 'cmb2' ),
+      'remove_button' => __( 'Remove Resource', 'cmb2' ),
+      'sortable'      => true,
+    ],
+  ]);
+  $post_resources->add_group_field( $group_field_id, [
+    'name' => 'Title',
+    'id'   => 'title',
+    'type' => 'text',
+  ]);
+  $post_resources->add_group_field( $group_field_id, [
+    'name' => 'Resource/Video',
+    'id'   => 'file',
+    'type' => 'file',
   ]);
 
   // $post_is_featured = new_cmb2_box([

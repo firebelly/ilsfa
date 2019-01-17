@@ -55,6 +55,16 @@
     }
   }
 
+  // Contact us
+  ul.contact-items {
+    address {
+      @include h4;
+      span {
+        display: block;
+      }
+    }
+  }
+
   // Vendors & Tools
   .contact-vendors-tools {
     .contact {
@@ -73,95 +83,12 @@
         margin-bottom: grid(2);
       }
     }
-  }
-}
-
-
-// Stats shown in program listings
-ul.requirements {
-
-
-}
-
-// Stats / Quotes
-.stat-content {
-  @include vertical-center;
-  grid-area: stat;
-  background: $blurple-lite;
-  text-align: center;
-  padding: grid(4) columns(1,6);
-  .stat {
-    dt {
-      @include h1;
-    }
-    dd {
-      margin-top: grid(1);
-      @include h4;
-    }
-  }
-}
-
-// Shared icon-list styles between ul.requirements (programs listing), ul.contact-items (single programs), ul.details (event listing)
-ul.icon-list {
-  margin: grid(3) 0;
-  li {
-    position: relative;
-    padding-left: grid(5);
-    @include p3;
-    margin: grid(1) 0;
-    a {
-      border-bottom: 1px solid $blurple-dark;
-    }
-    svg {
-      position: absolute;
-      top: 2px;
-      left: 0;
-      fill: $red;
-      width: 24px;
-      height: 24px;
-    }
-  }
-
-  &.-small {
-    li {
-      padding-left: grid(4);
-      @include h4;
-      svg {
-        top: 4px;
-        width: 16px;
-        height: 16px;
+    ul.resources {
+      li {
+        a {
+          border-top: 2px solid $blurple-dark;
+        }
       }
-    }
-  }
-}
-
-// "Contact us" section at bottom of single program
-ul.contact-items {
-  address {
-    @include h4;
-    span {
-      display: block;
-    }
-  }
-}
-
-// "Vendors & tools" section at bottom of single program
-ul.resources {
-  margin: grid(3) 0;
-  li {
-    a {
-      border-top: 2px solid $blurple-dark;
-      display: block;
-      position: relative;
-      color: $red;
-      @include h5;
-      padding: grid(2) grid(6) grid(2) 0;
-    }
-    svg {
-      position: absolute;
-      top: grid(2);
-      right: 0;
-      fill: $red;
     }
   }
 }

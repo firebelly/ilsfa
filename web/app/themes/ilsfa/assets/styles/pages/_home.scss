@@ -173,24 +173,24 @@
       color: $blurple;
       margin: 0;
     }
-    ul {
+    >ul {
       margin-top: grid(4);
-    }
-    li {
-      padding-bottom: grid(2);
-      margin-bottom: grid(2);
-      border-bottom: 2px solid $blurple-dark;
-      &:last-of-type {
-        border-bottom: none;
-      }
-      h3 {
-        &, a {
-          color: $red;
+      >li {
+        padding-bottom: grid(2);
+        margin-bottom: grid(2);
+        border-bottom: 2px solid $blurple-dark;
+        &:last-of-type {
+          border-bottom: none;
         }
-        margin: grid(2) 0 grid(1);
-      }
-      p {
-        @include p3;
+        h3 {
+          &, a {
+            color: $red;
+          }
+          margin: grid(2) 0 grid(1);
+        }
+        p {
+          @include p3;
+        }
       }
     }
   }

@@ -1,0 +1,35 @@
+// Announcements
+
+.entry-meta {
+  @extend %h4;
+}
+
+body.blog {
+  // Desktop styles
+  @include media-md {
+    .page-content {
+      article {
+        width: columns(10, 16);
+      }
+    }
+  }
+}
+
+// Announcement articles and single posts
+.single-post,
+.announcement {
+  // Custom icon-list
+  ul.icon-list {
+    li {
+      svg {
+        top: 0;
+      }
+      margin-bottom: grid(2);
+    }
+    a {
+      @extend %h5;
+      color: $red;
+      border: none;
+    }
+  }
+}
