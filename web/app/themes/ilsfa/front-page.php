@@ -113,7 +113,7 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
       <ul>
       <?php foreach ($announcements as $announcement): ?>
         <li>
-          <?php \Firebelly\Utils\get_template_part_with_vars('templates/article', 'announcement', ['announcement_post' => $announcement]); ?>
+          <?php \Firebelly\Utils\get_template_part_with_vars('templates/article', 'post', ['post' => $announcement, 'noresources' => true]); ?>
         </li>
       <?php endforeach; ?>
       </ul>
