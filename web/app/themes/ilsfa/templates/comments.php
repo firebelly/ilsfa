@@ -1,4 +1,5 @@
 <?php
+return; // hiding comments completely
 if (post_password_required()) {
   return;
 }
