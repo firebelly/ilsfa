@@ -22,7 +22,7 @@
     p {
       @include p3;
     }
-    .button:not(.icon) {
+    .button:not(.-icon) {
       margin-top: grid(2);
       width: 100%;
       min-width: 0;

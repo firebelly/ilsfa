@@ -1,8 +1,23 @@
 // Footer
 
+.footer-outro {
+  @include global-padding;
+  background: $blurple;
+  .user-content {
+    >h2 {
+      @extend %h1;
+    }
+    &,
+    h2,h3 {
+      color: $white;
+    }
+  }
+}
 .site-footer {
   background: $night;
   color: $white;
+  padding: grid(6) $mobile-global-padding grid(10) $mobile-global-padding;
+
   h3 {
     @include h5;
   }
@@ -15,27 +30,79 @@
       display: block;
     }
   }
-
-  .contact-items {
-    display: flex;
-    flex-wrap: wrap;
-    li {
-      flex: 1 0 200px;
-      padding-right: grid(2);
-    }
-  }
-
-  .orgs {
-  }
-
-  .contact {
+  li + li {
+    margin-top: grid(2);
   }
 
   // Desktop styles
   @include media-md {
     padding: grid(7) columns(2) grid(20) columns(2);
-    .contact-items {
-      margin-right: -#{columns(2,16)};
+  }
+
+  // Ilsfa logo svgs and IPA png
+  .orgs {
+    margin-bottom: grid(4);
+    .footer-brand {
+      .icon {
+        vertical-align: middle;
+      }
+      .logo-icon {
+        width: 48px;
+        height: 48px;
+      }
+      .logo-wordmark {
+        width: 160px;
+        height: 48;
+        margin-left: 12px;
+      }
+      svg {
+        fill: $white;
+      }
+    }
+    img {
+      display: block;
+      width: auto;
+      height: 45px;
+    }
+
+    @include media-md {
+      img {
+        margin-left: 60px;
+      }
     }
   }
+
+  // Address, phone, fax, etc
+  .contact-blocks {
+    margin: 0 -#{columns(2,16)} 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    li {
+      padding: 0 grid(2) 0 0;
+      flex: 1 0 200px;
+      + li {
+        margin: 0;
+      }
+    }
+    @include media-md {
+      li {
+        padding: 0 grid(2) grid(2) 0;
+      }
+    }
+  }
+
+  // Partner logo pngs
+  .partners {
+    h3 {
+      margin: grid(3) 0 grid(2);
+    }
+    li {
+      img {
+        display: block;
+        width: auto;
+        height: 24px;
+      }
+    }
+  }
+
 }
