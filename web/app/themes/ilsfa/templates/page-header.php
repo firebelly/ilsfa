@@ -25,7 +25,7 @@ $has_featured_image = empty($text_only) && has_post_thumbnail($post);
   <div class="title-wrap">
     <h1 class="page-title"><?= nl2br($intro_title); ?></h1>
   </div>
-  <div class="jump-to">Jump To <svg class="icon icon-arrow" aria-hidden="true"><use xlink:href="#icon-arrow"/></svg></div>
+  <div class="jump-to hidden">Jump To <svg class="icon icon-arrow" aria-hidden="true"><use xlink:href="#icon-arrow"/></svg></div>
   <?php if ($has_featured_image): ?>
     <div class="image-wrap">
       <div class="image -shadow" <?= \Firebelly\Media\get_header_bg($post) ?>></div>

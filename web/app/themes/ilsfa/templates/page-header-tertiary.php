@@ -21,5 +21,5 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
       <?= apply_filters('the_content', $post_meta['_cmb2_intro_supporting_statement'][0]) ?>
     </div>
   <?php endif; ?>
-  <div class="jump-to">Jump To <svg class="icon icon-arrow" aria-hidden="true"><use xlink:href="#icon-arrow"/></svg></div>
+  <div class="jump-to hidden">Jump To <svg class="icon icon-arrow" aria-hidden="true"><use xlink:href="#icon-arrow"/></svg></div>
 </header>
