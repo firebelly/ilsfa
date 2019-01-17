@@ -26,6 +26,12 @@ var FBSage = (function($) {
     // Fit them vids!
     $('main').fitVids();
 
+    // Compact grid js resizing (mini-masonry)
+    if ($('.compact-grid').length) {
+      _resizeGrids();
+      $(window).on('resize', FBSage.resizeGrids);
+    }
+
     _initNav();
     _initSearch();
     // _initLoadMore();
@@ -175,15 +181,30 @@ var FBSage = (function($) {
     breakpoint_large = (screenWidth > breakpoint_array[2]);
   }
 
-  // Called on scroll
-  // function _scroll(dir) {
-  //   var wintop = $(window).scrollTop();
-  // }
+  // Compact grid js resizing (mini-masonry)
+  function _resizeGrids() {
+    var $grid = $('.compact-grid');
+    if ($grid.length === 0) {
+      return;
+    }
+    var rowHeight = parseFloat($grid.css('grid-auto-rows'));
+    var rowGap = parseFloat($grid.css('grid-row-gap'));
+    $grid.css({
+      'grid-auto-rows': 'auto',
+      'align-items': 'self-start'
+    });
+    $grid.find('li').each(function(){
+      var t = Math.ceil((this.clientHeight + rowGap) / (rowHeight + rowGap));
+      this.style.gridRowEnd = 'span ' + t;
+    });
+    $grid.attr('style','');
+  }
 
   // Public functions
   return {
     init: _init,
     resize: _resize,
+    resizeGrids: _resizeGrids,
     scrollBody: function(section, duration, delay) {
       _scrollBody(section, duration, delay);
     }
