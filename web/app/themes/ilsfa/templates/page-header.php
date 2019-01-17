@@ -1,6 +1,11 @@
 <?php
 use Roots\Sage\Titles;
 
+// Pull 404 page for content areas
+if (is_404()) {
+  $post = get_page_by_path('/404-error/');
+}
+
 // Get all post_meta
 $post_meta = get_post_meta($post->ID);
 

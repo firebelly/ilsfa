@@ -8,6 +8,5 @@
       <button type="submit" class="button">Enter</button>
     </div>
   </div>
-  <svg class="icon icon-search search-open" aria-hidden="true"><use xlink:href="#icon-search"/></svg>
-  <svg class="icon icon-x hidden search-close" aria-hidden="true"><use xlink:href="#icon-x"/></svg>
+  <a class="search-close button -icon -round -small" href="#"><svg class="icon icon-cross" aria-hidden="true"><use xlink:href="#icon-cross"/></svg></a>
 </form>

@@ -1,22 +1,33 @@
+<?php
+// Check for footer_outro
+global $post_meta;
+$post_meta = !empty($post_meta) ? $post_meta : (!empty($post) && is_object($post) ? get_post_meta($post->ID) : []);
+if (!empty($post_meta['_cmb2_footer_outro'])): ?>
+<div class="footer-outro">
+  <div class="user-content">
+    <?= apply_filters('the_content', $post_meta['_cmb2_footer_outro'][0]) ?>
+  </div>
+</div>
+<?php endif; ?>
 <footer class="site-footer">
   <div class="wrap grid">
 
     <div class="grid-item one-half">
       <ul class="orgs">
-        <li>
-          <h1 class="brand"><a href="<?= esc_url(home_url('/')); ?>">
-            <svg class="icon icon-logo" aria-hidden="true"><use xlink:href="#icon-logo"/></svg>
-            <span class="name"><?= get_bloginfo('name'); ?></span>
-          </a></h1>
+        <li class="footer-brand">
+          <a href="<?= esc_url(home_url('/')); ?>">
+            <svg class="icon logo-icon" aria-hidden="true"><use xlink:href="#logo-icon"/></svg>
+            <svg title="<?= get_bloginfo('name'); ?>" class="icon logo-wordmark" aria-hidden="true"><use xlink:href="#logo-wordmark"/></svg>
+          </a>
         </li>
         <li>
-          IPA
+          <a href="#"><img alt="IPA logo" src="<?= \Roots\Sage\Assets\asset_path('images/logo-ipa.png'); ?>"></a>
         </li>
       </ul>
     </div>
 
     <div class="grid-item one-half contact">
-      <ul class="contact-items">
+      <ul class="contact-blocks">
         <li>
           <h3>Mailing Address</h3>
           <address class="vcard">
@@ -42,9 +53,9 @@
       <div class="partners">
         <h3>Our Partners</h3>
         <ul>
-          <li>Grid</li>
-          <li>AECOM</li>
-          <li>Shelton Solutions</li>
+          <li><a href="#"><img alt="Grid Alternatives logo" src="<?= \Roots\Sage\Assets\asset_path('images/logo-grid-alternatives.png'); ?>"></a></li>
+          <li><a href="#"><img alt="AECOM logo" src="<?= \Roots\Sage\Assets\asset_path('images/logo-aecom.png'); ?>"></a></li>
+          <li><a href="#"><img alt="Shelton Solutions logo" src="<?= \Roots\Sage\Assets\asset_path('images/logo-shelton-solutions.png'); ?>"></a></li>
         </ul>
       </div>
     </div>

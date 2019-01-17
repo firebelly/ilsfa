@@ -84,7 +84,7 @@ get_template_part('templates/page', 'header-tertiary');
       </div>
     <?php endif; ?>
 
-    <ul class="contact-items">
+    <ul class="icon-list contact-items -small">
       <li class="address-item">
         <svg class="icon icon-location" aria-hidden="true"><use xlink:href="#icon-location"/></svg>
         <address class="vcard">
