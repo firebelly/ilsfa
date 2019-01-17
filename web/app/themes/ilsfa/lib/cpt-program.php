@@ -185,7 +185,7 @@ function metaboxes() {
   $vendors_tools->add_group_field( $group_field_id, [
     'name' => 'Resource',
     'id'   => 'resource',
-    'type' => 'file_list',
+    'type' => 'file',
     'desc' => 'Use this field if link to downloadable resource',
   ]);
 }
