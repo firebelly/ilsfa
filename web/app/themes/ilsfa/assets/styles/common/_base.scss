@@ -68,11 +68,13 @@ address {
 }
 
 .container {
-  width: 100%;
-  margin: 0 auto;
-  padding: 0;
   position: relative;
   @include clearfix();
+  margin-top: $nav-height-mobile;
+  @include media-nav {
+    // Space for fixed nav
+    margin-top: $nav-height;
+  }
 }
 
 .page-content {
@@ -81,6 +83,7 @@ address {
 
 // Default svg icon sizes
 svg.icon {
+  display: inline-block;
   width: 24px;
   height: 24px;
   fill: $blurple-dark;
