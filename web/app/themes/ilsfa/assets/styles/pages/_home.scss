@@ -4,7 +4,7 @@
   .page-header-homepage {
     position: relative;
     .page-title {
-      @include h2;
+      @extend %h2;
       margin: 0;
       position: absolute;
       bottom: $mobile-global-padding;
@@ -146,12 +146,13 @@
         margin: 0 0 grid(2);
       }
     }
-    .details {
-      li {
-        padding-right: grid(6);
-      }
-    }
-    a.button.icon {
+    // Add padding to avoid (>) button?
+    // .details {
+    //   li {
+    //     padding-right: grid(6);
+    //   }
+    // }
+    a.button.-icon {
       position: absolute;
       bottom: grid(3);
       right: grid(3);
@@ -172,7 +173,12 @@
       color: $blurple;
       margin: 0;
     }
+    ul {
+      margin-top: grid(4);
+    }
     li {
+      padding-bottom: grid(2);
+      margin-bottom: grid(2);
       border-bottom: 2px solid $blurple-dark;
       &:last-of-type {
         border-bottom: none;

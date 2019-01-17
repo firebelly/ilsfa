@@ -8,46 +8,11 @@
     align-items: center;
   }
   .input-wrap {
-    flex: 2 1 auto;
+    flex: 1 1 auto;
   }
   .button-wrap {
-    flex: 0 1 70px;
+    flex: 0 1 130px;
     margin-left: grid(2);
-  }
-}
-
-// Search form in nav
-.nav-search {
-  display: none;
-  @include media-md {
-    .search-form {
-      position: absolute;
-      top: 0;
-      right: 70px;
-      width: 50%;
-
-      svg {
-        position: absolute;
-        top: 12px;
-        right: -70px;
-        width: 48px;
-        height: 48px;
-        border: 1px dashed $yellow;
-      }
-    }
-  }
-}
-
-// Search open/close
-body.search-open {
-  @include media-md {
-    #menu-main-nav,
-    #menu-utility-nav {
-      display: none;
-    }
-    .nav-search {
-      display: block;
-    }
   }
 }
 
