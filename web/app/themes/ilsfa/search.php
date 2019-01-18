@@ -15,7 +15,7 @@ $total_results = $wp_query->found_posts;
 
 <div class="page-content">
   <?php while (have_posts()) : the_post(); ?>
-    <?php \Firebelly\Utils\get_template_part_with_vars('templates/article', get_post_type(), [get_post_type().'_post' => $post]); ?>
+    <?php get_template_part('templates/article', 'search-result'); ?>
   <?php endwhile; ?>
 </div>
 

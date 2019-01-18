@@ -16,6 +16,7 @@
   }
 }
 
+// Search results
 body.search {
   .page-header {
     .title-wrap {
@@ -30,6 +31,21 @@ body.search {
     @include global-padding(6);
     .search-close {
       display: none;
+    }
+  }
+
+  article.search-result {
+    margin-bottom: grid(4);
+    h2 {
+      color: $blurple;
+      @extend %header-link;
+    }
+    .post-url {
+      margin: grid(1) 0;
+      a {
+        color: $red;
+        @extend %inline-link;
+      }
     }
   }
 

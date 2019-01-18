@@ -30,7 +30,22 @@
 %inline-link {
   @include inline-link;
 }
+@mixin header-link($hover_color:$green) {
+  a:not(.button) {
+    border-color: rgba(0,0,0,0);
+    &:hover,
+    &:focus {
+      color: $hover_color;
+      background: none;
+      box-shadow: none;
+      border-bottom: 2px solid $hover_color;
+    }
+  }
+}
 
+%header-link {
+  @include header-link;
+}
 // Clearfix
 @mixin clearfix {
   *zoom: 1;

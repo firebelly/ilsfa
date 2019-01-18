@@ -23,16 +23,7 @@
 
   h2,h3 {
     color: $blurple;
-    a:not(.button) {
-      border-color: rgba(0,0,0,0);
-      &:hover,
-      &:focus {
-        color: $green;
-        background: none;
-        box-shadow: none;
-        border-bottom: 2px solid $green;
-      }
-    }
+    @extend %header-link;
   }
 
   // Small paragraph block style
