@@ -110,7 +110,7 @@
     }
     a:hover,
     li.active a {
-      color: $white;
+      text-decoration: underline;
     }
 
     // Divider class added in wp admin menus

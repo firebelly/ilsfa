@@ -10,12 +10,16 @@ var FBSage = (function($) {
       breakpoint_array = [480,1000,1200],
       $body,
       $document,
+      $siteHeader,
+      $main,
       loadingTimer;
 
   function _init() {
     // Cache some common DOM queries
     $document = $(document);
     $body = $(document.body);
+    $siteHeader = $('header.site-header');
+    $main = $('main.main');
 
     // DOM is loaded
     $body.addClass('loaded');
@@ -111,9 +115,21 @@ var FBSage = (function($) {
 
   // Handles main nav
   function _initNav() {
+    // Toggle mobile nav
     $('a.menu-toggle').on('click', _toggleMobileNav);
-    // var mobileSearch = $('.search-form').clone().addClass('mobile-search');
-    // mobileSearch.prependTo('.site-nav');
+
+    // Waypoints
+    var waypoint = new Waypoint({
+      element: $main[0],
+      handler: function(direction) {
+        if (direction === 'down') {
+          $siteHeader.attr('class', 'site-header scroll-down');
+        }
+        else if (direction === 'up') {
+          $siteHeader.attr('class', 'site-header scroll-up');
+        }
+      }
+    });
   }
 
   function _toggleMobileNav() {

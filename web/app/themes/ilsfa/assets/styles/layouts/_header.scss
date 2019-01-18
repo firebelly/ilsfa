@@ -3,6 +3,7 @@
 .page-header {
   position: relative;
 
+  // Main title area (supporting-statement also sometimes)
   .title-wrap {
     @include global-padding(12)
     @include media-md {
@@ -16,6 +17,7 @@
     }
   }
 
+  // Header image-wraps
   .image-wrap {
     padding: 0 $mobile-global-padding;
     background-image: linear-gradient(to top, rgba(0,0,0,0) 50%, $blurple 50%);
@@ -66,14 +68,7 @@
   }
 }
 
-.image-wrap {
-  position: relative;
-  .image {
-    background-size: cover;
-    background-position: center;
-  }
-}
-
+// Aspect ratio image wraps
 .image-wrap {
   position: relative;
   .image {
@@ -83,6 +78,7 @@
     padding-bottom: 43%;
   }
 
+  // Expand image to container, remove aspect-ratio
   &.-expanded {
     height: 100%;
     .image {

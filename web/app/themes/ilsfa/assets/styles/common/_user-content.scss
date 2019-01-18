@@ -36,20 +36,31 @@
   ol,
   ul {
     @extend %p2;
-  }
-
-  blockquote {
-    margin: 0;
-    padding: $global-padding;
-    border-left: 2px solid $green;
-  }
-
-  ol,
-  ul {
     padding: 0 0 0 2.25em;
     li {
       margin: 0 0 grid(2);
     }
+  }
+  ol {
+    list-style: none;
+    li {
+      counter-increment: num;
+      position: relative;
+      &::before {
+        @extend %h4;
+        content: counter(num) ". ";
+        position: absolute;
+        top: 6px;
+        left: grid(-4);
+        color: $red;
+      }
+    }
+  }
+
+  blockquote {
+    margin: grid(4) 0;
+    padding: 0 $global-padding;
+    border-left: 2px solid $red;
   }
 
   // Smaller bullets than "disc" on lists
@@ -58,6 +69,7 @@
     position: relative;
     &:before {
       content: '•';
+      color: $red;
       display: block;
       position: absolute;
       left: -1.5em;

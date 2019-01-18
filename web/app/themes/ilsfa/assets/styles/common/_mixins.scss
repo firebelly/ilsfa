@@ -14,11 +14,13 @@
 
   &:hover,
   &:focus {
-    fill: $white;
-    color: $white;
-    border-color: $white;
+    color: $blurple-dark;
+    border-color: $blurple-dark;
     background-color: rgba($hover_color ,1);
     box-shadow: .2em .1em 0 rgba($hover_color ,1), -.2em .1em 0 rgba($hover_color ,1), -.2em 0 0 rgba($hover_color ,1), .2em 0 0 rgba($hover_color ,1);
+    svg {
+      fill: $blurple-dark;
+    }
   }
 }
 %inline-link {
@@ -26,13 +28,13 @@
 }
 @mixin header-link($hover_color:$green) {
   a:not(.button) {
-    border-color: rgba(0,0,0,0);
+    border: none;
     &:hover,
     &:focus {
       color: $hover_color;
       background: none;
       box-shadow: none;
-      border-bottom: 2px solid $hover_color;
+      border: none;
     }
   }
 }
