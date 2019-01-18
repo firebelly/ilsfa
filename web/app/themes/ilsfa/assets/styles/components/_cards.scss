@@ -17,6 +17,11 @@
       a {
         color: $blurple;
         text-decoration: none;
+        border-bottom: 2px solid rgba(0,0,0,0);
+        &:hover {
+          color: $green;
+          border-bottom: 2px solid $green;
+        }
       }
     }
     p {

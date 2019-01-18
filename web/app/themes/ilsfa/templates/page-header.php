@@ -21,7 +21,7 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
 $has_featured_image = empty($text_only) && has_post_thumbnail($post);
 ?>
 
-<header class="page-header <?= $has_featured_image ? 'has-image' : '' ?>">
+<header class="page-header<?= $has_featured_image ? ' has-image' : '' ?>">
   <div class="title-wrap">
     <h1 class="page-title"><?= nl2br($intro_title); ?></h1>
   </div>
@@ -32,7 +32,7 @@ $has_featured_image = empty($text_only) && has_post_thumbnail($post);
     </div>
   <?php endif ?>
   <?php if (!empty($post_meta['_cmb2_intro_supporting_statement'])): ?>
-    <div class="supporting-statement">
+    <div class="supporting-statement -white">
       <div class="user-content">
         <?= apply_filters('the_content', $post_meta['_cmb2_intro_supporting_statement'][0]) ?>
       </div>

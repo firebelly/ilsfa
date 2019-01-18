@@ -43,7 +43,15 @@
   }
 
   ol,
-  ul {}
+  ul {
+    @extend %p2;
+  }
+
+  blockquote {
+    margin: 0;
+    padding: $global-padding;
+    border-left: 2px solid $green;
+  }
 
   ol,
   ul {

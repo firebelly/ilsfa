@@ -44,7 +44,7 @@ get_template_part('templates/page', 'header');
     <?php foreach ($programs as $program): ?>
       <?php $program_post_meta = get_post_meta($program->ID); ?>
       <li>
-        <h3><?= $program->post_title ?></h3>
+        <h3><a href="<?= get_permalink($program) ?>"><?= $program->post_title ?></a></h3>
         <ul class="icon-list requirements">
           <?php foreach([
             'income' => 'income_requirements',

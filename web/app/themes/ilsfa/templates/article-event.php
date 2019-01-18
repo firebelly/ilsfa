@@ -9,7 +9,11 @@ $post_image = \Firebelly\Media\get_header_bg($event_post, ['size' => 'medium']);
   <?php if (!empty($post_image)): ?>
     <div class="image" <?= $post_image ?>></div>
   <?php endif; ?>
-  <h3><?= $event_post->post_title ?></h3>
+  <?php if (!empty($event_post_meta['_cmb2_event_url'])): ?>
+    <h3><a href="<?= $event_post_meta['_cmb2_event_url'][0] ?>"><?= $event_post->post_title ?></a></h3>
+  <?php else: ?>
+    <h3><?= $event_post->post_title ?></h3>
+  <?php endif; ?>
   <ul class="icon-list details -small">
     <li class="date">
       <svg class="icon icon-date" aria-hidden="true"><use xlink:href="#icon-date"/></svg>
