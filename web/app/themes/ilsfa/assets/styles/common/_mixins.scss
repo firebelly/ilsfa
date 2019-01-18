@@ -9,14 +9,8 @@
 
 // Inline link styles
 @mixin inline-link($hover_color:$green) {
-  z-index: 1;
   display: inline;
-  position: relative;
   background-color: rgba($hover_color, 0);
-
-  .icon {
-    fill: inherit;
-  }
 
   &:hover,
   &:focus {

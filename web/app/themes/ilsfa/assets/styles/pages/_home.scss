@@ -177,18 +177,18 @@
       margin: 0;
     }
     >ul {
-      margin-top: grid(4);
+      margin: grid(4) 0;
       >li {
-        padding-bottom: grid(2);
-        margin-bottom: grid(2);
-        border-bottom: 2px solid $blurple-dark;
-        &:last-of-type {
-          border-bottom: none;
+        & + li {
+          padding-top: grid(2);
+          margin-top: grid(2);
+          border-top: 2px solid $blurple-dark;
         }
         h3 {
           &, a {
             color: $red;
           }
+          @extend %header-link;
           margin: grid(2) 0 grid(1);
         }
         p {

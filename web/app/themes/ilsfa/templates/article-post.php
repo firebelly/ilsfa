@@ -7,11 +7,10 @@ $post_meta = get_post_meta($post->ID);
   <?php if (!empty($post_image)): ?>
     <div class="image" <?= $post_image ?>></div>
   <?php endif; ?>
-  <h3><a href="<?= get_permalink($post) ?>"><?= $post->post_title ?></a></h3>
+  <<?= empty($simple) ? 'h2' : 'h3' ?>><a href="<?= get_permalink($post) ?>"><?= $post->post_title ?></a></<?= empty($simple) ? 'h2' : 'h3' ?>>
   <p><?= \Firebelly\Utils\get_excerpt($post, 25) ?></p>
 
-
-  <?php if (empty($noresources)): ?>
+  <?php if (empty($simple)): ?>
     <?php \Firebelly\Utils\get_template_part_with_vars('templates/resources', 'list', ['post_meta' => $post_meta]); ?>
   <?php endif; ?>
 </article>

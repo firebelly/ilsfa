@@ -39,6 +39,11 @@ ul.icon-list {
     margin: grid(1) 0;
     a {
       border-bottom: 1px solid $blurple-dark;
+      &:hover {
+        svg {
+          fill: $green !important;
+        }
+      }
     }
     svg {
       position: absolute;

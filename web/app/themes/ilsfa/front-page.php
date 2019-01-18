@@ -76,7 +76,7 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
     <?php foreach (unserialize($post_meta['_cmb2_action_blocks'][0]) as $block): ?>
         <li<?= !empty($block['disabled_text']) ? ' class="inactive"' : '' ?>>
           <h4><?= $block['subhead'] ?></h4>
-          <h3><?= $block['header'] ?></h3>
+          <h3><?= !empty($block['url']) ? '<a href="'.$block['url'].'">' : '' ?><?= $block['header'] ?><?= !empty($block['url']) ? '</a>' : '' ?></h3>
           <?php if (!empty($block['disabled_text'])): ?>
             <a href="#" class="button disabled"><?= $block['disabled_text'] ?></a>
           <?php else: ?>
@@ -115,7 +115,7 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
       <ul>
       <?php foreach ($announcements as $announcement): ?>
         <li>
-          <?php \Firebelly\Utils\get_template_part_with_vars('templates/article', 'post', ['post' => $announcement, 'noresources' => true]); ?>
+          <?php \Firebelly\Utils\get_template_part_with_vars('templates/article', 'post', ['post' => $announcement, 'simple' => true]); ?>
         </li>
       <?php endforeach; ?>
       </ul>

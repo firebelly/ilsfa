@@ -11,6 +11,12 @@ body.blog {
   }
 }
 
+article.announcement + article.announcement {
+  margin-top: grid(6);
+  padding-top: grid(4);
+  border-top: 1px solid $blurple-dark;
+}
+
 // Announcement articles and single posts
 .single-post,
 .announcement {
