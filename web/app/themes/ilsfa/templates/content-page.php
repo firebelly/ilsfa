@@ -1,3 +1,5 @@
-<div class="page-content user-content">
-  <?php the_content(); ?>
+<div class="page-content">
+  <div class="user-content">
+    <?php the_content(); ?>
+  </div>
 </div>

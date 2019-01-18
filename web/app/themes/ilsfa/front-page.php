@@ -24,8 +24,10 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
 </header>
 
 <?php if (!empty($post_meta['_cmb2_intro_supporting_statement'])): ?>
-<div class="supporting-statement user-content">
-  <?= apply_filters('the_content', $post_meta['_cmb2_intro_supporting_statement'][0]) ?>
+<div class="supporting-statement">
+  <div class="user-content">
+    <?= apply_filters('the_content', $post_meta['_cmb2_intro_supporting_statement'][0]) ?>
+  </div>
 </div>
 <?php endif; ?>
 

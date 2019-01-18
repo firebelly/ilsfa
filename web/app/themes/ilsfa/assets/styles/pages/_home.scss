@@ -57,6 +57,9 @@
 
     // Desktop styles
     @include media-md {
+      .user-content {
+        width: columns(13,16);
+      }
       p {
         @include p1;
       }

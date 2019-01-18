@@ -32,8 +32,10 @@ get_template_part('templates/page', 'header-tertiary');
 
 <?php // Main content + featured image + stat ?>
 <div class="content-image-stat">
-  <div class="page-content user-content">
-    <?= apply_filters('the_content', $post->post_content); ?>
+  <div class="page-content">
+    <div class="user-content">
+      <?= apply_filters('the_content', $post->post_content); ?>
+    </div>
   </div>
 
   <div class="image-content">

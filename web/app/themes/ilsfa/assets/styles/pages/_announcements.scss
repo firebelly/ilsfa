@@ -4,14 +4,10 @@
   @extend %h4;
 }
 
+body.single-post,
 body.blog {
   // Desktop styles
   @include media-md {
-    .page-content {
-      article {
-        width: columns(10, 16);
-      }
-    }
   }
 }
 

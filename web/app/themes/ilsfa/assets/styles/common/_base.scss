@@ -79,6 +79,13 @@ address {
 
 .page-content {
   @include global-padding(6);
+
+  // First user-content div gets 10 columns on desktop
+  @include media-md {
+    >.user-content {
+      width: columns(10,16);
+    }
+  }
 }
 
 // Default svg icon sizes

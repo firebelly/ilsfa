@@ -7,6 +7,30 @@
   transition-timing-function: $transition-easing;
 }
 
+// Inline link styles
+@mixin inline-link($hover_color:$green) {
+  z-index: 1;
+  display: inline;
+  position: relative;
+  background-color: rgba($hover_color, 0);
+
+  .icon {
+    fill: inherit;
+  }
+
+  &:hover,
+  &:focus {
+    fill: $white;
+    color: $white;
+    border-color: $white;
+    background-color: rgba($hover_color ,1);
+    box-shadow: .2em .1em 0 rgba($hover_color ,1), -.2em .1em 0 rgba($hover_color ,1), -.2em 0 0 rgba($hover_color ,1), .2em 0 0 rgba($hover_color ,1);
+  }
+}
+%inline-link {
+  @include inline-link;
+}
+
 // Clearfix
 @mixin clearfix {
   *zoom: 1;

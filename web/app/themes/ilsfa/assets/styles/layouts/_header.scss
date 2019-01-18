@@ -33,6 +33,9 @@
 
     // Desktop styles
     @include media-md {
+      .user-content {
+        width: columns(13,16);
+      }
       p {
         @include p1;
       }
@@ -48,11 +51,12 @@
     }
   }
   .supporting-statement {
-    padding: 0$mobile-global-padding;
+    padding: $mobile-global-padding;
     background: $blurple;
     color: $white;
 
     @include media-md {
+      width: 100%;
       margin-top: grid(-4); // todo: better handling of margins w/ optional secondary-statement + jump links
       padding: grid(2) columns(5) grid(6) columns(2);
     }
