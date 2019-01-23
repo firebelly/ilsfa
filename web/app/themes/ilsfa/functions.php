@@ -28,6 +28,7 @@ $firebelly_includes = [
   'lib/fb-page-fields.php',        // Extra fields for pages
   'lib/fb-post-fields.php',        // Extra fields for posts + CPTs
   'lib/fb-site-options.php',       // Custom site options page for admin
+  'lib/fb-formassembly.php',       // FormAssembly barf
   'lib/cpt-program.php',           // Program CPT
   'lib/cpt-event.php',             // Event CPT
 ];

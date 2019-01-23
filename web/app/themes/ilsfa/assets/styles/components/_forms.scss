@@ -1,6 +1,7 @@
 // Forms
 
 form {
+  color: $blurple-dark;
 
   fieldset {
     margin: 0;
@@ -20,30 +21,33 @@ form {
     }
   }
 
+  // Input wraps w/ formassembly support
   .input-wrap {
     position: relative;
-    color: $blurple-dark;
-  }
 
-  .input-wrap.filled input,
-  input:focus {
-
-    + label {
-      top: 4px;
-      @include h5;
+    label:not(.radio) {
+      @include h4;
+      top: 22px;
+      left: $gutter;
+      position: absolute;
+      pointer-events: none;
+      @include transition(all);
     }
   }
 
-  label:not(.radio) {
-    @include h4;
-    top: 22px;
-    left: $gutter;
-    position: absolute;
-    pointer-events: none;
-    @include transition(all);
+  // Move label up when focused
+  .input-wrap.focused label,
+  .input-wrap.filled label,
+  input:focus + label {
+    top: 4px;
+    @include h5;
   }
 
-  input {
+  // Base input style
+  input[type=text],
+  input[type=search],
+  input[type=email],
+  input[type=number] {
     width: 100%;
     @include p2;
     border: none;
@@ -69,6 +73,13 @@ form {
   }
 
   // Custom radio styles
+
+  // <label class="control radio">
+  //   <input type="radio" name="foo" value="1">
+  //   <span class="control-indicator"></span>
+  //   <span class="control-text">Click me</span>
+  // </label>
+
   label.radio {
     display: block;
 
@@ -149,5 +160,31 @@ form {
     &:focus {
       outline: none;
     }
+  }
+}
+
+// formAssembly specific
+
+.formassembly-form {
+  form {
+    // Group headers
+    .oneField[role="group"] > label {
+      @extend %h3;
+      color: $white;
+    }
+    // List of radios from FormAssembly
+    .choices.vertical {
+      label {
+        display: inline-block;
+        color: $white;
+        margin: grid(1) 0 0 grid(1);
+      }
+    }
+    .primaryAction {
+      @extend %button;
+    }
+  }
+  .wFormFooter {
+    display: none;
   }
 }

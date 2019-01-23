@@ -71,13 +71,49 @@ var FBSage = (function($) {
 
   } // end init()
 
+  // Form behavior w/ support for FormAssembly
   function _initForms() {
-    $('form input, form textarea').on('blur', function() {
-      if($(this).val()!=='') {
-        $(this).parents('.input-wrap').addClass('filled');
-      } else {
-        $(this).parents('.input-wrap').removeClass('filled');
-      }
+    $('form').each(function() {
+      var $form = $(this);
+
+      // FormAssembly multiple radio/checkbox in vertical list
+      $form.find('.choices.vertical').each(function() {
+        var $this = $(this);
+        $this.find('input[type=checkbox]').before('<div class="control-indicator"></div>');
+      });
+      // Massage some various FA fields to get our styles
+      $('.formassembly-form .oneField:not([role=group])').addClass('input-wrap');
+      // Make required fields HTML5 required
+      $('.formassembly-form input.required').attr('required',true);
+      // Handle submit of form
+      $('.formassembly-form form').on('submit', function(e) {
+        return false;
+        e.preventDefault();
+        var $form = $(this);
+        $.ajax({
+          url: $form.attr('action'),
+          data: $form.serialize(),
+          crossDomain: 1,
+          method: 'POST',
+          dataType: 'json'
+        }).done(function(data) {
+            console.log(data);
+        }).fail(function() {
+          console.log('fail!');
+        });
+    });
+      // Add focused + filled classes for styling
+      $form.find('input,textarea').on('focus', function() {
+        $(this).parents('.input-wrap,.oneField').addClass('focused');
+      }).on('blur', function() {
+        var $this = $(this);
+        $this.parents('.input-wrap,.oneField').removeClass('focused');
+        if($this.val()!=='') {
+          $this.parents('.input-wrap,.oneField').addClass('filled');
+        } else {
+          $this.parents('.input-wrap,.oneField').removeClass('filled');
+        }
+      });
     });
   }
 

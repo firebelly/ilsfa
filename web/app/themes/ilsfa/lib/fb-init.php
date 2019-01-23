@@ -134,6 +134,7 @@ add_filter( 'get_the_archive_title', function($title) {
 /**
  * Also search postmeta
  */
+add_filter('posts_join', __NAMESPACE__ . '\search_join');
 function search_join($join) {
   global $wpdb;
   if (is_search()) {
@@ -141,7 +142,7 @@ function search_join($join) {
   }
   return $join;
 }
-add_filter('posts_join', __NAMESPACE__ . '\search_join');
+add_filter('posts_where', __NAMESPACE__ . '\search_where');
 function search_where($where) {
   global $wpdb;
   if (is_search()) {
@@ -151,7 +152,7 @@ function search_where($where) {
   }
   return $where;
 }
-add_filter('posts_where', __NAMESPACE__ . '\search_where');
+add_filter('posts_distinct', __NAMESPACE__ . '\search_distinct');
 function search_distinct($where) {
   global $wpdb;
   if (is_search()) {
@@ -159,6 +160,3 @@ function search_distinct($where) {
   }
   return $where;
 }
-add_filter('posts_distinct', __NAMESPACE__ . '\search_distinct');
-
-

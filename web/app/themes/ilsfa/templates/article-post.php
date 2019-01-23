@@ -3,7 +3,7 @@ $post_image = \Firebelly\Media\get_header_bg($post, ['size' => 'medium']);
 $post_meta = get_post_meta($post->ID);
 ?>
 <article class="announcement">
-  <h4><?= date('m/d/Y', strtotime($post->post_date)) ?></h4>
+  <h4><time datetime="<?= get_post_time('c', true); ?>"><?= get_the_date(); ?></time></h4>
   <?php if (!empty($post_image)): ?>
     <div class="image" <?= $post_image ?>></div>
   <?php endif; ?>
