@@ -88,19 +88,19 @@ var FBSage = (function($) {
       // Handle submit of form
       $('.formassembly-form form').on('submit', function(e) {
         return false;
-        e.preventDefault();
-        var $form = $(this);
-        $.ajax({
-          url: $form.attr('action'),
-          data: $form.serialize(),
-          crossDomain: 1,
-          method: 'POST',
-          dataType: 'json'
-        }).done(function(data) {
-            console.log(data);
-        }).fail(function() {
-          console.log('fail!');
-        });
+        // e.preventDefault();
+        // var $form = $(this);
+        // $.ajax({
+        //   url: $form.attr('action'),
+        //   data: $form.serialize(),
+        //   crossDomain: 1,
+        //   method: 'POST',
+        //   dataType: 'json'
+        // }).done(function(data) {
+        //     console.log(data);
+        // }).fail(function() {
+        //   console.log('fail!');
+        // });
     });
       // Add focused + filled classes for styling
       $form.find('input,textarea').on('focus', function() {
