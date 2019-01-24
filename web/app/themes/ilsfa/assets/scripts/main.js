@@ -157,10 +157,10 @@ var ILSFA = (function($) {
       element: $main[0],
       handler: function(direction) {
         if (direction === 'down') {
-          $siteHeader.attr('class', 'site-header scroll-down');
+          $siteHeader.attr('class', 'site-header collapsed');
         }
         else if (direction === 'up') {
-          $siteHeader.attr('class', 'site-header scroll-up');
+          $siteHeader.attr('class', 'site-header');
         }
       }
     });

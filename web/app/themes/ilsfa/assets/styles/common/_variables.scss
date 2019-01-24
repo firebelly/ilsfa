@@ -16,8 +16,9 @@ $red: #E04E22;
 $transition-duration: 0.1s;
 $transition-easing: ease-in-out;
 
-$nav-height-mobile: 72px;
+$nav-height-mobile: 80px;
 $nav-height: 176px;
+$nav-height-collapsed: 80px;
 $admin-bar-height-mobile: 46px;
 $admin-bar-height: 32px;
 
@@ -34,6 +35,6 @@ $brand-quaternary: $red;
 // Breakpoints
 $breakpoint-sm: 480px;
 $breakpoint-md: 920px;
-$breakpoint-nav: 960px;
+$breakpoint-nav: 1260px;
 $breakpoint-lg: 1000px;
 $breakpoint-xl: 1200px;
