@@ -9,6 +9,7 @@ use Roots\Sage\Wrapper;
 <html <?php language_attributes(); ?>>
   <?php get_template_part('templates/head'); ?>
   <body <?php body_class(); ?>>
+    <div id="breakpoint-indicator"></div>
     <div class="hide" aria-hidden="true"><?php include_once(get_template_directory().'/dist/svgs/build/svgs-defs.svg'); ?></div>
     <?php
       do_action('get_header');

@@ -16,27 +16,20 @@
 .alignright {
   height: auto;
 }
-@include media-sm {
-  // Only float if not on an extra small device
+@include media-md {
   .alignleft {
     float: left;
-
   }
   .alignright {
     float: right;
-
   }
 }
 
 // Captions
-.wp-caption {
-
-}
-.wp-caption-text {
-
-}
+.wp-caption {}
+.wp-caption-text {}
 
 // Text meant only for screen readers
 .screen-reader-text {
-  @extend .visually-hidden;
-} 
+  @extend %visually-hidden;
+}

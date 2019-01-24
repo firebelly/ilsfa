@@ -7,6 +7,7 @@
 }
 
 // https://developer.yahoo.com/blogs/ydn/clip-hidden-content-better-accessibility-53456.html
+%visually-hidden,
 .visually-hidden {
   position: absolute !important;
   clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
