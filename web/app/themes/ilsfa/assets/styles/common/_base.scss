@@ -11,8 +11,10 @@ body {
   color: $blurple-dark;
   font-size: 16px;
   overflow-x: hidden;
-  background: $white;
+  // Avoid white flash below animating .site-header
+  background: darken($blurple-dark, 5%);
   font: 18px/1.333 $font-regular;
+  text-rendering: optimizeLegibility;
 }
 
 ul {
@@ -69,6 +71,7 @@ address {
 
 .container {
   position: relative;
+  background: $white;
   @include clearfix();
   margin-top: $nav-height-mobile;
   @include media-nav {

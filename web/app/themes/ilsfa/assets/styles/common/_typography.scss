@@ -2,12 +2,75 @@
 
 // Fonts
 $font-header: 'GT Pressura', sans-serif;
-$font-regular: 'Cadiz Trial', sans-serif;
+$font-regular: 'CadizWeb', sans-serif;
 $font-mono: 'GT Pressura Mono', sans-serif;
+
+@font-face {
+  font-family:'GT Pressura';
+  src: url('../fonts/GT-Pressura-Bold.eot'); /* IE9 Compat Modes */
+  src: url('../fonts/GT-Pressura-Bold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/GT-Pressura-Bold.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../fonts/GT-Pressura-Bold.woff') format('woff'); /* Pretty Modern Browsers */
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family:'GT Pressura Mono';
+  src: url('../fonts/GT-Pressura-Mono-Regular.eot'); /* IE9 Compat Modes */
+  src: url('../fonts/GT-Pressura-Mono-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/GT-Pressura-Mono-Regular.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../fonts/GT-Pressura-Mono-Regular.woff') format('woff'); /* Pretty Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family:'GT Pressura Mono';
+  src: url('../fonts/GT-Pressura-Mono-Bold.eot'); /* IE9 Compat Modes */
+  src: url('../fonts/GT-Pressura-Mono-Bold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/GT-Pressura-Mono-Bold.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../fonts/GT-Pressura-Mono-Bold.woff') format('woff'); /* Pretty Modern Browsers */
+  font-weight: bold;
+  font-style: normal;
+}
+// Cadiz
+@font-face {
+  font-family:'CadizWeb';
+  src: url('../fonts/CadizWeb-Regular.eot'); /* IE9 Compat Modes */
+  src: url('../fonts/CadizWeb-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/CadizWeb-Regular.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../fonts/CadizWeb-Regular.woff') format('woff'); /* Pretty Modern Browsers */
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: normal;
+  unicode-range: U+000D-FB04;
+}
+@font-face {
+  font-family:'CadizWeb';
+  src: url('../fonts/CadizWeb-RegularItalic.eot'); /* IE9 Compat Modes */
+  src: url('../fonts/CadizWeb-RegularItalic.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/CadizWeb-RegularItalic.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../fonts/CadizWeb-RegularItalic.woff') format('woff'); /* Pretty Modern Browsers */
+  font-weight: 400;
+  font-style: italic;
+  unicode-range: U+000D-FB04;
+}
+@font-face {
+  font-family:'CadizWeb';
+  src: url('../fonts/CadizWeb-Bold.eot'); /* IE9 Compat Modes */
+  src: url('../fonts/CadizWeb-Bold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/CadizWeb-Bold.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../fonts/CadizWeb-Bold.woff') format('woff'); /* Pretty Modern Browsers */
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  unicode-range: U+000D-FB04;
+}
 
 @mixin font-regular {
   font-weight: normal;
   font-family: $font-regular;
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
 }
 @mixin font-header {
   @include smooth;
