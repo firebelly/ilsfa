@@ -73,8 +73,9 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
 
 <?php // Action Blocks ?>
 <?php if (!empty($post_meta['_cmb2_action_blocks'])): ?>
-  <div class="cards-image-block action-blocks">
-    <h2 class="h1">What you can do</h2>
+  <div class="cards-image-block action-blocks" <?= !empty($post_meta['_cmb2_action_blocks_background']) ? ' style="background-image: url('.$post_meta['_cmb2_action_blocks_background'][0].')"' : '' ?>>
+    <div class="filter white-multiply"></div><div class="filter blue-screen"></div><div class="filter blue-multiply"></div>
+    <h2 class="h1"><?= !empty($post_meta['_cmb2_action_blocks_headline']) ? $post_meta['_cmb2_action_blocks_headline'][0] : 'What you can do ' ?></h2>
     <ul class="cards compact-grid">
     <?php foreach (unserialize($post_meta['_cmb2_action_blocks'][0]) as $block): ?>
         <li<?= !empty($block['disabled_text']) ? ' class="inactive"' : '' ?>>

@@ -39,6 +39,7 @@ get_template_part('templates/page', 'header');
 <?php $programs = \Firebelly\PostTypes\Program\get_programs(['output' => 'array']); ?>
 <?php  if (!empty($programs)): ?>
   <div class="cards-image-block programs" <?= !empty($post_meta['_cmb2_programs_background']) ? ' style="background-image: url('.$post_meta['_cmb2_programs_background'][0].')"' : '' ?>>
+    <div class="filter white-multiply"></div><div class="filter blue-screen"></div><div class="filter blue-multiply"></div>
     <h2 class="h1">Programs</h2>
     <ul class="cards compact-grid">
     <?php foreach ($programs as $program): ?>

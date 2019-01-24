@@ -20,6 +20,7 @@ get_template_part('templates/page', 'header');
 <?php // Vendor Requirement Blocks ?>
 <?php if (!empty($post_meta['_cmb2_vendor_requirements_blocks'])): ?>
 <div class="cards-image-block vendor-requirements" <?= !empty($post_meta['_cmb2_vendor_requirements_background']) ? ' style="background-image: url('.$post_meta['_cmb2_vendor_requirements_background'][0].')"' : '' ?>>
+  <div class="filter white-multiply"></div><div class="filter blue-screen"></div><div class="filter blue-multiply"></div>
   <h2 class="h1">Requirements of being an approved vendor</h2>
   <ul class="cards compact-grid">
     <?php foreach (unserialize($post_meta['_cmb2_vendor_requirements_blocks'][0]) as $block): ?>

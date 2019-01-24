@@ -138,8 +138,13 @@ function metaboxes() {
     'priority'      => 'high',
   ]);
   $homepage_action_blocks->add_field([
+    'name' => esc_html__( 'Headline', 'cmb2' ),
+    'id'   => $prefix .'action_blocks_headline',
+    'type' => 'text',
+  ]);
+  $homepage_action_blocks->add_field([
     'name' => esc_html__( 'Image Background', 'cmb2' ),
-    'id'   => $prefix .'image_background',
+    'id'   => $prefix .'action_blocks_background',
     'type' => 'file',
   ]);
   $group_field_id = $homepage_action_blocks->add_field([
@@ -238,9 +243,9 @@ function metaboxes() {
   ]);
 
 
-    /**
-    * For Vendors fields
-    */
+  /**
+  * For Vendors fields
+  */
   $vendor_fields = new_cmb2_box([
     'id'            => $prefix . 'vendor_fields',
     'title'         => __( 'Vendor Requirements', 'cmb2' ),
