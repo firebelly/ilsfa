@@ -1,13 +1,11 @@
-// FBSage - Firebelly 2015
+// ILSFA - Firebelly 2019
 /*jshint latedef:false*/
 
 // Good Design for Good Reason for Good Namespace
-var FBSage = (function($) {
+var ILSFA = (function($) {
 
-  var breakpoint_small = false,
-      breakpoint_medium = false,
-      breakpoint_large = false,
-      breakpoint_array = [480,1000,1200],
+  var breakpoints = [],
+      breakpointClasses = ['xl','lg','nav','md','sm','xs'],
       $body,
       $document,
       $siteHeader,
@@ -16,8 +14,8 @@ var FBSage = (function($) {
 
   function _init() {
     // Cache some common DOM queries
-    $document = $(document);
     $body = $(document.body);
+    $document = $(document);
     $siteHeader = $('header.site-header');
     $main = $('main.main');
 
@@ -33,7 +31,7 @@ var FBSage = (function($) {
     // Compact grid js resizing (mini-masonry)
     if ($('.compact-grid').length) {
       _resizeGrids();
-      $(window).on('resize', FBSage.resizeGrids);
+      $(window).on('resize', ILSFA.resizeGrids);
     }
 
     _initNav();
@@ -227,10 +225,15 @@ var FBSage = (function($) {
 
   // Called in quick succession as window is resized
   function _resize() {
-    screenWidth = document.documentElement.clientWidth;
-    breakpoint_small = (screenWidth > breakpoint_array[0]);
-    breakpoint_medium = (screenWidth > breakpoint_array[1]);
-    breakpoint_large = (screenWidth > breakpoint_array[2]);
+    // Check breakpoint indicator in DOM ( :after { content } is controlled by CSS media queries )
+    breakpointIndicatorString = window.getComputedStyle(
+      document.querySelector('#breakpoint-indicator'), ':after'
+    ).getPropertyValue('content').replace(/['"]/g, '');
+    breakpoints = {};
+    for (var i = 0; i < breakpointClasses.length; i++) {
+      breakpoints[breakpointClasses[i]] = (breakpointIndicatorString === breakpointClasses[i] || (i>0 && breakpoints[breakpointClasses[i-1]]));
+    }
+    console.log(breakpoints, breakpoints.md, breakpoints['md']);
   }
 
   // Compact grid js resizing (mini-masonry)
@@ -265,7 +268,7 @@ var FBSage = (function($) {
 })(jQuery);
 
 // Fire up the mothership
-jQuery(document).ready(FBSage.init);
+jQuery(document).ready(ILSFA.init);
 
 // Zig-zag the mothership
-jQuery(window).resize(FBSage.resize);
+jQuery(window).resize(ILSFA.resize);
