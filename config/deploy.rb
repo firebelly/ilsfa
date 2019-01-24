@@ -66,12 +66,6 @@ namespace :deploy do
     end
   end
 
-  task :ungulp do
-    run_locally do
-      execute "cd #{fetch(:local_theme_path)} && npx gulp --development"
-    end
-  end
-
   task :copy_assets do
     # `NOASSETS=1 cap staging deploy` to skip compiling & uploading assets, and instead copy previous dist dir
     if ENV['NOASSETS'] == nil
@@ -80,8 +74,6 @@ namespace :deploy do
       on roles(:web) do
         upload! fetch(:local_theme_path).join('dist').to_s, release_path.join(fetch(:theme_path)), recursive: true
       end
-
-      invoke 'deploy:ungulp'
     else
       # just copy dist dir
       on roles(:app) do
