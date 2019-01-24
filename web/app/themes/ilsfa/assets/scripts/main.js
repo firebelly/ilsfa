@@ -233,7 +233,6 @@ var ILSFA = (function($) {
     for (var i = 0; i < breakpointClasses.length; i++) {
       breakpoints[breakpointClasses[i]] = (breakpointIndicatorString === breakpointClasses[i] || (i>0 && breakpoints[breakpointClasses[i-1]]));
     }
-    console.log(breakpoints, breakpoints.md, breakpoints['md']);
   }
 
   // Compact grid js resizing (mini-masonry)
