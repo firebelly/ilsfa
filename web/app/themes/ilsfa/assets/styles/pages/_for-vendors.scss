@@ -1,20 +1,22 @@
 // For Vendors
 
-.page.for-vendors {
-  .page-content {
-    position: relative;
-    img {
-      margin: grid(4) 0;
+// Move alignright images outside page-content
+.page-content.-breakout-images {
+  position: relative;
+  img {
+    margin: grid(4) 0;
 
-    }
-    // Move image outside content area on larger screens
-    @include media-md {
-      img.alignright {
-        position: absolute;
-        right: columns(2);
-        width: columns(5);
-        height: auto;
-      }
+  }
+  // Move image outside content area on larger screens
+  @include media-md {
+    img.alignright {
+      position: absolute;
+      right: columns(2);
+      width: columns(5);
+      height: auto;
     }
   }
+}
+
+.page.for-vendors {
 }

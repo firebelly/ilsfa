@@ -11,7 +11,7 @@ $post_meta = get_post_meta($post->ID);
 get_template_part('templates/page', 'header');
 ?>
 
-<div class="page-content">
+<div class="page-content -breakout-images">
   <div class="user-content">
     <?= apply_filters('the_content', $post->post_content); ?>
   </div>
