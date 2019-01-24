@@ -163,8 +163,16 @@ form {
   }
 }
 
-// formAssembly specific
+// FormAssembly specific
 
+.formassembly-iframe {
+  @include clearfix;
+  iframe {
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+}
 .formassembly-form {
   form {
     // Group headers

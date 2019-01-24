@@ -5,7 +5,6 @@ namespace Firebelly\FormAssembly;
  * Get FormAssembly form
  */
 function get_form($id) {
-  // return '<iframe width="100%" height="600px" src="https://elevateenergy.tfaforms.net/forms/view/'.$id.'"></iframe>';
   $client = new \GuzzleHttp\Client();
   try {
     $res = $client->request('GET', 'https://elevateenergy.tfaforms.net/rest/forms/view/'.$id);
@@ -42,6 +41,10 @@ add_shortcode('formassembly', __NAMESPACE__ . '\shortcode_formassembly');
 function shortcode_formassembly($atts) {
   $atts = shortcode_atts([
     'id' => '',
+    'iframe' => '',
   ], $atts, 'formassembly');
+  if ($atts['iframe']) {
+    return '<div class="formassembly-iframe"><iframe width="100%" frameborder="0" src="https://elevateenergy.tfaforms.net/forms/view/'.$atts['id'].'"></iframe><script src="//elevateenergy.tfaforms.net/js/iframe_resize_helper.js"></script></div>';
+  }
   return get_form($atts['id']);
 }
