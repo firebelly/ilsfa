@@ -27,7 +27,7 @@
   @include media-md {
     display: block;
     &.-inline {
-      display: inline-block;
+      display: inline;
     }
   }
 }
