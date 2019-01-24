@@ -39,7 +39,9 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
       <li class="grid">
         <div class="grid-item one-half">
           <div class="image-wrap -inset-shadow -expanded">
-            <div class="image" <?= \Firebelly\Media\get_header_bg($block['image_id'], ['size' => 'large']) ?>></div>
+            <div class="image" <?= \Firebelly\Media\get_header_bg($block['image_id'], ['size' => 'large']) ?>>
+              <div class="filter white-multiply"></div><div class="filter blue-screen"></div><div class="filter blue-multiply"></div>
+            </div>
           </div>
         </div>
         <div class="grid-item one-half">
