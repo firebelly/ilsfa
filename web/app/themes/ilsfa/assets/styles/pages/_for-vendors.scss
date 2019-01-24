@@ -1,6 +1,6 @@
 // For Vendors
 
-// Move alignright images outside page-content
+// Move alignright images outside page-content (used on For Vendors and IL Residents)
 .page-content.-breakout-images {
   position: relative;
   img {
@@ -19,4 +19,8 @@
 }
 
 .page.for-vendors {
+  .cards-image-block {
+    // Default background
+    background-image: url('../images/default-bg-3.jpg');
+  }
 }

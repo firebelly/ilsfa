@@ -53,7 +53,7 @@ function metaboxes() {
     'id'   => $prefix .'footer_outro',
     'type' => 'wysiwyg',
     'options' => [
-      'textarea_rows' => 6,
+      'textarea_rows' => 10,
     ],
   ]);
 
@@ -188,7 +188,7 @@ function metaboxes() {
     * For IL Residents fields
     */
   $residents_fields = new_cmb2_box([
-    'id'            => $prefix . 'resident_fields',
+    'id'            => $prefix . 'residents_fields',
     'title'         => __( 'Elibility Blocks', 'cmb2' ),
     'object_types'  => ['page'],
     'context'       => 'normal',
@@ -220,11 +220,23 @@ function metaboxes() {
       'textarea_rows' => 6,
     ],
   ]);
-  $residents_fields->add_field([
-    'name' => esc_html__( 'Programs Image Background', 'cmb2' ),
+  // Programs
+  $residents_programs = new_cmb2_box([
+    'id'            => $prefix . 'residents_programs',
+    'title'         => __( 'Programs Block', 'cmb2' ),
+    'object_types'  => ['page'],
+    'context'       => 'normal',
+    'show_slugs'    => array('for-il-residents'),
+    'show_on_cb'    => '\Firebelly\CMB2\show_for_slugs',
+    'priority'      => 'high',
+    'show_names'    => true,
+  ]);
+  $residents_programs->add_field([
+    'name' => esc_html__( 'Image Background', 'cmb2' ),
     'id'   => $prefix .'programs_background',
     'type' => 'file',
   ]);
+
 
     /**
     * For Vendors fields

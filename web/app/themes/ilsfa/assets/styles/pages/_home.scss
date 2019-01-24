@@ -208,7 +208,7 @@
   @include global-padding;
   @extend %inset-shadow;
   // Default background
-  background: url('../images/temp.jpg');
+  background: url('../images/default-bg-1.jpg') bottom center no-repeat;
   background-size: cover;
   >h2 {
     margin: 0 0 grid(5);
