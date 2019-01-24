@@ -19,7 +19,7 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
 <header class="page-header-homepage">
   <div class="image-wrap">
     <div class="image" <?= \Firebelly\Media\get_header_bg($post) ?>></div>
-    <div class="bg-overlay blue-gradient"></div><div class="bg-overlay white-haze"></div><div class="bg-overlay blue-haze"></div>
+    <div class="filter blue-gradient"></div><div class="filter white-multiply"></div><div class="filter blue-multiply"></div>
   </div>
   <h2 class="page-title"><?= nl2br($intro_title); ?></h2>
 </header>
