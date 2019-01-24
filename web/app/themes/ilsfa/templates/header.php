@@ -21,7 +21,7 @@
       <a class="search-toggle button -icon -round -small" href="/search/">
         <svg class="icon icon-search" aria-hidden="true"><use xlink:href="#icon-search"/></svg>
       </a>
-      <a class="menu-toggle" href="#">
+      <a class="menu-toggle button -icon -round -small" href="#">
         <svg class="icon icon-hamburger" aria-hidden="true"><use xlink:href="#icon-hamburger"/></svg>
         <svg class="icon icon-cross" aria-hidden="true"><use xlink:href="#icon-cross"/></svg>
       </a>

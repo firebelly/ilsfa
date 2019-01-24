@@ -24,9 +24,6 @@
     margin: grid(2) $mobile-global-padding;
   }
 
-  @include max-screen($breakpoint-nav) {
-  }
-
   position: fixed;
   top: 0;
   right: 0;
@@ -57,18 +54,29 @@
     .logo-wordmark {
       display: none;
       fill: $white;
-      width: 283px;
-      height: 26px;
+      width: 195px;
+      height: 18px;
+      margin-left: grid(2);
       vertical-align: middle;
     }
   }
 
   // Desktop styles
+  @include media-sm {
+    .brand {
+      .logo-wordmark {
+        display: inline-block;
+      }
+      .logo-wordmark-mobile {
+        display: none;
+      }
+    }
+  }
   @include media-nav {
     height: $nav-height;
     position: fixed;
     .wrap {
-      margin: grid(5) columns(2) grid(6);
+      margin: 42px columns(2) 0;
     }
     .brand {
       .logo-icon {
@@ -80,10 +88,35 @@
         top: -4px;
       }
       .logo-wordmark {
-        display: inline-block;
+        margin-left: 0;
+        width: 283px;
+        height: 26px;
       }
-      .logo-wordmark-mobile {
+    }
+
+    // Sticky nav (collapsed)
+    &.collapsed {
+      height: $nav-height-collapsed;
+      .wrap {
+        margin: grid(2) columns(2);
+      }
+      .utility-nav,
+      .brand .logo-wordmark {
         display: none;
+      }
+      .brand {
+        .logo-icon {
+          width: 48px;
+          height: 48px;
+          top: 0;
+          left: -60px;
+        }
+      }
+      .primary-nav {
+        position: absolute;
+        top: 4px;
+        left: 0;
+        margin: 0;
       }
     }
   }
@@ -102,7 +135,7 @@
   .primary-nav {
     font: 18px/1.333 $font-regular;
     letter-spacing: 0.07em;
-    margin-top: grid(3);
+    margin-top: 22px;
     a {
       display: block;
       color: $yellow;
@@ -258,13 +291,8 @@ body.search-open {
   .menu-toggle {
     display: block;
     position: absolute;
-    top: 8px;
+    top: 0;
     right: 0;
-    svg {
-      fill: $yellow;
-      width: 24px;
-      height: 24px;
-    }
 
     &:focus {
       outline: none;
@@ -290,14 +318,6 @@ body.search-open {
     }
     .menu-search {
       display: none;
-    }
-    li.-active {
-      a svg {
-        transform: rotate(270deg);
-      }
-      .sub-menu {
-          max-height: none;
-      }
     }
   }
   body.menu-open {
@@ -326,6 +346,7 @@ body.search-open {
       }
     }
 
+    // Make site-header fill viewport
     .site-header {
       position: fixed;
       top: 0;
@@ -341,7 +362,7 @@ body.search-open {
       }
     }
     &.admin-bar .site-header {
-      padding-top: 46px;
+      padding-top: grid(4);
     }
     ul#menu-main-nav,
     ul#menu-utility-nav {
