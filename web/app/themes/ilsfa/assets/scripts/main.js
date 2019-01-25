@@ -39,11 +39,6 @@ var ILSFA = (function($) {
       });
     }
 
-    _initNav();
-    _initSearch();
-    _initJumpTo();
-    // _initLoadMore();
-
     // Esc handlers
     $(document).keyup(function(e) {
       if (e.keyCode === 27) {
@@ -64,6 +59,12 @@ var ILSFA = (function($) {
       _scrollBody($(href));
     });
 
+    _initNav();
+    _initSearch();
+    _initJumpTo();
+    _initForms();
+    // _initLoadMore();
+
     // Scroll down to hash afer page load
     $(window).load(function() {
       var hash = window.location.hash.replace('#','');
@@ -75,8 +76,6 @@ var ILSFA = (function($) {
         }
       }
     });
-
-    _initForms();
 
   } // end init()
 
@@ -142,23 +141,7 @@ var ILSFA = (function($) {
       $('.formassembly-form .oneField:not([role=group])').addClass('input-wrap');
       // Make required fields HTML5 required
       $('.formassembly-form input.required').attr('required',true);
-      // Handle submit of form
-      $('.formassembly-form form').on('submit', function(e) {
-          return false;
-          // e.preventDefault();
-          // var $form = $(this);
-          // $.ajax({
-          //   url: $form.attr('action'),
-          //   data: $form.serialize(),
-          //   crossDomain: 1,
-          //   method: 'POST',
-          //   dataType: 'json'
-          // }).done(function(data) {
-          //     console.log(data);
-          // }).fail(function() {
-          //   console.log('fail!');
-          // });
-      });
+
       // Add focused + filled classes for styling
       $form.find('input,textarea').on('focus', function() {
         $(this).parents('.input-wrap,.oneField').addClass('focused');
@@ -170,7 +153,25 @@ var ILSFA = (function($) {
         } else {
           $this.parents('.input-wrap,.oneField').removeClass('filled');
         }
+      }).each(function() {
+        $(this).parents('.input-wrap,.oneField').toggleClass('filled', $(this).val()!=='');
       });
+    });
+
+    // Handle submit of form
+    $('.formassembly-form form').on('submit', function(e) {
+        e.preventDefault();
+        var $form = $(this);
+        $.ajax({
+          url: wp_ajax_url,
+          data: $form.serialize() + '&action=formassembly_submit&formAction=' + $form.attr('action'),
+          method: 'POST',
+          dataType: 'json'
+        }).done(function(data) {
+          console.log(data);
+        }).fail(function() {
+          console.log('fail!');
+        });
     });
   }
 

@@ -28,10 +28,49 @@ function get_form($id) {
 /**
  * AJAX form submits
  */
+
 function formassembly_submit() {
+  // https://elevateenergy.tfaforms.net/responses/processor?faIframeUniqueId=1eppzxigdh&hostURL=http://ilsfa.localhost:3000/programs/distributed-generation/
+
+  $client = new \GuzzleHttp\Client();
+  try {
+    $res = $client->request('POST', $_POST['formAction'], [], [
+      'form_params' => [
+        'tfa_1' => $_POST['tfa_1'],
+        'tfa_2' => $_POST['tfa_2'],
+        'tfa_3' => $_POST['tfa_3'],
+        'tfa_4' => $_POST['tfa_4'],
+        'tfa_16' => $_POST['tfa_16'],
+        'tfa_dbCounters' => $_POST['tfa_dbCounters'],
+        'tfa_dbFormId' => $_POST['tfa_dbFormId'],
+        'tfa_dbResponseId' => $_POST['tfa_dbResponseId'],
+        'tfa_dbControl' => $_POST['tfa_dbControl'],
+        'tfa_dbTimeStarted' => $_POST['tfa_dbTimeStarted'],
+        'tfa_dbVersionId' => $_POST['tfa_dbVersionId'],
+        'tfa_switchedoff' => $_POST['tfa_switchedoff'],
+      ]
+    ]);
+print_r($res); exit;
+    $response = [
+      'success' => 1,
+      'data' => print_r($res, 1)
+    ];
+
+  } catch (\GuzzleHttp\Exception\ClientException $e) {
+
+    print_r($e->getResponse()->getBody()->getContents());
+
+  } catch (\Exception $e) {
+print_r($e->getMessage()); exit;
+    $response = [
+      'success' => 0,
+      'message' => 'Error submitting form: '.$e->getMessage(),
+    ];
+  }
+  wp_send_json($response);
 }
-add_action( 'wp_ajax_formassembly_submit', __NAMESPACE__ . '\\formassembly_submit' );
-add_action( 'wp_ajax_nopriv_formassembly_submit', __NAMESPACE__ . '\\formassembly_submit' );
+add_action('wp_ajax_formassembly_submit', __NAMESPACE__ . '\\formassembly_submit');
+add_action('wp_ajax_nopriv_formassembly_submit', __NAMESPACE__ . '\\formassembly_submit');
 
 
 /**
