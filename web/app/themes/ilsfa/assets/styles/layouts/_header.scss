@@ -102,7 +102,7 @@
   @include global-padding(2);
   @include h5;
   svg {
-    vertical-align: middle;
+    vertical-align: top;
   }
   .jump-title {
     padding: grid(1);
@@ -115,6 +115,7 @@
       text-decoration: underline;
     }
   }
+
   // Stuck!
   &.stuck {
     position: fixed;
@@ -122,6 +123,8 @@
     top: $nav-height-mobile;
     width: 100%;
   }
+
+  // Desktop styles
   @include media-md {
     &.stuck {
       top: $nav-height-collapsed;
@@ -143,9 +146,10 @@
 // WP admin bar push
 .admin-bar {
   .jump-to.stuck {
+    top: $nav-height-mobile;
     // Up until 600px WP adminbar is not fixed
-    @include max-screen(600px) {
-      top: $nav-height-mobile;
+    @include min-screen(600px) {
+      top: $nav-height-mobile + $admin-bar-height-mobile;
     }
     // Desktop styles (weird WP breakpoint 782px)
     @include min-screen(782px) {
