@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "97b080c6fc682b0d1f02741f715124bb",
+    "content-hash": "6203cc1b53b3be571c6c143fd4baa8e4",
     "packages": [
         {
             "name": "composer/installers",
@@ -846,6 +846,66 @@
             "homepage": "https://wordpress.org/plugins/disable-gutenberg/"
         },
         {
+            "name": "wpackagist-plugin/duo-wordpress",
+            "version": "2.5.4",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/duo-wordpress/",
+                "reference": "tags/2.5.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/duo-wordpress.2.5.4.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/duo-wordpress/"
+        },
+        {
+            "name": "wpackagist-plugin/expire-passwords",
+            "version": "0.6.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/expire-passwords/",
+                "reference": "tags/0.6.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/expire-passwords.0.6.0.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/expire-passwords/"
+        },
+        {
+            "name": "wpackagist-plugin/force-strong-passwords",
+            "version": "1.8.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/force-strong-passwords/",
+                "reference": "trunk"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/force-strong-passwords.zip?timestamp=1510259124",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/force-strong-passwords/"
+        },
+        {
             "name": "wpackagist-plugin/intuitive-custom-post-order",
             "version": "3.1.1",
             "source": {
@@ -924,6 +984,26 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wp-mail-smtp/"
+        },
+        {
+            "name": "wpackagist-plugin/wp-security-audit-log",
+            "version": "3.3.0.2",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-security-audit-log/",
+                "reference": "tags/3.3.0.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-security-audit-log.3.3.0.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wp-security-audit-log/"
         }
     ],
     "packages-dev": [
