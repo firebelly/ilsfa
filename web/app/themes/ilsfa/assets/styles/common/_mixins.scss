@@ -11,6 +11,7 @@
 @mixin inline-link($hover_color:$green) {
   display: inline;
   background-color: rgba($hover_color, 0);
+  @include transition(all);
 
   &:hover,
   &:focus {
