@@ -131,6 +131,7 @@
     z-index: 1000;
     top: $nav-height-mobile;
     width: 100%;
+    @include drop-shadow;
   }
 
   // Desktop styles

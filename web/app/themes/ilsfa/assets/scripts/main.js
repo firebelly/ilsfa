@@ -35,8 +35,7 @@ var ILSFA = (function($) {
         itemSelector: '.item',
         gutter: 16,
         horizontalOrder: true,
-        percentPosition: true,
-        transitionDuration: 0,
+        percentPosition: true
       });
     }
 
