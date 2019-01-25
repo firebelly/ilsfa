@@ -25,45 +25,55 @@ $programs->register();
 function metaboxes() {
   $prefix = '_cmb2_';
 
-  // Basic Info
-  $program_info = new_cmb2_box([
-    'id'            => $prefix . 'program_info',
-    'title'         => __( 'Program Info', 'cmb2' ),
+  // Stat / Quote
+  $stat_or_quote = new_cmb2_box([
+    'id'            => $prefix . 'program_stat',
+    'title'         => __( 'Stat or Quote', 'cmb2' ),
     'object_types'  => ['program'],
     'context'       => 'normal',
     'priority'      => 'high',
   ]);
-  $program_info->add_field([
+  $stat_or_quote->add_field([
     'name'      => 'Stat Figure or Quote',
     'id'        => $prefix . 'stat_figure',
-    'type'      => 'text',
-    'desc'      => 'e.g. 99%',
+    'type'      => 'textarea_small',
+    'desc'      => 'e.g. 99% — values with more than 8 characters (e.g. a quote) use smaller font',
   ]);
-  $program_info->add_field([
+  $stat_or_quote->add_field([
     'name'      => 'Stat Label or Quote Attribution',
     'id'        => $prefix . 'stat_label',
     'type'      => 'textarea_small',
     // 'desc'      => '',
   ]);
-  $program_info->add_field([
-    'name'      => 'Income Requirements',
-    'id'        => $prefix . 'income_requirements',
-    'type'      => 'text',
-    'desc'      => 'e.g. 2 or more units must earn $31,667 or less per year',
+
+  // Requirements outline
+  $program_requirements = new_cmb2_box([
+    'id'            => $prefix . 'program_requirements',
+    'title'         => __( 'Requirements outline', 'cmb2' ),
+    'object_types'  => ['program'],
+    'context'       => 'normal',
+    'priority'      => 'high',
   ]);
-  $program_info->add_field([
+  $program_requirements->add_field([
+    'name'       => 'Income Requirements',
+    'id'         => $prefix . 'income_requirements',
+    'before_row' => '<p>Shown in Programs listing view on "For IL Residents" page</p>',
+    'type'       => 'text',
+    'desc'       => 'e.g. 2 or more units must earn $31,667 or less per year',
+  ]);
+  $program_requirements->add_field([
     'name'      => 'Household Size',
     'id'        => $prefix . 'household_size',
     'type'      => 'text',
     'desc'      => 'e.g. 2–4 units',
   ]);
-  $program_info->add_field([
+  $program_requirements->add_field([
     'name'      => 'Installation Cost',
     'id'        => $prefix . 'installation_cost',
     'type'      => 'text',
     'desc'      => 'e.g. No upfront installation costs',
   ]);
-  $program_info->add_field([
+  $program_requirements->add_field([
     'name'      => 'Savings',
     'id'        => $prefix . 'savings',
     'type'      => 'text',
@@ -124,10 +134,10 @@ function metaboxes() {
     ],
   ]);
   $contact->add_field([
-    'name'      => 'Address',
-    'id'        => $prefix . 'address',
-    'type'      => 'address',
-    'desc'      => 'Will default to address/email/phone/fax set in <a target="_blank" href="/wp/wp-admin/admin.php?page=fb_site_options">Site Options</a>',
+    'name'       => 'Address',
+    'id'         => $prefix . 'address',
+    'type'       => 'address',
+    'before_row' => '<p>If address is left blank, will fallback to sitewide address/email/phone/fax set in <a target="_blank" href="/wp/wp-admin/admin.php?page=fb_site_options">Site Options</a></p>',
   ]);
   $contact->add_field([
     'name'      => 'Email',
