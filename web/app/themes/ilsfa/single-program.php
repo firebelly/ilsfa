@@ -40,7 +40,9 @@ get_template_part('templates/page', 'header-tertiary');
 
   <div class="image-content">
     <div class="image-wrap -expanded -inset-shadow">
-      <div class="image" <?= \Firebelly\Media\get_header_bg($post, ['size' => 'large']) ?>></div>
+      <div class="image" <?= \Firebelly\Media\get_header_bg($post, ['size' => 'large']) ?>>
+        <div class="filter white-multiply"></div><div class="filter blue-screen"></div><div class="filter blue-multiply"></div>
+      </div>
     </div>
   </div>
   <div class="stat-content">
