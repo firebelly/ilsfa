@@ -87,6 +87,20 @@
       li {
         a {
           border-top: 2px solid $blurple-dark;
+          &, span {
+            @include transition(all);
+          }
+          &:hover,
+          &:focus {
+            span {
+              color: $blurple-dark;
+              background-color: rgba($green, 1);
+              box-shadow: .2em .1em 0 rgba($green, 1), -.2em .1em 0 rgba($green, 1), -.2em 0 0 rgba($green, 1), .2em 0 0 rgba($green, 1);
+            }
+            svg {
+              fill: $blurple-dark;
+            }
+          }
         }
       }
     }
