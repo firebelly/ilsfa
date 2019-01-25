@@ -25,6 +25,9 @@
         @include media-md {
           padding: grid(12) columns(2,14);
         }
+        > .user-content {
+          width: 100%;
+        }
       }
       .image-content {
         grid-area: image;
@@ -37,7 +40,7 @@
     background: $blurple;
     color: $white;
     >h2 {
-      @include h1;
+      @extend %h1;
       margin: grid(2) 0;
     }
     @include global-padding(12);
