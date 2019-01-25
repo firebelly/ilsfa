@@ -108,7 +108,7 @@
     vertical-align: top;
   }
   .jump-title {
-    padding: grid(1);
+    padding: grid(1) grid(1) grid(1) 0;
     opacity: 0;
   }
   &.-active {

@@ -2,6 +2,12 @@
 
 .page.for-il-residents {
 
+  .page-content {
+    @include media-md {
+      padding-bottom: 0;
+    }
+  }
+
   // Eligibility blocks
   .eligibility-blocks {
     @include global-padding(0);

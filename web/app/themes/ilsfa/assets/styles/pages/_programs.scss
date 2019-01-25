@@ -1,6 +1,10 @@
 // Programs
 
 .single-program {
+  .page-header.tertiary {
+    background: $blurple;
+    padding-bottom: grid(2);
+  }
   // Main content + featured image + stat block
   .content-image-stat {
     // Sidebar image styles for mobile

@@ -58,7 +58,7 @@ get_template_part('templates/page', 'header-tertiary');
 </div>
 
 <?php // Apply ?>
-<div class="apply">
+<div class="apply" data-jumpto="Apply">
   <h2>Apply</h2>
   <?php if (!empty($post_meta['_cmb2_application_body'])): ?>
     <div class="user-content">
@@ -77,8 +77,8 @@ get_template_part('templates/page', 'header-tertiary');
   <?php endif; ?>
 </div>
 
-<?php // Contact & Vendor + tools ?>
-<div class="grid contact-vendors-tools">
+<?php // Contact & Vendor + Tools ?>
+<div class="grid contact-vendors-tools" data-jumpto="Contact">
   <div class="grid-item one-half contact">
     <h2>Contact us</h2>
 
@@ -112,7 +112,7 @@ get_template_part('templates/page', 'header-tertiary');
     </ul>
   </div>
 
-  <div class="grid-item one-half vendors-tools">
+  <div class="grid-item one-half vendors-tools" data-jumpto="Vendors & tools">
     <h2>Vendors & tools</h2>
     <?php if (!empty($post_meta['_cmb2_vendors_intro'])): ?>
       <div class="user-content">

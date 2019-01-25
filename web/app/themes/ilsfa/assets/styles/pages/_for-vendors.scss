@@ -23,4 +23,9 @@
     // Default background
     background-image: url('../images/default-bg-3.jpg');
   }
+  .page-content {
+    @include media-md {
+      padding-bottom: grid(12);
+    }
+  }
 }

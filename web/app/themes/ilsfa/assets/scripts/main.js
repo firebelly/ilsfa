@@ -81,7 +81,7 @@ var ILSFA = (function($) {
   } // end init()
 
   function _slugify(text) {
-    text = text.replace(/[^a-zA-Z0-9\s]/g,"");
+    text = text.replace(/[^a-zA-Z0-9\-\s]/g,"");
     text = text.toLowerCase();
     text = text.replace(/\s/g,'-');
     return text;
