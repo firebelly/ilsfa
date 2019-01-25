@@ -12,11 +12,29 @@
     "fitvids": "~1.1.0",
     "imagesloaded": "~3.1.8",
     "velocity": "~1.2.2",
-    "waypoints": "^4.0.1"
+    "waypoints": "^4.0.1",
+    "masonry-layout": "masonry#^4.2.2"
   },
   "overrides": {
     "modernizr": {
       "main": "./modernizr.js"
+    },
+    "waypoints": {
+      "main": [
+        "lib/jquery.waypoints.js",
+        "lib/shortcuts/sticky.js"
+      ]
+    },
+    "masonry-layout": {
+      "main": [
+        "./dist/masonry.pkgd.js"
+      ]
+    },
+    "outlayer": {
+      "main": [
+        "item.js",
+        "outlayer.js"
+      ]
     }
   }
 }

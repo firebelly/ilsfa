@@ -16,7 +16,7 @@ get_template_part('templates/page', 'header-tertiary');
   <?php if ($events = \Firebelly\PostTypes\Event\get_events(['output' => 'array'])): ?>
     <ul class="cards compact-grid">
     <?php foreach ($events as $event): ?>
-      <li>
+      <li class="item">
         <?php \Firebelly\Utils\get_template_part_with_vars('templates/article', 'event', ['event_post' => $event]); ?>
       </li>
     <?php endforeach; ?>

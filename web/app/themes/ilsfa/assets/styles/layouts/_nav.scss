@@ -5,6 +5,7 @@
   .site-header {
     top: $admin-bar-height-mobile;
   }
+
   // Up until 600px WP adminbar is not fixed
   @include max-screen(600px) {
     // ...so after scrolling down, move site-header to top (a bit janky, but only for mobile WP-logged-in users!)
@@ -13,7 +14,7 @@
     }
   }
 
-  // Desktop styles
+  // Desktop styles (weird WP breakpoint 782px)
   @include min-screen(782px) {
     .site-header {
       top: $admin-bar-height;

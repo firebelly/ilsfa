@@ -96,16 +96,64 @@
   }
 }
 
+// Jump to links
 .jump-to {
   background: $blurple;
-  @include global-padding(4);
+  @include global-padding(2);
   @include h5;
   svg {
     vertical-align: middle;
   }
+  .jump-title {
+    padding: grid(1);
+  }
+  li {
+    cursor: pointer;
+    padding: grid(1) grid(2);
+    color: $yellow;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  // Stuck!
+  &.stuck {
+    position: fixed;
+    z-index: 1000;
+    top: $nav-height-mobile;
+    width: 100%;
+  }
   @include media-md {
+    &.stuck {
+      top: $nav-height-collapsed;
+    }
+    .jump-title {
+      float: left;
+      width: 130px;
+    }
+    ul {
+      display: block;
+      margin-left: 130px;
+    }
+    li {
+      display: inline-block;
+    }
   }
 }
+
+// WP admin bar push
+.admin-bar {
+  .jump-to.stuck {
+    // Up until 600px WP adminbar is not fixed
+    @include max-screen(600px) {
+      top: $nav-height-mobile;
+    }
+    // Desktop styles (weird WP breakpoint 782px)
+    @include min-screen(782px) {
+        top: $admin-bar-height + $nav-height-collapsed;
+    }
+  }
+}
+
 
 // Image overlay gradients and filters
 .filter {

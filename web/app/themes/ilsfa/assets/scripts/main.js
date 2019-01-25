@@ -10,6 +10,7 @@ var ILSFA = (function($) {
       $document,
       $siteHeader,
       $main,
+      delayedResizeTimer,
       loadingTimer;
 
   function _init() {
@@ -28,15 +29,47 @@ var ILSFA = (function($) {
     // Fit them vids!
     $('main').fitVids();
 
-    // Compact grid js resizing (mini-masonry)
+    // Compact grids = masonry (tried using CSS grid but performance was terrible)
     if ($('.compact-grid').length) {
-      _resizeGrids();
-      $(window).on('resize', ILSFA.resizeGrids);
+      $('.compact-grid').masonry({
+        itemSelector: '.item',
+        gutter: 16,
+        horizontalOrder: true,
+        percentPosition: true,
+        transitionDuration: 0,
+      });
     }
 
     _initNav();
     _initSearch();
     // _initLoadMore();
+
+    // Jump To nav
+    $('.jump-to').each(function() {
+      var $jumpTo = $(this);
+      $jumpTo.find('li').remove();
+      jumpToLinks = [];
+      // Get page-content headers
+      $('main .page-content h2').each(function() {
+        var title = $(this).attr('data-jumpto') || $(this).text();
+        jumpToLinks.push({title: title, el: this});
+      });
+      $('[data-jumpto]').each(function() {
+        jumpToLinks.push({title: $(this).attr('data-jumpto'), el: this});
+      });
+      // Build jumpto nav with various links found
+      $.each(jumpToLinks, function(i,el) {
+        $('<li>'+el.title+'</li>').appendTo($jumpTo.find('ul')).on('click', function(e) {
+          e.preventDefault();
+          _scrollBody(el.el);
+        }).hide().velocity('fadeIn', { easing: 'easeOutSine', duration: 150, delay: (i-1) * 150, display: 'inline-block' });
+      });
+      // Sticky jumpto
+      var waypoint = new Waypoint.Sticky({
+        element: $jumpTo[0],
+        offset: 80
+      });
+    });
 
     // Esc handlers
     $(document).keyup(function(e) {
@@ -85,21 +118,21 @@ var ILSFA = (function($) {
       $('.formassembly-form input.required').attr('required',true);
       // Handle submit of form
       $('.formassembly-form form').on('submit', function(e) {
-        return false;
-        // e.preventDefault();
-        // var $form = $(this);
-        // $.ajax({
-        //   url: $form.attr('action'),
-        //   data: $form.serialize(),
-        //   crossDomain: 1,
-        //   method: 'POST',
-        //   dataType: 'json'
-        // }).done(function(data) {
-        //     console.log(data);
-        // }).fail(function() {
-        //   console.log('fail!');
-        // });
-    });
+          return false;
+          // e.preventDefault();
+          // var $form = $(this);
+          // $.ajax({
+          //   url: $form.attr('action'),
+          //   data: $form.serialize(),
+          //   crossDomain: 1,
+          //   method: 'POST',
+          //   dataType: 'json'
+          // }).done(function(data) {
+          //     console.log(data);
+          // }).fail(function() {
+          //   console.log('fail!');
+          // });
+      });
       // Add focused + filled classes for styling
       $form.find('input,textarea').on('focus', function() {
         $(this).parents('.input-wrap,.oneField').addClass('focused');
@@ -116,16 +149,24 @@ var ILSFA = (function($) {
   }
 
   function _scrollBody(element, duration, delay) {
-    if ($('#wpadminbar').length) {
-      wpOffset = $('#wpadminbar').height();
-    } else {
-      wpOffset = 0;
+    if (typeof duration === 'undefined') {
+      duration = 500;
     }
-    element.velocity("scroll", {
+    if (typeof delay === 'undefined') {
+      delay = 0;
+    }
+    var offset = 20 + $('.site-header').outerHeight();
+    if ($('#wpadminbar').length) {
+      offset = offset + $('#wpadminbar').outerHeight();
+    }
+    if ($('.jump-to.stuck').length) {
+      offset = offset + $('.jump-to.stuck').outerHeight();
+    }
+    $(element).velocity('scroll', {
       duration: duration,
       delay: delay,
-      offset: -wpOffset
-    }, "easeOutSine");
+      offset: -offset
+    }, 'easeOutSine');
   }
 
   function _initSearch() {
@@ -152,7 +193,7 @@ var ILSFA = (function($) {
     // Toggle mobile nav
     $('a.menu-toggle').on('click', _toggleMobileNav);
 
-    // Waypoints
+    // Trigger collapsed state of main nav as you scroll down
     var waypoint = new Waypoint({
       element: $main[0],
       handler: function(direction) {
@@ -226,39 +267,27 @@ var ILSFA = (function($) {
   // Called in quick succession as window is resized
   function _resize() {
     // Check breakpoint indicator in DOM ( :after { content } is controlled by CSS media queries )
-    breakpointIndicatorString = window.getComputedStyle(
+    var breakpointIndicatorString = window.getComputedStyle(
       document.querySelector('#breakpoint-indicator'), ':after'
     ).getPropertyValue('content').replace(/['"]/g, '');
     breakpoints = {};
     for (var i = 0; i < breakpointClasses.length; i++) {
       breakpoints[breakpointClasses[i]] = (breakpointIndicatorString === breakpointClasses[i] || (i>0 && breakpoints[breakpointClasses[i-1]]));
     }
+
+    // // Slower resize events
+    // clearTimeout(delayedResizeTimer);
+    // delayedResizeTimer = setTimeout(_delayed_resize, 250);
   }
 
-  // Compact grid js resizing (mini-masonry)
-  function _resizeGrids() {
-    var $grid = $('.compact-grid');
-    if ($grid.length === 0) {
-      return;
-    }
-    var rowHeight = parseFloat($grid.css('grid-auto-rows'));
-    var rowGap = parseFloat($grid.css('grid-row-gap'));
-    $grid.css({
-      'grid-auto-rows': 'auto',
-      'align-items': 'self-start'
-    });
-    $grid.find('li').each(function(){
-      var t = Math.ceil((this.clientHeight + rowGap) / (rowHeight + rowGap));
-      this.style.gridRowEnd = 'span ' + t;
-    });
-    $grid.attr('style','');
-  }
+  // // Called periodically as window is resized
+  // function _delayed_resize() {
+  // }
 
   // Public functions
   return {
     init: _init,
     resize: _resize,
-    resizeGrids: _resizeGrids,
     scrollBody: function(section, duration, delay) {
       _scrollBody(section, duration, delay);
     }

@@ -27,6 +27,6 @@ $post_image = \Firebelly\Media\get_header_bg($event_post, ['size' => 'medium']);
     <?php endif; ?>
   </ul>
   <?php if (!empty($event_post_meta['_cmb2_event_url'])): ?>
-    <a class="button -icon -round" href="<?= $event_post_meta['_cmb2_event_url'][0] ?>" title="Event Details"><svg class="icon-arrow" aria-hidden="true"><use xlink:href="#icon-arrow"/></svg></a>
+    <a class="button -icon -round" target="_blank" rel="noopener" href="<?= $event_post_meta['_cmb2_event_url'][0] ?>" title="Event Details"><svg class="icon-arrow" aria-hidden="true"><use xlink:href="#icon-arrow"/></svg></a>
   <?php endif ?>
 </article>

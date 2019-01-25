@@ -77,8 +77,8 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
     <div class="filter white-multiply"></div><div class="filter blue-screen"></div><div class="filter blue-multiply"></div>
     <h2 class="h1"><?= !empty($post_meta['_cmb2_action_blocks_headline']) ? $post_meta['_cmb2_action_blocks_headline'][0] : 'What you can do ' ?></h2>
     <ul class="cards compact-grid">
-    <?php foreach (unserialize($post_meta['_cmb2_action_blocks'][0]) as $block): ?>
-        <li<?= !empty($block['disabled_text']) ? ' class="inactive"' : '' ?>>
+      <?php foreach (unserialize($post_meta['_cmb2_action_blocks'][0]) as $block): ?>
+        <li class="item<?= !empty($block['disabled_text']) ? ' inactive' : '' ?>">
           <h4><?= $block['subhead'] ?></h4>
           <h3><?= empty($block['disabled_text']) && !empty($block['url']) ? '<a href="'.$block['url'].'">' : '' ?><?= $block['header'] ?><?= empty($block['disabled_text']) && !empty($block['url']) ? '</a>' : '' ?></h3>
           <?php if (!empty($block['disabled_text'])): ?>
@@ -87,7 +87,7 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
             <a href="<?= $block['url'] ?>" class="button">More</a>
           <?php endif ?>
         </li>
-    <?php endforeach; ?>
+      <?php endforeach; ?>
     </ul>
   </div>
 <?php endif; ?>
