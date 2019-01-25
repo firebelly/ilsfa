@@ -34,13 +34,13 @@ function metaboxes() {
     'priority'      => 'high',
   ]);
   $program_info->add_field([
-    'name'      => 'Stat Figure',
+    'name'      => 'Stat Figure or Quote',
     'id'        => $prefix . 'stat_figure',
     'type'      => 'text',
     'desc'      => 'e.g. 99%',
   ]);
   $program_info->add_field([
-    'name'      => 'Stat Label',
+    'name'      => 'Stat Label or Quote Attribution',
     'id'        => $prefix . 'stat_label',
     'type'      => 'textarea_small',
     // 'desc'      => '',
