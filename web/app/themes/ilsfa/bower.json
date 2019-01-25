@@ -25,6 +25,12 @@
         "lib/shortcuts/sticky.js"
       ]
     },
+    "velocity": {
+      "main": [
+        "./velocity.js",
+        "./velocity.ui.js"
+      ]
+    },
     "masonry-layout": {
       "main": [
         "./dist/masonry.pkgd.js"

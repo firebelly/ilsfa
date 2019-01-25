@@ -57,18 +57,25 @@ var ILSFA = (function($) {
       $('[data-jumpto]').each(function() {
         jumpToLinks.push({title: $(this).attr('data-jumpto'), el: this});
       });
-      // Build jumpto nav with various links found
-      $.each(jumpToLinks, function(i,el) {
-        $('<li>'+el.title+'</li>').appendTo($jumpTo.find('ul')).on('click', function(e) {
-          e.preventDefault();
-          _scrollBody(el.el);
-        }).hide().velocity('fadeIn', { easing: 'easeOutSine', duration: 150, delay: (i-1) * 150, display: 'inline-block' });
-      });
-      // Sticky jumpto
-      var waypoint = new Waypoint.Sticky({
-        element: $jumpTo[0],
-        offset: 80
-      });
+      if (jumpToLinks.length) {
+        $jumpTo.addClass('-active');
+        // Build jumpto nav with various links found
+        $.each(jumpToLinks, function(i,el) {
+          $('<li>'+el.title+'</li>').appendTo($jumpTo.find('ul')).on('click', function(e) {
+            e.preventDefault();
+            _scrollBody(el.el);
+          }).hide().velocity('transition.slideLeftIn', { easing: 'easeOutSine', duration: 200, delay: (i-1) * 50, display: 'inline-block' });
+        });
+
+        // Sticky jumpto
+        var waypoint = new Waypoint.Sticky({
+          element: $jumpTo[0],
+          wrapper: '<div class="jump-to-sticky-wrapper" />',
+          offset: 80
+        });
+      } else {
+        $jumpTo.remove();
+      }
     });
 
     // Esc handlers

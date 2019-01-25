@@ -97,6 +97,9 @@
 }
 
 // Jump to links
+.jump-to-sticky-wrapper {
+  background: $blurple;
+}
 .jump-to {
   background: $blurple;
   @include global-padding(2);
@@ -106,6 +109,12 @@
   }
   .jump-title {
     padding: grid(1);
+    opacity: 0;
+  }
+  &.-active {
+    .jump-title {
+      opacity: 1;
+    }
   }
   li {
     cursor: pointer;
