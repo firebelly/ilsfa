@@ -7,6 +7,9 @@ use Roots\Sage\Titles;
 // Get all post_meta
 $post_meta = get_post_meta($post->ID);
 
+// Store $post for repopulating before footer
+$original_post = $post;
+
 // Headline set?
 if (!empty($post_meta['_cmb2_intro_title'])) {
   $intro_title = $post_meta['_cmb2_intro_title'][0];
@@ -131,3 +134,8 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
   </div>
 
 </div>
+
+<?php
+// Restore $post for populating "footer outro" area
+$post = $original_post;
+?>
