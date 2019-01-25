@@ -14,11 +14,16 @@
   padding: grid(4) columns(1,6);
   .stat {
     dt {
-      @include h1;
+      @extend %h1;
     }
     dd {
       margin-top: grid(1);
       @include h4;
+    }
+    &.long-text {
+      dt {
+        @extend %p2;
+      }
     }
   }
 }

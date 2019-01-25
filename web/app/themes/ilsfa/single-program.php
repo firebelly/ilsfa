@@ -47,7 +47,7 @@ get_template_part('templates/page', 'header-tertiary');
   </div>
   <div class="stat-content">
     <?php if (!empty($post_meta['_cmb2_stat_figure'])): ?>
-      <dl class="stat">
+      <dl class="stat<?= strlen($post_meta['_cmb2_stat_figure'][0]) > 8 ? ' long-text' : '' ?>">
         <dt><?= $post_meta['_cmb2_stat_figure'][0] ?></dt>
         <?php if (!empty($post_meta['_cmb2_stat_label'])): ?>
           <dd><?= $post_meta['_cmb2_stat_label'][0] ?></dd>
