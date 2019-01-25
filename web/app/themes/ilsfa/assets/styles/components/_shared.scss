@@ -44,6 +44,7 @@ ul.icon-list {
     margin: grid(1) 0;
     a {
       border-bottom: 1px solid $blurple-dark;
+      @include inline-link;
     }
     svg {
       position: absolute;
