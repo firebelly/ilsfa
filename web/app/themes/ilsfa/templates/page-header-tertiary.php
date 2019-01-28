@@ -23,10 +23,5 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
       </div>
     </div>
   <?php endif; ?>
-  <div class="jump-to">
-    <div class="jump-title">
-      Jump To <svg class="icon icon-arrow" aria-hidden="true"><use xlink:href="#icon-arrow"/></svg>
-    </div>
-    <ul><li>&nbsp;</li></ul>
-  </div>
+  <?php get_template_part('templates/jumpto-links'); ?>
 </header>

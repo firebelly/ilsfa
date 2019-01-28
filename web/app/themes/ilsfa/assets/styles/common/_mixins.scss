@@ -27,6 +27,8 @@
 %inline-link {
   @include inline-link;
 }
+
+// h2/h3 header links
 @mixin header-link($hover_color:$green) {
   a:not(.button) {
     border: none;
@@ -38,6 +40,9 @@
       border: none;
     }
   }
+}
+%header-link {
+  @include header-link;
 }
 
 // Faux dropshadow
@@ -53,21 +58,16 @@
   }
 }
 
-%header-link {
-  @include header-link;
-}
 // Clearfix
 @mixin clearfix {
-  *zoom: 1;
-  &:before, &:after {
-    content: "\0020";
-    display: block;
-    height: 0;
-    overflow: hidden;
-  }
   &:after {
+    content: '';
+    display: table;
     clear: both;
   }
+}
+%clearfix {
+  @include clearfix;
 }
 
 @mixin vertical-center {

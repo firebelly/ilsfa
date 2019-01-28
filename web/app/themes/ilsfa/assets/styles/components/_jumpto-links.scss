@@ -1,0 +1,73 @@
+// Jump to links (shown in header)
+
+.jump-to-sticky-wrapper {
+  background: $blurple;
+}
+
+.jump-to {
+  background: $blurple;
+  @include global-padding(2);
+  @include h5;
+  svg {
+    vertical-align: top;
+  }
+  .jump-title {
+    padding: grid(1) grid(1) grid(1) 0;
+    opacity: 0;
+  }
+  &.-loaded {
+    min-height: 100px;
+    .jump-title {
+      opacity: 1;
+    }
+  }
+  li {
+    cursor: pointer;
+    padding: grid(1) grid(2);
+    color: $yellow;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  // Stuck!
+  &.stuck {
+    position: fixed;
+    z-index: 1000;
+    top: $nav-height-mobile;
+    width: 100%;
+    @include drop-shadow;
+  }
+
+  // Mobile only styles
+  @include max-screen($breakpoint-nav) {
+    ul {
+      max-height: 0;
+      overflow: hidden;
+      transition: all 1s;
+    }
+    &.-active {
+      ul {
+      max-height: 500px;
+      }
+    }
+  }
+
+  // Desktop styles
+  @include media-md {
+    &.stuck {
+      top: $nav-height-collapsed;
+    }
+    .jump-title {
+      float: left;
+      width: 130px;
+    }
+    ul {
+      display: block;
+      margin-left: 130px;
+    }
+    li {
+      display: inline-block;
+    }
+  }
+}

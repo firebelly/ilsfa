@@ -91,7 +91,7 @@ var ILSFA = (function($) {
     $('.jump-to').each(function() {
       var $jumpTo = $(this);
       var title;
-      // Clear out dummy li
+      // Clear out dummy li for spacing
       $jumpTo.find('li').remove();
       jumpToLinks = [];
       // Get page-content headers
@@ -106,7 +106,9 @@ var ILSFA = (function($) {
         $(this).attr('data-jumpto-hash', _slugify(title));
       });
       if (jumpToLinks.length) {
-        $jumpTo.addClass('-active');
+        $jumpTo.addClass('-loaded').on('click', function(e) {
+          $jumpTo.toggleClass('-active');
+        });
         // Build jumpto nav with various links found
         $.each(jumpToLinks, function(i,el) {
           $('<li>'+el.title+'</li>').appendTo($jumpTo.find('ul')).on('click', function(e) {
@@ -122,6 +124,7 @@ var ILSFA = (function($) {
           offset: 80
         });
       } else {
+        // Just remove element if no jumpto links to add
         $jumpTo.remove();
       }
     });
@@ -298,6 +301,7 @@ var ILSFA = (function($) {
       document.querySelector('#breakpoint-indicator'), ':after'
     ).getPropertyValue('content').replace(/['"]/g, '');
     breakpoints = {};
+    // Check for breakpoint with `if (breakpoint['md'])`
     for (var i = 0; i < breakpointClasses.length; i++) {
       breakpoints[breakpointClasses[i]] = (breakpointIndicatorString === breakpointClasses[i] || (i>0 && breakpoints[breakpointClasses[i-1]]));
     }
