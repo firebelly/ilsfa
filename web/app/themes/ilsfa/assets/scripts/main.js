@@ -120,7 +120,7 @@ var ILSFA = (function($) {
 
       // Any jump links found?
       if (jumpToLinks.length) {
-        $jumpTo.addClass('loaded').find('.jumpto-title').on('click', function(e) {
+        $jumpTo.addClass('loaded').find('.jumpto-title,.jumpto-toggle').on('click', function(e) {
           $jumpTo.toggleClass('-active');
         });
         // Build jumpto nav with various links found
@@ -128,7 +128,13 @@ var ILSFA = (function($) {
           $('<li>'+el.title+'</li>').appendTo($jumpTo.find('ul')).on('click', function(e) {
             e.preventDefault();
             _scrollBody(el.el);
-          }).hide().velocity('transition.slideLeftIn', { easing: 'easeOutSine', duration: 200, delay: (i-1) * 50, display: 'inline-block' });
+            $jumpTo.removeClass('-active');
+          }).hide().velocity('transition.slideLeftIn', {
+            easing: 'easeOutSine',
+            duration: 200,
+            delay: (i-1) * 50,
+            display: 'inline-block'
+          });
         });
 
         // Sticky jumpto
