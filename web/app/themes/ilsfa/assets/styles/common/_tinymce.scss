@@ -39,13 +39,15 @@ body#tinymce.footer_copy {
     @include h5;
     margin: grid(3) 0 grid(2);
   }
-  p {
-    margin: 0;
-  }
   img {
     display: inline-block;
     width: auto;
-    height: 24px;
+    height: 40px;
+  }
+  .partners {
+    img {
+      height: 24px;
+    }
   }
   ul,
   li {
