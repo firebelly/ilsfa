@@ -7,24 +7,34 @@ var ILSFA = (function($) {
   var breakpoints = [],
       breakpointClasses = ['xl','lg','nav','md','sm','xs'],
       $body,
+      $window,
       $document,
       $siteHeader,
       $main,
+      $wpAdminBar,
+      $jumpTo,
       delayedResizeTimer,
+      headerOffset,
       loadingTimer;
 
   function _init() {
     // Cache some common DOM queries
     $body = $(document.body);
+    $window = $(window);
     $document = $(document);
     $siteHeader = $('header.site-header');
+    $jumpTo = $('.jumpto');
+    $wpAdminBar = $('#wpadminbar');
     $main = $('main.main');
 
     // DOM is loaded
     $body.addClass('loaded');
 
-    // Set screen size vars
+    // Set breakpoint vars
     _resize();
+
+    // Collapse desktop nav on scroll down, uncollapse scrolling up
+    _initNavCollapse();
 
     // Fit them vids!
     $('main').fitVids();
@@ -88,25 +98,29 @@ var ILSFA = (function($) {
 
   function _initJumpTo() {
     // Jump To nav
-    $('.jump-to').each(function() {
-      var $jumpTo = $(this);
+    if ($jumpTo.length) {
       var title;
       // Clear out dummy li for spacing
       $jumpTo.find('li').remove();
       jumpToLinks = [];
+
       // Get page-content headers
       $('main .page-content h2').each(function() {
         title = $(this).attr('data-jumpto') || $(this).text();
         $(this).attr('data-jumpto-hash', _slugify(title));
         jumpToLinks.push({title: title, el: this});
       });
+
+      // Find manually added [data-jumpto] areas
       $('[data-jumpto]').each(function() {
         title = $(this).attr('data-jumpto');
         jumpToLinks.push({title: title, el: this});
         $(this).attr('data-jumpto-hash', _slugify(title));
       });
+
+      // Any jump links found?
       if (jumpToLinks.length) {
-        $jumpTo.addClass('-loaded').on('click', function(e) {
+        $jumpTo.addClass('loaded').find('.jumpto-title').on('click', function(e) {
           $jumpTo.toggleClass('-active');
         });
         // Build jumpto nav with various links found
@@ -120,14 +134,17 @@ var ILSFA = (function($) {
         // Sticky jumpto
         var waypoint = new Waypoint.Sticky({
           element: $jumpTo[0],
-          wrapper: '<div class="jump-to-sticky-wrapper" />',
+          wrapper: '<div class="jumpto-sticky-wrapper" />',
+          handler: function(direction) {
+            _resize();
+          },
           offset: 80
         });
       } else {
         // Just remove element if no jumpto links to add
         $jumpTo.remove();
       }
-    });
+    }
   }
 
   // Form behavior w/ support for FormAssembly
@@ -185,12 +202,9 @@ var ILSFA = (function($) {
     if (typeof delay === 'undefined') {
       delay = 0;
     }
-    var offset = 20 + $('.site-header').outerHeight();
-    if ($('#wpadminbar').length) {
-      offset = offset + $('#wpadminbar').outerHeight();
-    }
-    if ($('.jump-to.stuck').length) {
-      offset = offset + $('.jump-to.stuck').outerHeight();
+    var offset = 20 + headerOffset;
+    if ($('.jumpto.stuck').length) {
+      offset = offset + $('.jumpto.stuck').outerHeight();
     }
     $(element).velocity('scroll', {
       duration: duration,
@@ -223,26 +237,18 @@ var ILSFA = (function($) {
     // Toggle mobile nav
     $('a.menu-toggle').on('click', _toggleMobileNav);
 
-    // Trigger collapsed state of main nav as you scroll down
-    var waypoint = new Waypoint({
-      element: $main[0],
-      handler: function(direction) {
-        if (direction === 'down') {
-          $siteHeader.attr('class', 'site-header collapsed');
-        }
-        else if (direction === 'up') {
-          $siteHeader.attr('class', 'site-header');
-        }
-      }
-    });
+    // We need a separate element to style for interim dividers
+    $('<li class="divider-line"></li>').insertBefore('.site-nav li.divider');
   }
 
   function _toggleMobileNav() {
     $body.toggleClass('menu-open');
+    _resize();
   }
 
   function _hideMobileNav() {
     $body.removeClass('menu-open');
+    _resize();
   }
 
   function _initLoadMore() {
@@ -306,14 +312,86 @@ var ILSFA = (function($) {
       breakpoints[breakpointClasses[i]] = (breakpointIndicatorString === breakpointClasses[i] || (i>0 && breakpoints[breakpointClasses[i-1]]));
     }
 
-    // // Slower resize events
+    _setHeaderOffset();
+    _setJumpToPosition();
+
+    // // Slower, more resource intensive resize events
     // clearTimeout(delayedResizeTimer);
-    // delayedResizeTimer = setTimeout(_delayed_resize, 250);
+    // delayedResizeTimer = setTimeout(_delayedResize, 150);
+  }
+  // Called periodically as window is resized
+  function _delayedResize() {
   }
 
-  // // Called periodically as window is resized
-  // function _delayed_resize() {
-  // }
+  function _setJumpToPosition() {
+    if ($jumpTo.length) {
+      if ($jumpTo.is('.stuck')) {
+        $jumpTo.css('top', headerOffset);
+      } else {
+        $jumpTo.css('top', '');
+      }
+    }
+  }
+
+  function _setHeaderOffset() {
+    headerOffset = $siteHeader.outerHeight();
+    if ($wpAdminBar.length && $wpAdminBar.css('position') === 'fixed') {
+      headerOffset = headerOffset + $wpAdminBar.outerHeight();
+    }
+  }
+
+  // Collapse desktop nav as you scroll down, but remove collapsed state if you scroll up past threshold
+  function _initNavCollapse() {
+    var didScroll;
+    var lastScrollTop = 0;
+    var delta = 100;
+    var navbarHeight = $siteHeader.outerHeight();
+
+    $(window).scroll(function(event){
+      didScroll = true;
+    });
+
+    setInterval(function() {
+      // Update navbarHeight
+      navbarHeight = $siteHeader.outerHeight();
+      if (didScroll) {
+        // Add body.has-scrolled for various CSS (mostly mobile when logged into WP)
+        $body.addClass('has-scrolled');
+        hasScrolled();
+        didScroll = false;
+      }
+    }, 250);
+
+    function hasScrolled() {
+      var st = $window.scrollTop();
+
+      // Remove body.has-scrolled if scrolled to top
+      if (st < 40) {
+        $body.removeClass('has-scrolled');
+      }
+
+      // Make sure they scroll more than delta
+      if(Math.abs(lastScrollTop - st) <= delta) {
+        return;
+      }
+
+      // If they scrolled down and are past the navbar, add class .nav-up.
+      // This is necessary so you never see what is "behind" the navbar.
+      if (st > lastScrollTop && st > navbarHeight) {
+        // Scroll Down
+        $siteHeader.removeClass('nav-down').addClass('collapsed');
+        _resize();
+      } else {
+        // Scroll Up
+        if(st + $window.height() < $document.height()) {
+          $siteHeader.removeClass('collapsed').addClass('nav-down');
+          _resize();
+        }
+      }
+
+      lastScrollTop = st;
+    }
+  }
 
   // Public functions
   return {

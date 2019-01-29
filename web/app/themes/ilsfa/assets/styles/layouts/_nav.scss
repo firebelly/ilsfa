@@ -6,14 +6,6 @@
     top: $admin-bar-height-mobile;
   }
 
-  // Up until 600px WP adminbar is not fixed
-  @include max-screen(600px) {
-    // ...so after scrolling down, move site-header to top (a bit janky, but only for mobile WP-logged-in users!)
-    .site-header.collapsed {
-      top: 0;
-    }
-  }
-
   // Desktop styles (weird WP breakpoint 782px)
   @include min-screen(782px) {
     .site-header {
@@ -22,11 +14,18 @@
   }
 }
 
+// Up until 600px WP adminbar is not fixed
+@include max-screen(600px) {
+  // ...so after scrolling down, move site-header to top (a bit janky, but only for mobile WP-logged-in users!)
+  body.has-scrolled .site-header {
+    top: 0;
+  }
+}
+
 .site-header {
   height: $nav-height-mobile;
   background: $blurple-dark;
   @include drop-shadow;
-  transition: height 0.1s;
 
   .wrap {
     position: relative;
@@ -38,6 +37,22 @@
   right: 0;
   width: 100%;
   z-index: 10;
+
+  .menu-toggle {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    &:focus {
+      outline: none;
+    }
+
+    @include min-screen($breakpoint-nav) {
+      top: auto;
+      display: none;
+    }
+  }
 
   // Logo + wordmark
   .brand {
@@ -70,7 +85,7 @@
     }
   }
 
-  // Desktop styles
+  // Interim styles
   @include media-sm {
     .brand {
       .logo-wordmark {
@@ -81,6 +96,8 @@
       }
     }
   }
+
+  // Desktop styles
   @include media-nav {
     height: $nav-height;
     position: fixed;
@@ -106,7 +123,6 @@
     // Sticky nav (collapsed)
     &.collapsed {
       height: $nav-height-collapsed;
-      transition: height 0.4s;
       .wrap {
         margin: grid(2) columns(2);
       }
@@ -156,18 +172,50 @@
       text-decoration: underline;
     }
 
-    // Divider class added in wp admin menus
-    .divider {
-      margin: grid(1) 0 0;
-      padding: grid(1) 0 0;
-      border-top: 2px solid $white;
+    li {
+      a {
+        display: block;
+        padding: grid(1) 0;
+        margin: 0;
+      }
+      &.divider-line {
+        display: none;
+      }
     }
 
+    // Interim styles for breakpoint-sm up to breakpoint-nav
+    @include media-sm {
+      li {
+        display: inline-block;
+        margin-right: grid(3);
+        &.divider-line {
+          display: block;
+          border-top: 2px solid $white;
+          margin: grid(1) 0;
+        }
+        &.divider {
+        }
+        a {
+          display: inline-block;
+        }
+      }
+    }
+
+    // Desktop nav styles
     @include media-nav {
       white-space: nowrap;
+      li {
+        margin: 0;
+        a {
+          padding: grid(1);
+        }
+      }
+      li.divider-line {
+        display: none;
+      }
       .divider {
         margin: 0 0 0 grid(1);
-        padding: 0 0 0 grid(1);
+        padding: 0 0 0 grid(2);
         border: none;
         position: relative;
         &::before {
@@ -185,7 +233,10 @@
 
   // Utility links
   .utility-nav {
-    @extend %h5;
+    border-top: 2px solid $white;
+    padding: grid(1) 0 0;
+    margin: grid(1) 0 0;
+    @extend %p3;
     a {
       display: block;
       color: $white;
@@ -195,12 +246,21 @@
     a:hover {
       text-decoration: underline;
     }
-    border-top: 2px solid $white;
-    padding: grid(2) 0 0;
-    margin: grid(2) 0 0;
+
+    // Interim styles
+    @include media-sm {
+      li {
+        display: inline-block;
+        margin-right: grid(3);
+      }
+    }
 
     // Desktop styles
     @include media-nav {
+      li {
+        display: inline-block;
+        margin: 0;
+      }
       position: absolute;
       top: 0;
       right: 0;
@@ -295,55 +355,18 @@ body.search-open {
   }
 }
 
-// Mobile only styling on #menu-main-nav (using max-screen to avoid overwriting all these specific styles)
+// Mobile/Interim only styling on #menu-main-nav (using max-screen to avoid overwriting all these specific styles)
 @include max-screen($breakpoint-nav) {
 
-  .menu-toggle {
-    display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
-
-    &:focus {
-      outline: none;
-    }
-
-    @include min-screen($breakpoint-nav) {
-      top: auto;
-      display: none;
-    }
-  }
-
+  // Hide main & utility nav by default
   ul#menu-main-nav,
   ul#menu-utility-nav {
     display: none;
   }
-  ul#menu-main-nav {
-    li {
-      a {
-        display: block;
-        padding: grid(1) 0;
-        margin: 0;
-      }
-    }
-    .menu-search {
-      display: none;
-    }
-  }
   body.menu-open {
-    // Disable scroll on body + hide WP adminbar
-    overflow: hidden;
-    position: fixed;
-    #wpadminbar {
-      display: none;
-    }
-
     // Show nav-search when mobile nav is open
     .nav-search {
       display: block;
-    }
-    .search-close {
-      display: none;
     }
 
     // Show X button
@@ -355,7 +378,43 @@ body.search-open {
         display: block;
       }
     }
+    // Hide Search (X) button
+    .search-close {
+      display: none;
+    }
 
+    // Make site-header fill viewport
+    .site-header {
+      background: $blurple-dark;
+      height: auto;
+    }
+    // Give space for WP admin bar if present
+    // &.admin-bar .site-header {
+    //   padding-top: 32px;
+    // }
+    ul#menu-main-nav,
+    ul#menu-utility-nav {
+      display: block;
+    }
+  }
+}
+
+// Small screens only (full-viewport nav)
+@include max-screen($breakpoint-sm) {
+  .site-nav {
+    // This class is added in wp admin menus
+    .divider {
+      margin: grid(1) 0 0;
+      padding: grid(1) 0 0;
+      border-top: 2px solid $white;
+    }
+  }
+
+  body.menu-open {
+    // Hide WP admin bar on small screens when nav is open
+    #wpadminbar {
+      display: none;
+    }
     // Make site-header fill viewport
     .site-header {
       position: fixed;
@@ -371,9 +430,9 @@ body.search-open {
         position: relative;
       }
     }
-    &.admin-bar .site-header {
-      padding-top: grid(4);
-    }
+    // &.admin-bar .site-header {
+    //   padding-top: grid(4);
+    // }
     ul#menu-main-nav,
     ul#menu-utility-nav {
       display: block;

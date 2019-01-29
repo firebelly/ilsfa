@@ -22,6 +22,15 @@
 }
 
 // Visibility classes (borrowing nomenclature from Foundation)
+.show-for-small-up {
+  display: none;
+  @include media-sm {
+    display: block;
+    &.-inline {
+      display: inline;
+    }
+  }
+}
 .show-for-medium-up {
   display: none;
   @include media-md {

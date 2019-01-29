@@ -2,7 +2,7 @@
   <div class="search-wrap">
     <div class="input-wrap">
       <input id="s"autocomplete="off" type="search" class="search-field form-control" placeholder="" value="" name="s" required>
-      <label for="s"><span class="show-for-medium-up -inline">Enter </span>Keyword(s)</label>
+      <label for="s"><span class="show-for-small-up -inline">Enter </span>Keyword(s)</label>
     </div>
     <div class="button-wrap">
       <button type="submit" class="button">Search</button>
