@@ -1,29 +1,57 @@
 // Jump to links (shown in header)
 
-.jump-to-sticky-wrapper {
+.jumpto-sticky-wrapper {
   background: $blurple;
 }
 
-.jump-to {
+.jumpto {
+  position: relative;
   background: $blurple;
-  @include global-padding(2);
+  padding: grid(2) $mobile-global-padding;
   @include h5;
   svg {
     vertical-align: top;
   }
-  .jump-title {
+  .jumpto-title {
+    cursor: pointer;
     padding: grid(1) grid(1) grid(1) 0;
     opacity: 0;
+    color: $yellow;
+    svg {
+      display: none;
+    }
   }
-  &.-loaded {
-    min-height: 100px;
-    .jump-title {
+  .jumpto-toggle {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: grid(2) + 8px;
+    right: $mobile-global-padding + 12px;
+    svg {
+      width: 24px;
+      height: 24px;
+      fill: $yellow;
+      @include transition(fill);
+    }
+    &:hover {
+      svg {
+        fill: $blurple-dark;
+      }
+    }
+    .icon-minus {
+      display: none;
+    }
+  }
+  // Page has loaded and jumpto-links are found on page
+  &.loaded {
+    // min-height: 70px;
+    .jumpto-title {
       opacity: 1;
     }
   }
   li {
     cursor: pointer;
-    padding: grid(1) grid(2);
+    padding: 0 grid(3) grid(1) 0;
     color: $yellow;
     &:hover {
       text-decoration: underline;
@@ -33,40 +61,71 @@
   // Stuck!
   &.stuck {
     position: fixed;
-    z-index: 1000;
+    z-index: 50;
     top: $nav-height-mobile;
     width: 100%;
     @include drop-shadow;
   }
 
   // Mobile only styles
-  @include max-screen($breakpoint-nav) {
+  @include max-screen($breakpoint-sm) {
     ul {
-      max-height: 0;
-      overflow: hidden;
-      transition: all 1s;
+      margin-right: grid(7);
+    }
+    li {
+      display: block !important;
+      padding-top: grid(1);
+      border-top: 2px solid $blurple-dark;
+    }
+  }
+
+  // Interim only styles
+  @include max-screen($breakpoint-md) {
+    ul {
+      display: none;
     }
     &.-active {
+      .jumpto-toggle {
+        .icon-plus {
+          display: none;
+        }
+        .icon-minus {
+          display: block;
+        }
+      }
       ul {
-      max-height: 500px;
+        margin-top: grid(1);
+        padding-top: grid(2);
+        border-top: 2px solid $blurple-dark;
+        display: block;
       }
     }
   }
 
   // Desktop styles
   @include media-md {
+    padding: grid(2) columns(2);
+
     &.stuck {
       top: $nav-height-collapsed;
     }
-    .jump-title {
+    .jumpto-toggle {
+      display: none;
+    }
+    .jumpto-title {
       float: left;
       width: 130px;
+      color: $blurple-dark;
+      svg {
+        display: inline-block;
+      }
     }
     ul {
       display: block;
       margin-left: 130px;
     }
     li {
+      padding: grid(1) grid(2);
       display: inline-block;
     }
   }

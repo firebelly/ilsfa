@@ -27,6 +27,11 @@
     }
   }
 
+  // Add padding above image-wrap if jumpto is present
+  .jumpto-sticky-wrapper + .image-wrap {
+    padding-top: grid(2);
+  }
+
   // Supporting statement
   .supporting-statement {
     @include global-padding(6);
@@ -98,7 +103,7 @@
 
 // WP admin bar push
 .admin-bar {
-  .jump-to.stuck {
+  .jumpto.stuck {
     top: $nav-height-mobile;
     // Up until 600px WP adminbar is not fixed
     @include min-screen(600px) {
