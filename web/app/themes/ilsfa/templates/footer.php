@@ -49,13 +49,8 @@ if (!is_search() && !empty($post_meta['_cmb2_footer_outro'])): ?>
         </li>
       </ul>
 
-      <div class="partners">
-        <h3>Our Partners</h3>
-        <ul>
-          <li><a href="#"><img alt="Grid Alternatives logo" src="<?= \Roots\Sage\Assets\asset_path('images/logo-grid-alternatives.png'); ?>"></a></li>
-          <li><a href="#"><img alt="AECOM logo" src="<?= \Roots\Sage\Assets\asset_path('images/logo-aecom.png'); ?>"></a></li>
-          <li><a href="#"><img alt="Shelton Solutions logo" src="<?= \Roots\Sage\Assets\asset_path('images/logo-shelton-solutions.png'); ?>"></a></li>
-        </ul>
+      <div class="footer-copy">
+        <?= apply_filters('the_content', \Firebelly\SiteOptions\get_option('footer_copy')) ?>
       </div>
     </div>
 

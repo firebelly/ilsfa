@@ -87,6 +87,7 @@
         margin: 0;
       }
     }
+
     @include media-md {
       li {
         padding: 0 grid(2) grid(2) 0;
@@ -95,17 +96,26 @@
   }
 
   // Partner logo pngs
-  .partners {
+  .footer-copy {
     h3 {
       margin: grid(3) 0 grid(2);
     }
-    li {
+    img {
+      display: inline-block;
+      width: auto;
+      height: 40px;
+      margin-right: grid(3);
+    }
+    .partners {
       img {
-        display: block;
-        width: auto;
         height: 24px;
       }
     }
-  }
 
+    @include media-md {
+      li {
+        display: inline-block;
+      }
+    }
+  }
 }

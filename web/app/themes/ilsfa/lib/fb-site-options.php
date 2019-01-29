@@ -179,12 +179,15 @@ class FbSiteOptions {
       'type' => 'text_email',
     ) );
 
-    // $cmb->add_field( array(
-    //   'name' => __( 'Footer Statement', 'cmb2' ),
-    //   'id'   => 'footer_statement',
-    //   'desc' => __( 'Statement shown in the footer'),
-    //   'type' => 'textarea_small',
-    // ) );
+    $cmb->add_field( array(
+      'name' => __( 'Footer Copy', 'cmb2' ),
+      'id'   => 'footer_copy',
+      'desc' => __( 'Shown in the footer below contact info'),
+      'type' => 'wysiwyg',
+      'options'   => [
+        'textarea_rows' => 10,
+      ],
+    ) );
 
     $cmb->add_field( array(
       'name'       => __( 'Facebook App ID', 'cmb2' ),
