@@ -27,11 +27,6 @@
     }
   }
 
-  // Add padding above image-wrap if jumpto is present
-  .jumpto-sticky-wrapper + .image-wrap {
-    padding-top: grid(2);
-  }
-
   // Supporting statement
   .supporting-statement {
     @include global-padding(6);
@@ -74,6 +69,13 @@
   }
 }
 
+@include media-md {
+  // Add padding above image-wrap if jumpto is present
+  .jumpto-sticky-wrapper + .image-wrap {
+    padding-top: grid(2);
+  }
+}
+
 // Aspect ratio image wraps
 .image-wrap {
   position: relative;
@@ -100,22 +102,6 @@
     }
   }
 }
-
-// WP admin bar push
-.admin-bar {
-  .jumpto.stuck {
-    top: $nav-height-mobile;
-    // Up until 600px WP adminbar is not fixed
-    @include min-screen(600px) {
-      top: $nav-height-mobile + $admin-bar-height-mobile;
-    }
-    // Desktop styles (weird WP breakpoint 782px)
-    @include min-screen(782px) {
-        top: $admin-bar-height + $nav-height-collapsed;
-    }
-  }
-}
-
 
 // Image overlay gradients and filters
 .filter {

@@ -1,4 +1,19 @@
-// Jump to links (shown in header)
+// Jump to links (built dynamically from various links in page, shown in header)
+
+// WP admin bar push
+.admin-bar {
+  .jumpto.stuck {
+    top: $nav-height-mobile;
+    // Up until 600px WP adminbar is not fixed
+    @include min-screen(600px) {
+      top: $nav-height-mobile + $admin-bar-height-mobile;
+    }
+    // Desktop styles (weird WP breakpoint 782px)
+    @include min-screen(782px) {
+        top: $admin-bar-height + $nav-height-collapsed;
+    }
+  }
+}
 
 .jumpto-sticky-wrapper {
   background: $blurple;
@@ -71,7 +86,7 @@
   @include max-screen($breakpoint-sm) {
     ul {
       // margin-right: grid(7); // this made titles wrap too much on smaller screens imo
-      display: block;
+      // display: block;
     }
     li {
       display: block !important; // overriding Velocity-added inline style of inline-block
@@ -95,6 +110,7 @@
         }
       }
       ul {
+        margin-top: grid(2);
         display: block;
       }
     }
