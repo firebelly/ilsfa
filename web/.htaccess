@@ -3,20 +3,23 @@
 RewriteEngine On
 RewriteBase /
 
-# Force single domain
-# RewriteCond %{REQUEST_URI} !\.well-known
-# RewriteCond %{HTTP_HOST} !^fb-bedrock\.webfactional\.com [NC]
-# RewriteCond %{HTTP_HOST} !^fb-bedrock\.firebelly\.co [NC]
-# RewriteCond %{HTTP_HOST} !^fb-bedrock\.localhost [NC]
-# RewriteRule ^(.*)$ https://www\.fb-bedrock\.com%{REQUEST_URI} [R=301,L]
+# Less-intensive 404s for missing assets
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule \.(jpg|jpeg|png|gif|ico|icns|bmp)$ - [NC,R=404,L]
 
-# Force HTTPS
-# RewriteCond %{REQUEST_URI} !\.well-known
-# RewriteCond %{HTTP:X-Forwarded-SSL} !on
-# RewriteCond %{HTTP_HOST} !^fb-bedrock\.firebelly\.co [NC]
-# RewriteCond %{HTTP_HOST} !^fb-bedrock\.webfactional\.com [NC]
-# RewriteCond %{HTTP_HOST} !^fb-bedrock\.localhost [NC]
-# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+# Force single domain
+RewriteCond %{REQUEST_URI} !\.well-known
+RewriteCond %{HTTP_HOST} !^www\.illinoissfa\.com [NC]
+RewriteCond %{HTTP_HOST} !^ilsfa\.firebelly\.co [NC]
+RewriteCond %{HTTP_HOST} !^ilsfa\.(localhost|sage) [NC]
+RewriteRule ^(.*)$ https://www.illinoissfa.com%{REQUEST_URI} [R=301,L]
+
+# Force HTTPS (uncomment once site is live and SSL cert is set up)
+RewriteCond %{REQUEST_URI} !\.well-known
+RewriteCond %{HTTP:X-Forwarded-SSL} !on
+RewriteCond %{HTTP_HOST} !^ilsfa\.firebelly\.co [NC]
+RewriteCond %{HTTP_HOST} !^ilsfa\.(localhost|sage) [NC]
+RewriteRule ^(.*)$ https://www.illinoissfa.com%{REQUEST_URI} [R=301,L]
 
 </IfModule>
 # END Custom redirects
