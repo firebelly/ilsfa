@@ -152,7 +152,7 @@ var ILSFA = (function($) {
           handler: function(direction) {
             _resize();
           },
-          offset: 80
+          offset: headerOffset
         });
       } else {
         // Just remove element if no jumpto links to add
