@@ -17,11 +17,11 @@
   @include h5;
   @include transition(box-shadow, transform);
 
-  &:not(.disabled):hover {
+  &:hover {
     background: $green;
     text-decoration: none;
   }
-  &:not(.disabled):active {
+  &:active {
     box-shadow: 0 0 0 rgba(0,0,0,0.25);
     transform: translateY(1px);
   }
@@ -29,6 +29,10 @@
     cursor: default;
     &:hover {
       color: inherit !important;
+    }
+    &:active {
+      box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+      transform: none;
     }
   }
 
