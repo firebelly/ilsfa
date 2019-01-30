@@ -13,7 +13,7 @@ get_template_part('templates/page', 'header-tertiary');
 ?>
 
 <div class="events-listing">
-  <?php if ($events = \Firebelly\PostTypes\Event\get_events(['output' => 'array'])): ?>
+  <?php if (0 && $events = \Firebelly\PostTypes\Event\get_events(['output' => 'array'])): ?>
     <ul class="cards compact-grid">
     <?php foreach ($events as $event): ?>
       <li class="item">
