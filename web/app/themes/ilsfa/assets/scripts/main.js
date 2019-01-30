@@ -124,11 +124,9 @@ var ILSFA = (function($) {
         $jumpTo.addClass('loaded').find('.jumpto-title,.jumpto-toggle').on('click', function(e) {
           e.preventDefault();
           var dir = $jumpTo.hasClass('-active') ? 'slideUp' : 'slideDown';
+          $jumpTo.toggleClass('-active');
           $jumpTo.find('ul').velocity(dir, {
-            duration: 150,
-            complete: function(els) {
-              $jumpTo.toggleClass('-active');
-            }
+            duration: 150
           });
         });
         // Build jumpto nav with various links found
