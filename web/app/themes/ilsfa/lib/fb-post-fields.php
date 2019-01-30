@@ -43,7 +43,7 @@ function metaboxes() {
     'title'         => esc_html__( 'Omit From Search', 'cmb2' ),
     'object_types'  => ['post', 'program', 'page', 'event'],
     'context'       => 'side',
-    'priority'      => 'default',
+    'priority'      => 'low',
     'show_names'    => false,
   ]);
   $omit_from_search->add_field([
