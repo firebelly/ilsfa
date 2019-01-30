@@ -400,7 +400,7 @@ var ILSFA = (function($) {
         _resize();
       } else {
         // Scrolling Up
-        if(!scrollToBodyAnimating && (st <= scrollUpDelta || Math.abs(lastScrollTop - st) => scrollUpDelta)) {
+        if(!scrollToBodyAnimating && (st <= scrollUpDelta || Math.abs(lastScrollTop - st) >= scrollUpDelta)) {
           $siteHeader.removeClass('collapsed').addClass('nav-down');
           _resize();
         }
