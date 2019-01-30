@@ -70,10 +70,11 @@
   // Mobile only styles
   @include max-screen($breakpoint-sm) {
     ul {
-      margin-right: grid(7);
+      // margin-right: grid(7); // this made titles wrap too much on smaller screens imo
+      display: block;
     }
     li {
-      display: block !important;
+      display: block !important; // overriding Velocity-added inline style of inline-block
       padding-top: grid(1);
       border-top: 2px solid $blurple-dark;
     }
@@ -94,11 +95,16 @@
         }
       }
       ul {
-        margin-top: grid(1);
-        padding-top: grid(2);
-        border-top: 2px solid $blurple-dark;
         display: block;
       }
+    }
+  }
+  // Between sm and md we have a border on top of the UL
+  @include screen($breakpoint-sm, $breakpoint-md) {
+    ul {
+      margin-top: grid(1);
+      padding-top: grid(2);
+      border-top: 2px solid $blurple-dark;
     }
   }
 
