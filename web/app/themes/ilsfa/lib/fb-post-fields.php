@@ -38,6 +38,21 @@ function metaboxes() {
     'type' => 'file',
   ]);
 
+  $omit_from_search = new_cmb2_box([
+    'id'            => $prefix . 'omit_from_search',
+    'title'         => esc_html__( 'Omit From Search', 'cmb2' ),
+    'object_types'  => ['post', 'program', 'page', 'event'],
+    'context'       => 'side',
+    'priority'      => 'default',
+    'show_names'    => false,
+  ]);
+  $omit_from_search->add_field([
+    'name'    => esc_html__( 'Featured', 'cmb2' ),
+    'id'      => $prefix . 'omit_from_search',
+    'desc'    => 'Hide this post in search results',
+    'type'    => 'checkbox',
+  ]);
+
   // $post_is_featured = new_cmb2_box([
   //   'id'            => $prefix . 'post_is_featured',
   //   'title'         => esc_html__( 'Is this a featured post on the homepage?', 'cmb2' ),

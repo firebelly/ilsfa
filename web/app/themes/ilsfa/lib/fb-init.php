@@ -160,3 +160,16 @@ function search_distinct($where) {
   }
   return $where;
 }
+
+/**
+ * Omit pages from search results (CMB2 field added in fb-post-fields)
+ */
+function omit_pages_from_search($query) {
+  global $wpdb;
+  if (!is_admin() && is_search()) {
+    $excluded_ids = $wpdb->get_col('SELECT post_id FROM '.$wpdb->postmeta.' WHERE meta_key="_cmb2_omit_from_search"');
+    $query->set('post__not_in', $excluded_ids);
+  }
+  return $query;
+}
+add_filter( 'pre_get_posts', __NAMESPACE__ . '\omit_pages_from_search');
