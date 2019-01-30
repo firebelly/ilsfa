@@ -173,3 +173,17 @@ function omit_pages_from_search($query) {
   return $query;
 }
 add_filter( 'pre_get_posts', __NAMESPACE__ . '\omit_pages_from_search');
+
+/**
+ * Add support for SEO title field overriding title
+ */
+add_filter('pre_get_document_title', __NAMESPACE__.'\\change_the_title');
+function change_the_title() {
+  global $post;
+  if (is_singular() && !empty($post)) {
+    $seo_title = get_post_meta($post->ID, '_cmb2_seo_title', true);
+  }
+  if (!empty($seo_title)) {
+    return $seo_title;
+  }
+}

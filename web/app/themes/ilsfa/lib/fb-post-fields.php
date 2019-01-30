@@ -53,6 +53,27 @@ function metaboxes() {
     'type'    => 'checkbox',
   ]);
 
+  $seo_fields = new_cmb2_box([
+    'id'            => $prefix . 'seo_fields',
+    'title'         => esc_html__( 'SEO', 'cmb2' ),
+    'object_types'  => ['post', 'page', 'program', 'event'],
+    'context'       => 'normal',
+    'priority'      => 'default',
+  ]);
+  $seo_fields->add_field([
+    'name'    => esc_html__( 'SEO Title', 'cmb2' ),
+    'id'      => $prefix . 'seo_title',
+    'desc'    => 'Custom title override to improve SEO — limit to 69 chars',
+    'type'    => 'text',
+  ]);
+  $seo_fields->add_field([
+    'name'    => esc_html__( 'SEO Description', 'cmb2' ),
+    'id'      => $prefix . 'seo_description',
+    'desc'    => 'Used for meta description to improve SEO, and for social sharing — limit to 155 chars',
+    'type'    => 'textarea_small',
+  ]);
+
+
   // $post_is_featured = new_cmb2_box([
   //   'id'            => $prefix . 'post_is_featured',
   //   'title'         => esc_html__( 'Is this a featured post on the homepage?', 'cmb2' ),
