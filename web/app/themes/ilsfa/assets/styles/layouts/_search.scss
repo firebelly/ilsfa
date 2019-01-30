@@ -16,8 +16,17 @@
   }
 }
 
-// Search results
-body.search {
+// In-page search form (404, search results)
+.search-large {
+  background: $blurple;
+  @include global-padding(6);
+  .search-close {
+    display: none;
+  }
+}
+// Dark headers for search + 404
+body.search,
+body.error404 {
   .page-header {
     .title-wrap {
       background: $blurple-dark;
@@ -25,15 +34,14 @@ body.search {
         padding: grid(6) columns(5) grid(6) columns(2);
       }
     }
-  }
-  .search-large {
-    background: $blurple;
-    @include global-padding(6);
-    .search-close {
-      display: none;
+    .supporting-statement {
+      margin-top: 0;
     }
   }
+}
 
+// Search results
+body.search {
   article.search-result {
     margin-bottom: grid(4);
     h2 {
