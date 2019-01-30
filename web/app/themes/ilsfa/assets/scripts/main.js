@@ -13,6 +13,7 @@ var ILSFA = (function($) {
       $main,
       $wpAdminBar,
       $jumpTo,
+      scrollToBodyAnimating = false,
       delayedResizeTimer,
       headerOffset,
       loadingTimer;
@@ -208,6 +209,8 @@ var ILSFA = (function($) {
     if (typeof delay === 'undefined') {
       delay = 0;
     }
+    // Set flag that we're animating body to avoid uncollapsing the nav from a jumpto link
+    scrollToBodyAnimating = true;
     var offset = 20 + headerOffset;
     if ($('.jumpto.stuck').length) {
       offset = offset + $('.jumpto.stuck').outerHeight();
@@ -215,7 +218,12 @@ var ILSFA = (function($) {
     $(element).velocity('scroll', {
       duration: duration,
       delay: delay,
-      offset: -offset
+      offset: -offset,
+      complete: function(els) {
+        setTimeout(function() {
+          scrollToBodyAnimating = false;
+        }, 150);
+      }
     }, 'easeOutSine');
   }
 
@@ -358,7 +366,7 @@ var ILSFA = (function($) {
     });
 
     setInterval(function() {
-      // Update navbarHeight
+      // Update navbarHeight in case it's changed size
       navbarHeight = $siteHeader.outerHeight();
       if (didScroll) {
         // Add body.has-scrolled for various CSS (mostly mobile when logged into WP)
@@ -389,7 +397,7 @@ var ILSFA = (function($) {
         _resize();
       } else {
         // Scroll Up
-        if(st + $window.height() < $document.height()) {
+        if(!scrollToBodyAnimating && (st + $window.height() < $document.height())) {
           $siteHeader.removeClass('collapsed').addClass('nav-down');
           _resize();
         }
