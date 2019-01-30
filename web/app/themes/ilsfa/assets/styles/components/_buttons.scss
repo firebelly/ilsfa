@@ -36,10 +36,12 @@
     }
   }
 
+  // Round buttons (e.g. nav toggle)
   &.-round {
     border-radius: 50%;
   }
 
+  // Icon buttons (e.g. nav toggle)
   &.-icon {
     min-width: 0;
     width: 56px;
@@ -62,29 +64,6 @@
     width: 24px;
     height: 24px;
     fill: $blurple-dark;
-  }
-  &.-wide {
-    width: 100%;
-  }
-
-  // White buttons
-  &.-white {
-    color: $white;
-
-    &.active {
-      color: $blurple-dark;
-      svg {
-        fill: $blurple-dark;
-      }
-    }
-    @include media-md {
-      &:hover {
-        color: $blurple-dark;
-        svg {
-          fill: $blurple-dark;
-        }
-      }
-    }
   }
 }
 
