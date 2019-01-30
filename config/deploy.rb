@@ -3,7 +3,7 @@ set :domain, 'ilsfa.firebelly.co'
 set :theme, 'ilsfa'
 set :login, 'firebelly'
 set :repo_url, 'git@github.com:firebelly/ilsfa.git'
-set :php, 'php72'
+set :composer_command, -> { "php72 /home/#{fetch(:login)}/bin/composer.phar" }
 
 # Hardcodes branch to always be master
 # This could be overridden in a stage config file
@@ -43,7 +43,7 @@ namespace :deploy do
         if ENV['NOASSETS'] != nil
           set :previous_release, capture("readlink #{current_path}")
         end
-        SSHKit.config.command_map[:composer] = "#{fetch(:php)} /home/#{fetch(:login)}/bin/composer.phar"
+        SSHKit.config.command_map[:composer] = fetch(:composer_command)
       end
   end
 end
