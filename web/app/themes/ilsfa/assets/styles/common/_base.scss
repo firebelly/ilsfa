@@ -6,11 +6,14 @@
 html {
   box-sizing: border-box;
 }
+html,
+body {
+  overflow-x: hidden;
+}
 
 body {
   color: $blurple-dark;
   font-size: 16px;
-  overflow-x: hidden;
   // Avoid white flash below animating .site-header
   background: darken($blurple-dark, 5%);
   font: 18px/1.333 $font-regular;
