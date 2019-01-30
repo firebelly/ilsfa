@@ -365,46 +365,42 @@ var ILSFA = (function($) {
   function _initNavCollapse() {
     var didScroll;
     var lastScrollTop = 0;
-    var delta = 100;
-    var navbarHeight = $siteHeader.outerHeight();
+    var scrollUpDelta = 150;
+    var scrollDownDelta = 100;
 
     $(window).scroll(function(event){
       didScroll = true;
     });
 
     setInterval(function() {
-      // Update navbarHeight in case it's changed size
-      navbarHeight = $siteHeader.outerHeight();
       if (didScroll) {
         // Add body.has-scrolled for various CSS (mostly mobile when logged into WP)
         $body.addClass('has-scrolled');
         hasScrolled();
         didScroll = false;
       }
-    }, 250);
+    }, 150);
 
     function hasScrolled() {
       var st = $window.scrollTop();
 
       // Remove body.has-scrolled if scrolled to top
-      if (st < 40) {
+      if (st < scrollDownDelta) {
         $body.removeClass('has-scrolled');
       }
 
-      // Make sure they scroll more than delta
-      if(Math.abs(lastScrollTop - st) <= delta) {
+      // Make sure they scrolled more than scrollUpDelta
+      if(Math.abs(lastScrollTop - st) <= scrollDownDelta) {
         return;
       }
 
-      // If they scrolled down and are past the navbar, add class .nav-up.
-      // This is necessary so you never see what is "behind" the navbar.
-      if (st > lastScrollTop && st > navbarHeight) {
-        // Scroll Down
+      if (st > lastScrollTop) {
+        // Scrolling Down
         $siteHeader.removeClass('nav-down').addClass('collapsed');
         _resize();
       } else {
-        // Scroll Up
-        if(!scrollToBodyAnimating && (st + $window.height() < $document.height())) {
+        // Scrolling Up
+        if(!scrollToBodyAnimating && (st <= scrollUpDelta || Math.abs(lastScrollTop - st) => scrollUpDelta)) {
           $siteHeader.removeClass('collapsed').addClass('nav-down');
           _resize();
         }
