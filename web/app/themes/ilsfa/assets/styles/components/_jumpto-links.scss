@@ -99,6 +99,8 @@
   @include max-screen($breakpoint-md) {
     ul {
       display: none;
+      @include transition(margin);
+      border-top: 2px solid rgba($blurple-dark, 0);
     }
     &.-active {
       .jumpto-toggle {
@@ -143,7 +145,7 @@
       }
     }
     ul {
-      display: block;
+      display: block !important; // overriding velocity display:none if collapsed in mobile and resized
       margin-left: 130px;
     }
     li {

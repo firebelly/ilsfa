@@ -122,14 +122,23 @@ var ILSFA = (function($) {
       // Any jump links found?
       if (jumpToLinks.length) {
         $jumpTo.addClass('loaded').find('.jumpto-title,.jumpto-toggle').on('click', function(e) {
-          $jumpTo.toggleClass('-active');
+          e.preventDefault();
+          var dir = $jumpTo.hasClass('-active') ? 'slideUp' : 'slideDown';
+          $jumpTo.find('ul').velocity(dir, {
+            duration: 150,
+            complete: function(els) {
+              $jumpTo.toggleClass('-active');
+            }
+          });
         });
         // Build jumpto nav with various links found
         $.each(jumpToLinks, function(i,el) {
           $('<li>'+el.title+'</li>').appendTo($jumpTo.find('ul')).on('click', function(e) {
             e.preventDefault();
             _scrollBody(el.el);
-            $jumpTo.removeClass('-active');
+            if (!breakpoints['md']) {
+              $jumpTo.find('.jumpto-toggle').trigger('click', e);
+            }
           }).hide().velocity('transition.slideLeftIn', {
             easing: 'easeOutSine',
             duration: 200,
@@ -212,8 +221,8 @@ var ILSFA = (function($) {
     // Set flag that we're animating body to avoid uncollapsing the nav from a jumpto link
     scrollToBodyAnimating = true;
     var offset = 20 + headerOffset;
-    if ($('.jumpto.stuck').length) {
-      offset = offset + $('.jumpto.stuck').outerHeight();
+    if ($('.jumpto').length) {
+      offset = offset + $('.jumpto').outerHeight();
     }
     $(element).velocity('scroll', {
       duration: duration,
