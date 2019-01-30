@@ -136,7 +136,7 @@ var ILSFA = (function($) {
           $('<li>'+el.title+'</li>').appendTo($jumpTo.find('ul')).on('click', function(e) {
             e.preventDefault();
             _scrollBody(el.el);
-            if (!breakpoints['md']) {
+            if (!breakpoints.md) {
               $jumpTo.find('.jumpto-toggle').trigger('click', e);
             }
           }).hide().velocity('transition.slideLeftIn', {
