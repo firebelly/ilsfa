@@ -28,5 +28,7 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
       </div>
     </div>
   <?php endif; ?>
-  <?php get_template_part('templates/jumpto-links'); ?>
+  <?php if (empty($nojumpto)): ?>
+    <?php get_template_part('templates/jumpto-links'); ?>
+  <?php endif; ?>
 </header>

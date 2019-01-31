@@ -3,7 +3,7 @@
 $announcements_page = get_post(get_option('page_for_posts'));
 ?>
 
-<?php \Firebelly\Utils\get_template_part_with_vars('templates/page', 'header-tertiary', [ 'post' => $announcements_page ]); ?>
+<?php \Firebelly\Utils\get_template_part_with_vars('templates/page', 'header-tertiary', [ 'post' => $announcements_page, 'nojumpto' => 1 ]); ?>
 
 <?php if (!have_posts()) : ?>
   <div class="alert alert-warning">
