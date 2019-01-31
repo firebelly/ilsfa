@@ -128,6 +128,7 @@ $font-mono: 'GT Pressura Mono', sans-serif;
   line-height: 48px;
   letter-spacing: 1px;
 }
+%p1,
 p.intro { @include p1; }
 
 @mixin p2 {

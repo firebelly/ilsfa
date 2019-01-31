@@ -5,7 +5,7 @@ form {
 
   .form-response {
     color: $white;
-    @extend %p1;
+    @extend %p2;
     &.error,
     &.success {
       margin-top: grid(4);
