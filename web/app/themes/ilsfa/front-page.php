@@ -117,7 +117,7 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
   </div>
 
   <div class="grid-item one-half announcements">
-    <?php $announcements = get_posts(['numberposts' => 5]) ?>
+    <?php $announcements = get_posts(['numberposts' => 3]) ?>
     <?php if (!empty($announcements)): ?>
       <h2>Announcements</h2>
       <ul>

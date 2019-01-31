@@ -2,10 +2,10 @@
 
 // Move alignright images outside page-content (used on For Vendors and IL Residents)
 .page-content.-breakout-images {
+  padding-top: grid(2);
   position: relative;
   img {
     margin: grid(4) 0;
-
   }
   // Move image outside content area on larger screens
   @include media-md {
