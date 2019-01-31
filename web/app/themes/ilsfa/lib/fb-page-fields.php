@@ -51,7 +51,7 @@ function metaboxes() {
   $page_footer_outro->add_field([
     'id'   => $prefix .'footer_outro',
     'type' => 'wysiwyg',
-    'desc' => 'To add FormAssembly form, use [formassembly id=8675309 iframe=1]',
+    // 'desc' => 'To add FormAssembly form, use [formassembly id=4653333] or [formassembly id=4653333 iframe=1]',
     'options' => [
       'textarea_rows' => 10,
     ],

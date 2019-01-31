@@ -190,6 +190,13 @@ class FbSiteOptions {
     ) );
 
     $cmb->add_field( array(
+      'name' => __( 'FormAssembly Domain', 'cmb2' ),
+      'id'   => 'formassembly_domain',
+      'desc' => __( 'e.g. elevateenergy.tfaforms.net — used when pulling FormAssembly forms using shortcode [formassembly id=xxx]'),
+      'type' => 'text',
+    ) );
+
+    $cmb->add_field( array(
       'name'       => __( 'Facebook App ID', 'cmb2' ),
       'desc'       => __( 'Used for OG tags, set up at https://developers.facebook.com/apps/', 'cmb2' ),
       'id'         => 'facebook_app_id',

@@ -3,6 +3,15 @@
 form {
   color: $blurple-dark;
 
+  .form-response {
+    color: $white;
+    @extend %p1;
+    &.error,
+    &.success {
+      margin-top: grid(4);
+    }
+  }
+
   fieldset {
     margin: 0;
     padding: 0;

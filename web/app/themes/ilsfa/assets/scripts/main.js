@@ -163,8 +163,13 @@ var ILSFA = (function($) {
 
   // Form behavior w/ support for FormAssembly
   function _initForms() {
-    $('form').each(function() {
-      var $form = $(this);
+    $('.formassembly-form').each(function() {
+      var $formWrapper = $(this);
+      var $form = $formWrapper.find('form');
+
+      // Add elapsedTime hidden input
+      var $elapsedTime = $('<input type="hidden" value="" name="tfa_dbElapsedJsTime">').appendTo($form);
+      var formTimeStart = Math.floor(new Date().getTime() / 1000);
 
       // FormAssembly multiple radio/checkbox in vertical list
       $form.find('.choices.vertical').each(function() {
@@ -190,23 +195,62 @@ var ILSFA = (function($) {
       }).each(function() {
         $(this).parents('.input-wrap,.oneField').toggleClass('filled', $(this).val()!=='');
       });
-    });
 
-    // Handle submit of form
-    $('.formassembly-form form').on('submit', function(e) {
+      // Handle submit of form
+      $form.on('submit', function(e) {
         e.preventDefault();
-        var $form = $(this);
+
+        if ($form.hasClass('working')) {
+          return false;
+        }
+
+        // Update elapsedTime var for FA
+        $elapsedTime.val(Math.floor(new Date().getTime() / 1000) - formTimeStart);
+
+        $form.addClass('working');
         $.ajax({
           url: wp_ajax_url,
           data: $form.serialize() + '&action=formassembly_submit&formAction=' + $form.attr('action'),
           method: 'POST',
           dataType: 'json'
-        }).done(function(data) {
-          console.log(data);
-        }).fail(function() {
-          console.log('fail!');
+        })
+        .done(function(data) {
+          if (data.success === 1) {
+            $formWrapper.find('.wFormContainer').velocity('slideUp');
+            $formWrapper.addClass('success').find('.form-response').removeClass('error').html('<h3>Thank you!</h3><p>Your entry was submitted successfully.</p>');
+          } else {
+            $formWrapper.find('.form-response').addClass('error').html('<p>Error: ' + data.message + '</p>');
+          }
+        })
+        .fail(function() {
+          $formWrapper.find('.form-response').addClass('error').html('<p>There was an error submitting the form. Please try again.</p>');
+        })
+        .always(function() {
+          $form.removeClass('working');
         });
+      });
+
     });
+
+    // var appendJsTimerElement = function(){
+    //   var formTimeDiff = Math.floor((new Date).getTime()/1000) - formTimeStart;
+    //   var cumulatedTimeElement = document.getElementById("tfa_dbCumulatedTime");
+    //   if (null !== cumulatedTimeElement) {
+    //       var cumulatedTime = parseInt(cumulatedTimeElement.value);
+    //       if (null !== cumulatedTime && cumulatedTime > 0) {
+    //           formTimeDiff += cumulatedTime;
+    //       }
+    //   }
+    //   var jsTimeInput = document.createElement("input");
+    //   jsTimeInput.setAttribute("type", "hidden");
+    //   jsTimeInput.setAttribute("value", formTimeDiff.toString());
+    //   jsTimeInput.setAttribute("name", "tfa_dbElapsedJsTime");
+    //   jsTimeInput.setAttribute("id", "tfa_dbElapsedJsTime");
+    //   jsTimeInput.setAttribute("autocomplete", "off");
+    //   if (null !== formElement) {
+    //       formElement.appendChild(jsTimeInput);
+    //   }
+    // };
   }
 
   function _scrollBody(element, duration, delay) {

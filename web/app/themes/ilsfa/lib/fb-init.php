@@ -15,13 +15,6 @@ use Roots\Sage\Assets;
 // add_filter( 'pre_get_posts', __NAMESPACE__ . '\\search_queries' );
 
 /**
- * Don't run wpautop before shortcodes are run! wtf Wordpress. from http://stackoverflow.com/a/14685465/1001675
- */
-remove_filter('the_content', 'wpautop');
-add_filter('the_content', 'wpautop' , 99);
-add_filter('the_content', 'shortcode_unautop',100);
-
-/**
  * Various theme defaults
  */
 function setup() {
