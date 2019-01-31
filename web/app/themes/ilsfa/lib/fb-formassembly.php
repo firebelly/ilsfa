@@ -80,8 +80,13 @@ add_shortcode('formassembly', __NAMESPACE__ . '\shortcode_formassembly');
 function shortcode_formassembly($atts) {
   $atts = shortcode_atts([
     'id' => '',
+    'formid' => '',
     'iframe' => '',
   ], $atts, 'formassembly');
+
+  // Support for wp-formassembly plugin's syntax
+  $atts['id'] = $atts['formid'];
+
   if ($atts['iframe']) {
     return '<div class="formassembly-iframe"><iframe width="100%" frameborder="0" src="https://elevateenergy.tfaforms.net/forms/view/'.$atts['id'].'"></iframe><script src="//elevateenergy.tfaforms.net/js/iframe_resize_helper.js"></script></div>';
   }
