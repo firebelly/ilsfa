@@ -197,3 +197,7 @@ function cronjob_edit_link($id=0, $context = 'display') {
 
   return apply_filters('get_edit_post_link', admin_url(sprintf($post_type_object->_edit_link . $action, $post->ID)), $post->ID, $context);
 }
+
+function is_external_link($url) {
+  return strpos(getenv('WP_HOME'), $url)===false && preg_match('/^http/', $url);
+}
