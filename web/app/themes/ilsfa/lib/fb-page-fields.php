@@ -49,9 +49,9 @@ function metaboxes() {
     'show_names'    => false,
   ]);
   $page_footer_outro->add_field([
-    // 'name' => esc_html__( 'Body', 'cmb2' ),
     'id'   => $prefix .'footer_outro',
     'type' => 'wysiwyg',
+    'desc' => 'To add FormAssembly form, use [formassembly id=8675309 iframe=1]',
     'options' => [
       'textarea_rows' => 10,
     ],
