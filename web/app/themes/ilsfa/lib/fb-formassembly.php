@@ -90,7 +90,9 @@ function shortcode_formassembly($atts) {
   $formassemblyDomain = get_formassembly_domain();
 
   // Support for wp-formassembly plugin's syntax [formassembly formid=xxx]
-  $atts['id'] = $atts['formid'];
+  if (!empty($atts['formid'])) {
+    $atts['id'] = $atts['formid'];
+  }
 
   // Spit out iframe?
   if (!empty($atts['iframe'])) {
