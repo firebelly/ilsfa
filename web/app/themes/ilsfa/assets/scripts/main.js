@@ -32,7 +32,17 @@ var ILSFA = (function($) {
       side: 'bottom',
       theme: 'ilsfa',
       distance: 0,
-      interactive: true
+      interactive: true,
+      trigger: 'custom',
+      triggerOpen: {
+        mouseenter: true,
+        tap: true
+      },
+      triggerClose: {
+        mouseleave: true,
+        scroll: true,
+        tap: true
+      }
     });
 
     // Set breakpoint vars
