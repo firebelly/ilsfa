@@ -10,11 +10,6 @@
       margin-top: grid(4);
     }
   }
-  form {
-    * + * {
-      margin: inherit;
-    }
-  }
 
   a:not(.button) {
     border-bottom: 2px solid $blurple-dark;

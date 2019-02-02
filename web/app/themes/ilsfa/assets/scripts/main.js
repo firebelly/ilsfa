@@ -193,10 +193,11 @@ var ILSFA = (function($) {
       var formTimeStart = Math.floor(new Date().getTime() / 1000);
 
       // FormAssembly multiple radio/checkbox in vertical list
-      $form.find('.choices.vertical').each(function() {
-        var $this = $(this);
-        $this.find('input[type=checkbox]').before('<div class="control-indicator"></div>');
-      });
+      // $form.find('.choices.vertical').each(function() {
+      //   var $this = $(this);
+      //   $this.find('input[type=checkbox]').before('<div class="control-indicator"></div>');
+      // });
+
       // Massage some various FA fields to get our styles
       $('.formassembly-form .oneField:not([role=group])').addClass('input-wrap');
       // Make required fields HTML5 required

@@ -15,7 +15,9 @@ function get_form($id) {
     }
     $data = $res->getBody()->getContents();
     // Strip everything before "<!-- FORM: BODY SECTION -->"
-    $data = preg_replace('/((.*)<\!\-\- FORM: BODY SECTION \-\->)/s','',$data);
+    # $data = preg_replace('/((.*)<\!\-\- FORM: BODY SECTION \-\->)/s','',$data);
+    $data = preg_replace('/(.*)<form/s','<form',$data);
+    $data = preg_replace('/<\/form>(.*)/s','</form>',$data);
     // Remove <br>'s
     $data = preg_replace('/<br( \/)?>/','',$data);
     // Remove <p>'s

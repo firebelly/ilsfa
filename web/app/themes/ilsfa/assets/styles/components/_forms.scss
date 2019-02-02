@@ -197,6 +197,12 @@ form {
         color: $white;
         margin: grid(1) 0 0 grid(1);
       }
+      .oneChoice {
+        display: block;
+        + .oneChoice {
+          margin-top: 0;
+        }
+      }
     }
     .primaryAction {
       @extend %button;
