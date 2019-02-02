@@ -61,7 +61,7 @@ get_template_part('templates/page', 'header-tertiary');
 <div class="apply" data-jumpto="Apply">
   <h2>Apply</h2>
   <?php if (!empty($post_meta['_cmb2_application_body'])): ?>
-    <div class="user-content">
+    <div class="user-content dark-bg">
       <?= apply_filters('the_content', $post_meta['_cmb2_application_body'][0]) ?>
     </div>
   <?php endif; ?>
@@ -71,7 +71,7 @@ get_template_part('templates/page', 'header-tertiary');
     </div>
   <?php endif; ?>
   <?php if (!empty($post_meta['_cmb2_application_supporting_copy'])): ?>
-    <div class="user-content supporting-copy">
+    <div class="user-content supporting-copy dark-bg">
       <?= apply_filters('the_content', $post_meta['_cmb2_application_supporting_copy'][0]) ?>
     </div>
   <?php endif; ?>

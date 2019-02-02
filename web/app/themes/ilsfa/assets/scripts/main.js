@@ -10,13 +10,10 @@ var ILSFA = (function($) {
       $window,
       $document,
       $siteHeader,
-      $main,
       $wpAdminBar,
       $jumpTo,
       scrollToBodyAnimating = false,
-      delayedResizeTimer,
-      headerOffset,
-      loadingTimer;
+      headerOffset;
 
   function _init() {
     // Cache some common DOM queries
@@ -26,10 +23,17 @@ var ILSFA = (function($) {
     $siteHeader = $('header.site-header');
     $jumpTo = $('.jumpto');
     $wpAdminBar = $('#wpadminbar');
-    $main = $('main.main');
 
     // DOM is loaded
     $body.addClass('loaded');
+
+    // Tooltipz
+    $('.tooltip,.tooltip a').tooltipster({
+      side: 'bottom',
+      theme: 'ilsfa',
+      distance: 0,
+      interactive: true
+    });
 
     // Set breakpoint vars
     _resize();
@@ -74,7 +78,6 @@ var ILSFA = (function($) {
     _initSearch();
     _initJumpTo();
     _initForms();
-    // _initLoadMore();
 
     // Scroll down to hash afer page load
     $(window).load(function() {
@@ -163,6 +166,24 @@ var ILSFA = (function($) {
 
   // Form behavior w/ support for FormAssembly
   function _initForms() {
+    $('form').each(function() {
+      var $form = $(this);
+      // Add focused + filled classes for styling
+      $form.find('input,textarea').on('focus', function() {
+        $(this).parents('.input-wrap,.oneField').addClass('focused');
+      }).on('blur', function() {
+        var $this = $(this);
+        $this.parents('.input-wrap,.oneField').removeClass('focused');
+        if($this.val()!=='') {
+          $this.parents('.input-wrap,.oneField').addClass('filled');
+        } else {
+          $this.parents('.input-wrap,.oneField').removeClass('filled');
+        }
+      }).each(function() {
+        $(this).parents('.input-wrap,.oneField').toggleClass('filled', $(this).val()!=='');
+      });
+    });
+
     $('.formassembly-form').each(function() {
       var $formWrapper = $(this);
       var $form = $formWrapper.find('form');
@@ -180,21 +201,6 @@ var ILSFA = (function($) {
       $('.formassembly-form .oneField:not([role=group])').addClass('input-wrap');
       // Make required fields HTML5 required
       $('.formassembly-form input.required').attr('required',true);
-
-      // Add focused + filled classes for styling
-      $form.find('input,textarea').on('focus', function() {
-        $(this).parents('.input-wrap,.oneField').addClass('focused');
-      }).on('blur', function() {
-        var $this = $(this);
-        $this.parents('.input-wrap,.oneField').removeClass('focused');
-        if($this.val()!=='') {
-          $this.parents('.input-wrap,.oneField').addClass('filled');
-        } else {
-          $this.parents('.input-wrap,.oneField').removeClass('filled');
-        }
-      }).each(function() {
-        $(this).parents('.input-wrap,.oneField').toggleClass('filled', $(this).val()!=='');
-      });
 
       // Handle submit of form
       $form.on('submit', function(e) {
@@ -231,26 +237,6 @@ var ILSFA = (function($) {
       });
 
     });
-
-    // var appendJsTimerElement = function(){
-    //   var formTimeDiff = Math.floor((new Date).getTime()/1000) - formTimeStart;
-    //   var cumulatedTimeElement = document.getElementById("tfa_dbCumulatedTime");
-    //   if (null !== cumulatedTimeElement) {
-    //       var cumulatedTime = parseInt(cumulatedTimeElement.value);
-    //       if (null !== cumulatedTime && cumulatedTime > 0) {
-    //           formTimeDiff += cumulatedTime;
-    //       }
-    //   }
-    //   var jsTimeInput = document.createElement("input");
-    //   jsTimeInput.setAttribute("type", "hidden");
-    //   jsTimeInput.setAttribute("value", formTimeDiff.toString());
-    //   jsTimeInput.setAttribute("name", "tfa_dbElapsedJsTime");
-    //   jsTimeInput.setAttribute("id", "tfa_dbElapsedJsTime");
-    //   jsTimeInput.setAttribute("autocomplete", "off");
-    //   if (null !== formElement) {
-    //       formElement.appendChild(jsTimeInput);
-    //   }
-    // };
   }
 
   function _scrollBody(element, duration, delay) {
@@ -316,45 +302,6 @@ var ILSFA = (function($) {
     _resize();
   }
 
-  function _initLoadMore() {
-    $document.on('click', '.load-more a', function(e) {
-      e.preventDefault();
-      var $load_more = $(this).closest('.load-more');
-      var post_type = $load_more.attr('data-post-type') ? $load_more.attr('data-post-type') : 'news';
-      var page = parseInt($load_more.attr('data-page-at'));
-      var per_page = parseInt($load_more.attr('data-per-page'));
-      var category = $load_more.attr('data-category');
-      var more_container = $load_more.parents('section,main').find('.load-more-container');
-      loadingTimer = setTimeout(function() { more_container.addClass('loading'); }, 500);
-
-      $.ajax({
-          url: wp_ajax_url,
-          method: 'post',
-          data: {
-              action: 'load_more_posts',
-              post_type: post_type,
-              page: page+1,
-              per_page: per_page,
-              category: category
-          },
-          success: function(data) {
-            var $data = $(data);
-            if (loadingTimer) { clearTimeout(loadingTimer); }
-            more_container.append($data).removeClass('loading');
-            if (breakpoint_medium) {
-              more_container.masonry('appended', $data, true);
-            }
-            $load_more.attr('data-page-at', page+1);
-
-            // Hide load more if last page
-            if ($load_more.attr('data-total-pages') <= page + 1) {
-                $load_more.addClass('hide');
-            }
-          }
-      });
-    });
-  }
-
   // Track ajax pages in Analytics
   function _trackPage() {
     if (typeof ga !== 'undefined') { ga('send', 'pageview', document.location.href); }
@@ -379,13 +326,6 @@ var ILSFA = (function($) {
 
     _setHeaderOffset();
     _setJumpToPosition();
-
-    // // Slower, more resource intensive resize events
-    // clearTimeout(delayedResizeTimer);
-    // delayedResizeTimer = setTimeout(_delayedResize, 150);
-  }
-  // Called periodically as window is resized
-  function _delayedResize() {
   }
 
   function _setJumpToPosition() {

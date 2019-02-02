@@ -3,7 +3,7 @@
 $post_meta = !empty($post_meta) ? $post_meta : (!empty($post) && is_object($post) ? get_post_meta($post->ID) : []);
 if (!is_search() && !empty($post_meta['_cmb2_footer_outro'])): ?>
 <div class="footer-outro">
-  <div class="user-content">
+  <div class="user-content dark-bg">
     <?= apply_filters('the_content', $post_meta['_cmb2_footer_outro'][0]) ?>
   </div>
 </div>

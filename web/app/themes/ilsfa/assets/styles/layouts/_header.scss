@@ -139,3 +139,21 @@
     }
   }
 }
+
+// Tooltipz
+.tooltipster-sidetip.ilsfa .tooltipster-arrow-border {
+  border: none;
+}
+.tooltipster-sidetip.ilsfa .tooltipster-arrow-background {
+  border-bottom-color: $blurple;
+}
+.tooltipster-sidetip.ilsfa .tooltipster-box {
+  @include p3;
+  background: $blurple;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+}
+.tooltipster-sidetip.ilsfa .tooltipster-box {
+  color: $red;
+}

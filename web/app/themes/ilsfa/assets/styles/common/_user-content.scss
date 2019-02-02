@@ -44,6 +44,9 @@
     padding: 0 0 0 2.25em;
     li {
       margin: 0 0 grid(2);
+      > ul {
+        margin-top: grid(2);
+      }
     }
   }
   ol {
@@ -58,6 +61,15 @@
         top: 6px;
         left: grid(-4);
         color: $red;
+      }
+    }
+  }
+
+  &.dark-bg {
+    ol,
+    ul {
+      li::before {
+        color: $blurple-dark;
       }
     }
   }
