@@ -20,4 +20,4 @@ $announcements_page = get_post(get_option('page_for_posts'));
   </div>
 </div>
 
-<?php the_posts_navigation(); ?>
+<?= \Firebelly\Utils\pagination(); ?>

@@ -18,6 +18,4 @@ $total_results = $wp_query->found_posts;
   <?php endwhile; ?>
 </div>
 
-<div class="column-wrap">
-  <?= \Firebelly\Utils\pagination(); ?>
-</div>
+<?= \Firebelly\Utils\pagination(); ?>

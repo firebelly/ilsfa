@@ -6,13 +6,13 @@ use Roots\Sage\Assets;
 /**
  * Bump up # search results
  */
-// function search_queries( $query ) {
-//   if ( !is_admin() && is_search() ) {
-//     $query->set( 'posts_per_page', 40 );
-//   }
-//   return $query;
-// }
-// add_filter( 'pre_get_posts', __NAMESPACE__ . '\\search_queries' );
+function search_queries( $query ) {
+  if (!is_admin() && $query->is_main_query() && $query->is_search) {
+    $query->set('posts_per_page', 20);
+  }
+  return $query;
+}
+add_filter( 'pre_get_posts', __NAMESPACE__ . '\\search_queries' );
 
 /**
  * Various theme defaults
