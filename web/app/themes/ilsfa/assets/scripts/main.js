@@ -106,15 +106,8 @@ var ILSFA = (function($) {
 
     // Scroll down to hash after page load
     $(window).load(function() {
-      var hash = window.location.hash.replace('#','');
       if (window.location.hash) {
-        if ($('[data-jumpto-hash="'+hash+'"]').length) {
-          _scrollBody($('[data-jumpto-hash="'+hash+'"]')[0]);
-        } else if ($('a[name=' + hash + ']').length) {
-          _scrollBody($('a[name=' + hash + ']')[0]);
-        } else if ($('#' + hash).length) {
-          _scrollBody($('#' + hash)[0]);
-        }
+        _scrollBody(window.location.hash);
       }
     });
 
