@@ -285,6 +285,9 @@ var ILSFA = (function($) {
       }
     }
 
+    // Hide nav
+    _hideMobileNav();
+
     // Set flag that we're animating body to avoid uncollapsing the nav from a jumpto link
     scrollToBodyAnimating = true;
     // Add a bit of breaking room to offset
