@@ -14,8 +14,7 @@ function get_form($id) {
       $res = $client->request('GET', 'https://'.$formassemblyDomain.'/rest/forms/view/'.$id);
     }
     $data = $res->getBody()->getContents();
-    // Strip everything before "<!-- FORM: BODY SECTION -->"
-    # $data = preg_replace('/((.*)<\!\-\- FORM: BODY SECTION \-\->)/s','',$data);
+    // Strip out everything but the <form> element
     $data = preg_replace('/(.*)<form/s','<form',$data);
     $data = preg_replace('/<\/form>(.*)/s','</form>',$data);
     // Remove <br>'s
