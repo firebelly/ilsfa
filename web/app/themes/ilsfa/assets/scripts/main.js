@@ -84,7 +84,7 @@ var ILSFA = (function($) {
       // Is this a link + an anchor?
       if (href !== anchor) {
         // Is this anchor on another page? Just return normal link behavior and location.hash will be handled on load
-        if (location.pathname != href.replace(anchor,'')) {
+        if (location.pathname !== href.replace(anchor,'')) {
           return;
         }
       }
@@ -274,8 +274,20 @@ var ILSFA = (function($) {
     if (typeof delay === 'undefined') {
       delay = 0;
     }
+
+    // Sending '#hash' instead of jquery element?
+    if (typeof element === 'string') {
+      var anchor = element;
+      // Support for a[name=foo] anchors
+      element = $(anchor+',a[name="'+anchor.replace('#','')+'"]');
+      if (element.length === 0) {
+        return;
+      }
+    }
+
     // Set flag that we're animating body to avoid uncollapsing the nav from a jumpto link
     scrollToBodyAnimating = true;
+    // Add a bit of breaking room to offset
     var offset = 20 + headerOffset;
     if ($('.jumpto').length) {
       offset = offset + $('.jumpto').outerHeight();
@@ -286,6 +298,7 @@ var ILSFA = (function($) {
       offset: -offset,
       complete: function(els) {
         setTimeout(function() {
+          // Set animating flag to false for scroll behavior to kick back in
           scrollToBodyAnimating = false;
         }, 150);
       }
