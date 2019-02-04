@@ -78,9 +78,15 @@ var ILSFA = (function($) {
     });
 
     // Smoothscroll links
-    $('a.smoothscroll').click(function(e) {
-      e.preventDefault();
+    $('a.smoothscroll,.smoothscroll a').click(function(e) {
       var href = $(this).attr('href');
+      var anchor = href.replace(/([^#]+#)/,'');
+      if (href !== anchor) {
+        return;
+      }
+      e.preventDefault();
+      var el = $(href) ? $(href) : $('a[name='+href.replace('#','')+']');
+      console.log(href, el);
       _scrollBody($(href));
     });
 
