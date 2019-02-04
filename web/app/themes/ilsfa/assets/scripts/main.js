@@ -79,15 +79,24 @@ var ILSFA = (function($) {
 
     // Smoothscroll links
     $('a.smoothscroll,.smoothscroll a').click(function(e) {
-      var href = $(this).attr('href');
-      var anchor = href.replace(/([^#]+#)/,'');
+      var href = $(this).attr('href').replace(/(https?:)?\/\//,'');
+      var anchor = href.replace(/^[^#]/,'');
+      // Is this a link + an anchor?
       if (href !== anchor) {
-        return;
+        // Is this anchor on another page? Just return normal link behavior and location.hash will be handled on load
+        if (location.pathname != href.replace(anchor,'')) {
+          return;
+        }
       }
       e.preventDefault();
-      var el = $(href) ? $(href) : $('a[name='+href.replace('#','')+']');
-      console.log(href, el);
-      _scrollBody($(href));
+      var el = $(anchor);
+      // Support for oldskool anchor links
+      if ($('a[name=' + anchor.replace('#','') + ']').length) {
+        el = $('a[name=' + anchor.replace('#','') + ']');
+      }
+      if (el.length) {
+        _scrollBody(el[0]);
+      }
     });
 
     _initNav();
@@ -95,14 +104,16 @@ var ILSFA = (function($) {
     _initJumpTo();
     _initForms();
 
-    // Scroll down to hash afer page load
+    // Scroll down to hash after page load
     $(window).load(function() {
       var hash = window.location.hash.replace('#','');
       if (window.location.hash) {
         if ($('[data-jumpto-hash="'+hash+'"]').length) {
-          _scrollBody($('[data-jumpto-hash="'+hash+'"]').get(0));
-        } else if ($(window.location.hash).length) {
-          _scrollBody($(window.location.hash));
+          _scrollBody($('[data-jumpto-hash="'+hash+'"]')[0]);
+        } else if ($('a[name=' + hash + ']').length) {
+          _scrollBody($('a[name=' + hash + ']')[0]);
+        } else if ($('#' + hash).length) {
+          _scrollBody($('#' + hash)[0]);
         }
       }
     });

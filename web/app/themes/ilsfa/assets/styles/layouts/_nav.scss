@@ -242,7 +242,7 @@
       color: $white;
       padding: 5px 0 10px;
     }
-    li.active a,
+    li:not(.smoothscroll).active a,
     a:hover {
       text-decoration: underline;
     }
