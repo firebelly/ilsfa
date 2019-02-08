@@ -20,7 +20,11 @@ if (!is_search() && !empty($post_meta['_cmb2_footer_outro'])): ?>
           </a>
         </li>
         <li>
-          <a href="#"><img alt="IPA logo" src="<?= \Roots\Sage\Assets\asset_path('images/logo-ipa.png'); ?>"></a>
+          <?php if (!empty(\Firebelly\SiteOptions\get_option('ipa_url'))): ?>
+            <a href="<?= \Firebelly\SiteOptions\get_option('ipa_url'); ?>"><img alt="IPA logo" src="<?= \Roots\Sage\Assets\asset_path('images/logo-ipa.png'); ?>"></a>
+          <?php else: ?>
+            <img alt="IPA logo" src="<?= \Roots\Sage\Assets\asset_path('images/logo-ipa.png'); ?>">
+          <?php endif ?>
         </li>
       </ul>
     </div>

@@ -141,6 +141,12 @@ class FbSiteOptions {
     // ) );
 
     $cmb->add_field( array(
+      'name' => __( 'IPA URL', 'cmb2' ),
+      'id'   => 'ipa_url',
+      'type' => 'text_url',
+    ) );
+
+    $cmb->add_field( array(
       'name' => __( 'Contact Street Address', 'cmb2' ),
       'id'   => 'contact_address',
       'desc' => __( 'e.g. 555 N. Western Ave.'),
