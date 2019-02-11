@@ -174,6 +174,13 @@ class FbSiteOptions {
     ) );
 
     $cmb->add_field( array(
+      'name' => __( 'Contact Phone Text', 'cmb2' ),
+      'id'   => 'contact_phone_text',
+      'type' => 'text',
+      'desc' => 'Appears below the Contact Phone Number. Ex: "English or Spanish"'
+    ) );
+
+    $cmb->add_field( array(
       'name' => __( 'Contact Fax Number', 'cmb2' ),
       'id'   => 'contact_fax',
       'type' => 'text',

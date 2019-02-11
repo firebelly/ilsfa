@@ -21,7 +21,7 @@ if (!is_search() && !empty($post_meta['_cmb2_footer_outro'])): ?>
         </li>
         <li>
           <?php if (!empty(\Firebelly\SiteOptions\get_option('ipa_url'))): ?>
-            <a href="<?= \Firebelly\SiteOptions\get_option('ipa_url'); ?>"><img alt="IPA logo" src="<?= \Roots\Sage\Assets\asset_path('images/logo-ipa.png'); ?>"></a>
+            <a href="<?= \Firebelly\SiteOptions\get_option('ipa_url'); ?>" target="_blank"><img alt="IPA logo" src="<?= \Roots\Sage\Assets\asset_path('images/logo-ipa.png'); ?>"></a>
           <?php else: ?>
             <img alt="IPA logo" src="<?= \Roots\Sage\Assets\asset_path('images/logo-ipa.png'); ?>">
           <?php endif ?>
@@ -42,6 +42,9 @@ if (!is_search() && !empty($post_meta['_cmb2_footer_outro'])): ?>
         <li>
           <h3>Phone</h3>
           <p><?= \Firebelly\SiteOptions\get_option('contact_phone'); ?></p>
+          <?php if (!empty(\Firebelly\SiteOptions\get_option('contact_phone_text'))): ?>
+            <p><?= \Firebelly\SiteOptions\get_option('contact_phone_text'); ?></p>
+          <?php endif ?>
         </li>
         <li>
           <h3>Fax</h3>
