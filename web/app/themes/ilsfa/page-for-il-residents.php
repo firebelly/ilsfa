@@ -67,4 +67,4 @@ get_template_part('templates/page', 'header');
   </div>
 <?php endif; ?>
 
-<div data-jumpto="Stay Updated"></div>
+<div data-jumpto="Apply to Participate"></div>
