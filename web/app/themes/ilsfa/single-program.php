@@ -58,8 +58,8 @@ get_template_part('templates/page', 'header-tertiary');
 </div>
 
 <?php // Apply ?>
-<div class="apply" data-jumpto="Apply">
-  <h2>Apply</h2>
+<div class="apply" data-jumpto="Learn More About Participating">
+  <h2>Learn More About Participating</h2>
   <?php if (!empty($post_meta['_cmb2_application_body'])): ?>
     <div class="user-content dark-bg">
       <?= apply_filters('the_content', $post_meta['_cmb2_application_body'][0]) ?>
