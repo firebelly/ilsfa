@@ -159,8 +159,8 @@
 .site-nav {
   // Primary links
   .primary-nav {
-    font: 18px/1.333 $font-regular;
-    letter-spacing: 0.07em;
+    font: 16px/1.333 $font-regular;
+    letter-spacing: 0.05em;
     margin-top: 22px;
     a {
       display: block;
@@ -207,7 +207,7 @@
       li {
         margin: 0;
         a {
-          padding: grid(1);
+          padding: grid(1) grid(.5);
         }
       }
       li.divider-line {
@@ -356,7 +356,7 @@ body.search-open {
 }
 
 // Mobile/Interim only styling on #menu-main-nav (using max-screen to avoid overwriting all these specific styles)
-@include max-screen($breakpoint-nav) {
+@include max-screen($breakpoint-nav - 1) {
 
   // Hide main & utility nav by default
   ul#menu-main-nav,
