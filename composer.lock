@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6203cc1b53b3be571c6c143fd4baa8e4",
+    "content-hash": "ee633ac956f7a220cb81f0ddcc0b9272",
     "packages": [
         {
             "name": "composer/installers",
@@ -863,6 +863,26 @@
                 "environment"
             ],
             "time": "2019-01-29T11:11:52+00:00"
+        },
+        {
+            "name": "wpackagist-plugin/broken-link-checker",
+            "version": "1.11.5",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/broken-link-checker/",
+                "reference": "tags/1.11.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/broken-link-checker.1.11.5.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/broken-link-checker/"
         },
         {
             "name": "wpackagist-plugin/cmb2",
