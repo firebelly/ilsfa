@@ -27,6 +27,11 @@ var ILSFA = (function($) {
     // DOM is loaded
     $body.addClass('loaded');
 
+    // Selects that update the URL when changed
+    $('select.jumpselect').on('change', function() {
+      window.location = this.options[this.selectedIndex].value;
+    });
+
     // Tooltipz
     $('.tooltip,.tooltip a').tooltipster({
       side: 'bottom',
