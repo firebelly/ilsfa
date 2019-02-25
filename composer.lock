@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ee633ac956f7a220cb81f0ddcc0b9272",
+    "content-hash": "5822306af5f777db23b069e2164219f7",
     "packages": [
         {
             "name": "composer/installers",
@@ -1066,15 +1066,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-security-audit-log",
-            "version": "3.3.0.2",
+            "version": "3.3.1.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-security-audit-log/",
-                "reference": "tags/3.3.0.2"
+                "reference": "tags/3.3.1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-security-audit-log.3.3.0.2.zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-security-audit-log.3.3.1.1.zip",
                 "reference": null,
                 "shasum": null
             },
