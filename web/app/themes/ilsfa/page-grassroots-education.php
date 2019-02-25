@@ -5,12 +5,22 @@
 
 // Get all post_meta
 $post_meta = get_post_meta($post->ID);
+
+// Get query vars and build args for pulling organizations
+$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+$per_page = get_option('posts_per_page');
 $org_sort = get_query_var('org_sort', 'asc');
-$organizations = \Firebelly\PostTypes\Organization\get_organizations([
-  'type'   => 'grassroots-education',
-  'output' => 'array',
-  'order'  => $org_sort,
-]);
+$org_type = 'grassroots-education';
+$args = [
+  'type'  => 'grassroots-education',
+  'order' => $org_sort,
+];
+
+// Get post count for load more
+$total_posts = \Firebelly\PostTypes\Organization\get_organizations(array_merge($args, ['countposts' => 1]));
+$total_pages = ($total_posts > 0) ? ceil($total_posts / $per_page) : 1;
+// Actually get posts
+$organizations = \Firebelly\PostTypes\Organization\get_organizations($args);
 ?>
 
 <?php
@@ -23,7 +33,7 @@ get_template_part('templates/page', 'header');
   </div>
 </div>
 
-<div class="organizations-listing">
+<div class="organizations-listing" data-load-more-parent>
   <?php if (!empty($post_meta['_cmb2_organization_directory_intro'])): ?>
     <div class="user-content" id="organizations">
       <?= apply_filters('the_content', $post_meta['_cmb2_organization_directory_intro'][0]) ?>
@@ -47,12 +57,17 @@ get_template_part('templates/page', 'header');
         </div>
       </div>
     </div>
-    <ul class="cards compact-grid -four-per">
-    <?php foreach ($organizations as $organization): ?>
-      <li class="item">
-        <?php \Firebelly\Utils\get_template_part_with_vars('templates/article', 'organization', ['organization_post' => $organization]); ?>
-      </li>
-    <?php endforeach; ?>
+
+    <ul class="cards compact-grid -four-per masonry" data-load-more-container>
+    <?= $organizations ?>
     </ul>
+
+    <?php if ($total_pages>1): ?>
+      <div class="grid">
+        <div class="one-half">
+          <div class="load-more" data-post-type="organization" data-page-at="<?= $paged ?>" data-per-page="<?= $per_page ?>" data-total-pages="<?= $total_pages ?>" data-org-sort="<?= $org_sort ?>"> data-org-type="<?= $org_type ?>"><a class="button -wide -icon-right" href="#">Load More <svg class="icon icon-plus" aria-hidden="true"><use xlink:href="#icon-plus"/></svg></a></div>
+        </div>
+      </div>
+    <?php endif; ?>
   <?php endif; ?>
 </div>

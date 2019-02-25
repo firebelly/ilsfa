@@ -108,6 +108,7 @@ var ILSFA = (function($) {
     _initSearch();
     _initJumpTo();
     _initForms();
+    _initLoadMore();
 
     // Scroll down to hash after page load
     $(window).load(function() {
@@ -435,6 +436,50 @@ var ILSFA = (function($) {
       lastScrollTop = st;
     }
   }
+
+  function _initLoadMore() {
+    $document.on('click', '.load-more a', function(e) {
+      e.preventDefault();
+      var $load_more = $(this).closest('.load-more');
+      var post_type = $load_more.attr('data-post-type') ? $load_more.attr('data-post-type') : 'news';
+      var page = parseInt($load_more.attr('data-page-at'));
+      var per_page = parseInt($load_more.attr('data-per-page'));
+      var $more_container = $load_more.parents('[data-load-more-parent]').find('[data-load-more-container]');
+      loadingTimer = setTimeout(function() {
+        $more_container.addClass('loading');
+      }, 500);
+
+      $.ajax({
+          url: wp_ajax_url,
+          method: 'post',
+          data: {
+              action: 'load_more_organizations',
+              post_type: post_type,
+              page: page+1,
+              per_page: per_page,
+              org_sort: $load_more.attr('data-org-sort'),
+              org_type: $load_more.attr('data-org-type')
+          },
+          success: function(data) {
+            var $data = $(data);
+
+            if (loadingTimer) {
+              clearTimeout(loadingTimer);
+            }
+            $more_container.append($data).removeClass('loading');
+
+            $load_more.attr('data-page-at', page+1);
+            $more_container.masonry('appended', $data, true);
+
+            // Hide load more if last page
+            if ($load_more.attr('data-total-pages') <= page + 1) {
+              $load_more.addClass('hidden');
+            }
+          }
+      });
+    });
+  }
+
 
   // Public functions
   return {
