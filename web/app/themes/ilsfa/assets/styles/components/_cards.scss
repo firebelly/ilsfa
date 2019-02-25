@@ -47,6 +47,18 @@
         float: left;
         margin-bottom: grid(2);
       }
+
+      &.-four-per {
+        li.item {
+          width: calc((100% - #{grid(4)}) / 4);
+        }
+      }
+
+      &.-five-per {
+        li.item {
+          width: calc((100% - #{grid(4)}) / 5);
+        }
+      }
     }
   }
 }
