@@ -40,7 +40,15 @@ ul.icon-list {
     }
     position: relative;
     padding-left: grid(5);
-    @include p3;
+    &,
+    address {
+      @include p3;
+    }
+    address {
+      span {
+        display: block;
+      }
+    }
     margin: grid(1) 0;
     a {
       border-bottom: 1px solid $blurple-dark;
@@ -59,7 +67,10 @@ ul.icon-list {
   &.-small {
     li {
       padding-left: grid(4);
-      @include h4;
+      &,
+      address {
+        @include h4;
+      }
       svg {
         top: 4px;
         width: 16px;

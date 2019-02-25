@@ -62,16 +62,6 @@
     }
   }
 
-  // Contact us
-  ul.contact-items {
-    address {
-      @include h4;
-      span {
-        display: block;
-      }
-    }
-  }
-
   // Vendors & Tools
   .contact-vendors-tools {
     .contact {
