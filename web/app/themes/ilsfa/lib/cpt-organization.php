@@ -87,7 +87,8 @@ add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\metaboxes' );
  */
 function get_organizations($opts=[]) {
   $args = [
-    'numberposts' => (!empty($opts['numberposts']) ? $opts['numberposts'] : -1),
+    'numberposts' => (!empty($opts['numberposts']) ? $opts['numberposts'] : get_option('posts_per_page')),
+    'offset' => (!empty($opts['offset']) ? $opts['offset'] : 0),
     'orderby' => 'title',
     'order' => (!empty($opts['order']) && strtolower($opts['order']) != 'asc' ? 'DESC' : 'ASC'),
     'post_type'   => 'organization',
@@ -107,6 +108,16 @@ function get_organizations($opts=[]) {
     return false;
   }
 
+  // Just count posts (used for load-more buttons)
+  if (!empty($opts['countposts'])) {
+    $args = array_merge($args, [
+      'posts_per_page' => -1,
+      'fields' => 'ids',
+    ]);
+    $count_query = new \WP_Query($args);
+    return $count_query->found_posts;
+  }
+
   // Just return array of posts?
   if (!empty($opts['output']) && $opts['output'] == 'array') {
     return $organizations_posts;
@@ -115,9 +126,11 @@ function get_organizations($opts=[]) {
   // Display all matching posts using article-{$post_type}.php
   $output = '';
   foreach ($organizations_posts as $organization_post) {
+    $output .= '<li class="item">';
     ob_start();
     include(locate_template('templates/article-organization.php'));
     $output .= ob_get_clean();
+    $output .= '</li>';
   }
   return $output;
 }
@@ -130,3 +143,20 @@ function add_query_vars_filter($vars){
   return $vars;
 }
 add_filter('query_vars', __NAMESPACE__ . '\\add_query_vars_filter');
+
+function load_more_organizations() {
+  $page = !empty($_REQUEST['page']) ? $_REQUEST['page'] : 1;
+  $per_page = !empty($_REQUEST['per_page']) ? $_REQUEST['per_page'] : get_option('posts_per_page');
+  $order = !empty($_REQUEST['org_sort']) ? $_REQUEST['org_sort'] : 'asc';
+  $type = !empty($_REQUEST['org_type']) ? $_REQUEST['org_type'] : 'grassroots-education';
+  $offset = ($page-1) * $per_page;
+  $args = [
+    'offset'         => $offset,
+    'numberposts'    => $per_page,
+    'order'          => $order,
+    'type'           => $type,
+  ];
+  echo get_organizations($args);
+}
+add_action('wp_ajax_load_more_organizations', __NAMESPACE__ . '\\load_more_organizations' );
+add_action('wp_ajax_nopriv_load_more_organizations', __NAMESPACE__ . '\\load_more_organizations');
