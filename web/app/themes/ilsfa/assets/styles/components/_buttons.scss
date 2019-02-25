@@ -41,6 +41,22 @@
     border-radius: 50%;
   }
 
+  // Full width button
+  &.-wide {
+    width: 100%;
+  }
+
+  // Icon at right of button
+  &.-icon-right {
+    position: relative;
+    .icon {
+      position: absolute;
+      right: grid(2);
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
   // Icon buttons (e.g. nav toggle)
   &.-icon {
     min-width: 0;
