@@ -146,7 +146,7 @@
   }
 }
 @mixin max-screen($res) {
-  @media screen and (max-width: $res) {
+  @media screen and (max-width: #{$res - 1px}) {
     @content;
   }
 }
