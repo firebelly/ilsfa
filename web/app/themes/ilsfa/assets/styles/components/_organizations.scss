@@ -1,0 +1,28 @@
+// Organizations (used on Job Training & Grassroots Education)
+
+.organizations-listing {
+	background: $blurple-dark;
+	@include global-padding(12);
+  .select-wrap {
+    width: 100%;
+    margin: 0 0 grid(4);
+  }
+  h4 {
+    color: $white;
+    margin: 0 0 grid(1);
+  }
+  .user-content {
+    margin: 0 0 grid(4);
+    h2,
+    h3,
+    h4,
+    ul,
+    ol,
+    p {
+      color: $white;
+    }
+    h2 {
+      @extend %h1;
+    }
+  }
+}
