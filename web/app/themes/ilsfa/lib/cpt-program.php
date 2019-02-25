@@ -218,12 +218,18 @@ function get_programs($opts=[]) {
       ]
     ];
   }
-  // Display all matching posts using article-{$post_type}.php
+
   $programs_posts = get_posts($args);
-  if (!$programs_posts) return false;
-  if (!empty($opts['output']) && $opts['output']=='array') {
+  if (!$programs_posts) {
+    return false;
+  }
+
+  // Just return array of posts?
+  if (!empty($opts['output']) && $opts['output'] == 'array') {
     return $programs_posts;
   }
+
+  // Display all matching posts using article-{$post_type}.php
   $output = '';
   foreach ($programs_posts as $program_post) {
     ob_start();

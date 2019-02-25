@@ -115,11 +115,11 @@ function metaboxes() {
     'name'    => 'Icon',
     'id'      => 'icon',
     'type'    => 'select',
-    'options' => array(
+    'options' => [
       'vendors'     => __( 'Vendors Icon', 'cmb2' ),
       'equitable'   => __( 'Equitable Icon', 'cmb2' ),
       'savings'     => __( 'Savings Icon', 'cmb2' ),
-    ),  ]);
+    ], ]);
   $homepage_highlight_blocks->add_group_field( $group_field_id, [
     'name' => 'Body',
     'id'   => 'body',
@@ -197,10 +197,9 @@ function metaboxes() {
     'title'         => __( 'Elibility Blocks', 'cmb2' ),
     'object_types'  => ['page'],
     'context'       => 'normal',
-    'show_slugs'    => array('for-il-residents'),
+    'show_slugs'    => ['for-il-residents'],
     'show_on_cb'    => '\Firebelly\CMB2\show_for_slugs',
     'priority'      => 'high',
-    'show_names'    => true,
   ]);
   $group_field_id = $residents_fields->add_field([
     'id'              => $prefix . 'eligibility_blocks',
@@ -231,10 +230,9 @@ function metaboxes() {
     'title'         => __( 'Programs Block', 'cmb2' ),
     'object_types'  => ['page'],
     'context'       => 'normal',
-    'show_slugs'    => array('for-il-residents'),
+    'show_slugs'    => ['for-il-residents'],
     'show_on_cb'    => '\Firebelly\CMB2\show_for_slugs',
     'priority'      => 'high',
-    'show_names'    => true,
   ]);
   $residents_programs->add_field([
     'name' => esc_html__( 'Image Background', 'cmb2' ),
@@ -251,10 +249,9 @@ function metaboxes() {
     'title'         => __( 'Vendor Requirements', 'cmb2' ),
     'object_types'  => ['page'],
     'context'       => 'normal',
-    'show_slugs'    => array('for-vendors'),
+    'show_slugs'    => ['for-vendors'],
     'show_on_cb'    => '\Firebelly\CMB2\show_for_slugs',
     'priority'      => 'high',
-    'show_names'    => true,
   ]);
   $vendor_fields->add_field([
     'name' => esc_html__( 'Image Background', 'cmb2' ),

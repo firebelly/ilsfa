@@ -128,36 +128,38 @@ function metaboxes() {
 /**
  * Get Events
  */
-function get_events($options=[]) {
-  if (empty($options['num_posts'])) $options['num_posts'] = get_option('posts_per_page');
-  if (!empty($_REQUEST['past_events'])) $options['past_events'] = 1; // support for AJAX requests
+function get_events($opts=[]) {
+  if (empty($opts['num_posts'])) $opts['num_posts'] = get_option('posts_per_page');
+  if (!empty($_REQUEST['past_events'])) $opts['past_events'] = 1; // support for AJAX requests
   $args = [
-    'numberposts' => $options['num_posts'],
+    'numberposts' => $opts['num_posts'],
     'post_type'   => 'event',
     'meta_key'    => '_cmb2_date_start',
     'orderby'     => 'meta_value_num',
   ];
 
   // Make sure we're only pulling upcoming or past events
-  $args['order'] = !empty($options['past_events']) ? 'DESC' : 'ASC';
+  $args['order'] = !empty($opts['past_events']) ? 'DESC' : 'ASC';
   $args['meta_query'] = [
     [
       'key'     => '_cmb2_date_end',
       'value'   => current_time('timestamp'),
-      'compare' => (!empty($options['past_events']) ? '<=' : '>')
+      'compare' => (!empty($opts['past_events']) ? '<=' : '>')
     ],
   ];
 
   $event_posts = get_posts($args);
-  if (!$event_posts) return false;
-  $output = '';
+  if (!$event_posts) {
+    return false;
+  }
 
   // Just return array of posts?
-  if ($options['output'] == 'array') {
+  if (!empty($opts['output']) && $opts['output'] == 'array') {
     return $event_posts;
   }
 
-  // Display all matching events using article-event.php
+  // Display all matching posts using article-{$post_type}.php
+  $output = '';
   foreach ($event_posts as $event_post):
     ob_start();
     include(locate_template('templates/article-event.php'));
