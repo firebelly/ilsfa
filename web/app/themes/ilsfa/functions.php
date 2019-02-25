@@ -32,6 +32,7 @@ $firebelly_includes = [
   'lib/fb-formassembly.php',       // FormAssembly barf
   'lib/cpt-program.php',           // Program CPT
   'lib/cpt-event.php',             // Event CPT
+  'lib/cpt-organization.php',      // Organization CPT
 ];
 
 $sage_includes = array_merge($sage_includes, $firebelly_includes);
