@@ -4,13 +4,7 @@
   @extend %h4;
 }
 
-body.single-post,
-body.blog {
-  // Desktop styles
-  @include media-md {
-  }
-}
-
+// Margins + border between articles on list pages
 article.announcement + article.announcement {
   margin-top: grid(6);
   padding-top: grid(4);
