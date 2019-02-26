@@ -121,15 +121,7 @@ get_template_part('templates/page', 'header-tertiary');
     <?php endif; ?>
 
     <?php if (!empty($post_meta['_cmb2_vendors_tools'])): ?>
-      <ul class="resources">
-        <?php foreach (unserialize($post_meta['_cmb2_vendors_tools'][0]) as $vendor_tool): ?>
-          <?php if (!empty($vendor_tool['resource'])): ?>
-            <li><a download="<?= basename($vendor_tool['resource']) ?>" target="_blank" href="<?= $vendor_tool['resource'] ?>"><span><?= $vendor_tool['title'] ?></span> <svg class="icon icon-document" aria-hidden="true"><use xlink:href="#icon-document"/></svg></a></li>
-          <?php else: ?>
-            <li><a target="_blank" href="<?= $vendor_tool['url'] ?>"><span><?= $vendor_tool['title'] ?></span> <svg class="icon icon-link" aria-hidden="true"><use xlink:href="#icon-link"/></svg></a></li>
-          <?php endif ?>
-        <?php endforeach; ?>
-      </ul>
+      <?php \Firebelly\Utils\get_template_part_with_vars('templates/resources', 'list', ['resources_list' => $post_meta['_cmb2_vendors_tools'][0], 'class' => 'resources']); ?>
     <?php endif; ?>
   </div>
 </div>

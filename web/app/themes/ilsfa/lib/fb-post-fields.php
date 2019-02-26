@@ -33,7 +33,7 @@ function metaboxes() {
     'type' => 'text',
   ]);
   $post_resources->add_group_field( $group_field_id, [
-    'name' => 'Resource/Video',
+    'name' => 'Resource/Video/URL',
     'id'   => 'file',
     'type' => 'file',
   ]);
