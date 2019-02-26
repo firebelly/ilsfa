@@ -16,7 +16,9 @@
           <?php wp_link_pages(['before' => '<nav class="page-nav"><p>' . __('Pages:', 'sage'), 'after' => '</p></nav>']); ?>
         </footer>
         <?php comments_template('/templates/comments.php'); ?>
-        <?php \Firebelly\Utils\get_template_part_with_vars('templates/resources', 'list', ['post_meta' => $post_meta]); ?>
+        <?php if (!empty($post_meta['_cmb2_post_resources'])): ?>
+          <?php \Firebelly\Utils\get_template_part_with_vars('templates/resources', 'list', ['resources_list' => $post_meta['_cmb2_post_resources'][0]]); ?>
+        <?php endif; ?>
       </article>
     </div>
   </div>

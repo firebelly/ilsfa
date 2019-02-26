@@ -10,7 +10,7 @@ $post_meta = get_post_meta($post->ID);
   <<?= empty($simple) ? 'h2' : 'h3' ?>><a href="<?= get_permalink($post) ?>"><?= $post->post_title ?></a></<?= empty($simple) ? 'h2' : 'h3' ?>>
   <p><?= \Firebelly\Utils\get_excerpt($post, 25) ?></p>
 
-  <?php if (empty($simple)): ?>
-    <?php \Firebelly\Utils\get_template_part_with_vars('templates/resources', 'list', ['post_meta' => $post_meta]); ?>
+  <?php if (empty($simple) && !empty($post_meta['_cmb2_post_resources'])): ?>
+    <?php \Firebelly\Utils\get_template_part_with_vars('templates/resources', 'list', ['resources_list' => $post_meta['_cmb2_post_resources'][0]]); ?>
   <?php endif; ?>
 </article>
