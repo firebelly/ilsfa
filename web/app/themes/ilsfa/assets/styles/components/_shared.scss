@@ -5,6 +5,33 @@
   margin: grid(2) 0;
 }
 
+// Intro + resources list for pages (only used on grassroots education for now)
+.page-resources {
+  @include global-padding(12);
+  background: $white;
+  .user-content {
+    h2 {
+      @extend %h1;
+    }
+  }
+
+  @include media-md {
+    // Add padding for each column
+    .one-half {
+      &:nth-child(1) {
+        padding-right: columns(1);
+      }
+      &:nth-child(2) {
+        padding-left: columns(1);
+      }
+    }
+    // Desktop has no border on first resource
+    ul.resources li:first-child a {
+      border-top: none;
+    }
+  }
+}
+
 // Stats / Quotes
 .stat-content {
   @include vertical-center;
@@ -34,7 +61,7 @@ ul.icon-list {
   padding: 0;
   outline-style: none;
   li {
-    // Remove any user-content bullets
+    // Remove any .user-content bullets
     &::before {
       display: none;
     }
@@ -55,6 +82,7 @@ ul.icon-list {
       @include inline-link;
     }
     svg {
+      margin: 0;
       position: absolute;
       top: 2px;
       left: 0;
@@ -80,7 +108,7 @@ ul.icon-list {
   }
 }
 
-// "Vendors & tools" section at bottom of single program
+// Shared resources list (single programs, page-resources for grassroots education)
 ul.resources {
   margin: grid(3) 0;
   padding: 0;
@@ -91,12 +119,26 @@ ul.resources {
       display: none;
     }
     a {
-      border: none;
+      border-top: 2px solid $blurple-dark;
       display: block;
       position: relative;
       color: $red;
       @include h5;
       padding: grid(2) grid(6) grid(2) 0;
+      &, span {
+        @include transition(all);
+      }
+      &:hover,
+      &:focus {
+        span {
+          color: $blurple-dark;
+          background-color: rgba($green, 1);
+          box-shadow: .2em .1em 0 rgba($green, 1), -.2em .1em 0 rgba($green, 1), -.2em 0 0 rgba($green, 1), .2em 0 0 rgba($green, 1);
+        }
+        svg {
+          fill: $blurple-dark;
+        }
+      }
     }
     svg {
       position: absolute;
