@@ -56,4 +56,8 @@ if (!empty($organization_post->meta['_cmb2_address'])) {
       </li>
     <?php endif; ?>
   </ul>
+  <a href="#" class="toggler">
+    <svg class="icon icon-plus" aria-hidden="true"><use xlink:href="#icon-plus"/></svg>
+    <svg class="icon icon-cross" aria-hidden="true"><use xlink:href="#icon-cross"/></svg>
+  </a>
 </article>

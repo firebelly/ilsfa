@@ -51,20 +51,6 @@ var ILSFA = (function($) {
       }
     });
 
-    // Track GA event for outbound links
-    $('a[href^="http"]:not([href*="' + currentDomain + '"])').on('click', function(e) {
-        if (typeof ga === 'undefined') {
-          return;
-        }
-        e.preventDefault();
-        ga('send', 'event', 'outbound', 'click', this.href, {
-          'transport': 'beacon',
-          'hitCallback': function() {
-            document.location = this.href;
-          }
-        });
-    });
-
     // Set breakpoint vars
     _resize();
 
@@ -90,6 +76,20 @@ var ILSFA = (function($) {
         _hideSearch();
         _hideMobileNav();
       }
+    });
+
+    // Track GA event for outbound links
+    $('a[href^="http"]:not([href*="' + currentDomain + '"])').on('click', function(e) {
+        if (typeof ga === 'undefined') {
+          return;
+        }
+        e.preventDefault();
+        ga('send', 'event', 'outbound', 'click', this.href, {
+          'transport': 'beacon',
+          'hitCallback': function() {
+            document.location = this.href;
+          }
+        });
     });
 
     // Null links
@@ -124,6 +124,7 @@ var ILSFA = (function($) {
     _initJumpTo();
     _initForms();
     _initLoadMore();
+    _initOrganizations();
 
     // Scroll down to hash after page load
     $(window).load(function() {
@@ -134,6 +135,17 @@ var ILSFA = (function($) {
 
   } // end init()
 
+  // Mobile expand/collapse behavior for Organization cards
+  function _initOrganizations() {
+    $('.organizations-listing li a.toggler').on('click', function(e) {
+      e.preventDefault();
+      var $parent = $(this).parents('li.item:first');
+      $parent.toggleClass('active');
+      $('.compact-grid').masonry();
+    });
+  }
+
+  // Slugify a string, e.g. "The Foo Bar" -> "the-foo-bar"
   function _slugify(text) {
     text = text.replace(/[^a-zA-Z0-9\-\s]/g,"");
     text = text.toLowerCase();
@@ -141,8 +153,8 @@ var ILSFA = (function($) {
     return text;
   }
 
+  // Populate jumpto nav links and add behavior to scrollbody on click
   function _initJumpTo() {
-    // Jump To nav
     if ($jumpTo.length) {
       var title;
       // Clear out dummy li for spacing
@@ -281,6 +293,7 @@ var ILSFA = (function($) {
     });
   }
 
+  // Scroll body to an element using Velocity
   function _scrollBody(element, duration, delay) {
     if (typeof duration === 'undefined') {
       duration = 500;
@@ -322,6 +335,7 @@ var ILSFA = (function($) {
     }, 'easeOutSine');
   }
 
+  // Search toggler in nav
   function _initSearch() {
     $('a.search-toggle').on('click', function (e) {
       e.preventDefault();
@@ -335,7 +349,6 @@ var ILSFA = (function($) {
       _hideSearch();
     });
   }
-
   function _hideSearch() {
     $body.removeClass('search-open');
     _hideMobileNav();
@@ -349,12 +362,10 @@ var ILSFA = (function($) {
     // We need a separate element to style for interim dividers
     $('<li class="divider-line"></li>').insertBefore('.site-nav li.divider');
   }
-
   function _toggleMobileNav() {
     $body.toggleClass('menu-open');
     _resize();
   }
-
   function _hideMobileNav() {
     $body.removeClass('menu-open');
     _resize();

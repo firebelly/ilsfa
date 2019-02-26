@@ -25,4 +25,40 @@
       @extend %h1;
     }
   }
+
+  li.item {
+    ul {
+      display: none;
+    }
+    a.toggler {
+      position: absolute;
+      bottom: grid(3);
+      right: grid(3);
+      width: 24px;
+      height: 24px;
+    }
+    .icon-cross {
+      display: none;
+    }
+    &.active {
+      ul {
+        display: block;
+      }
+      .icon-cross {
+        display: block;
+      }
+      .icon-plus {
+        display: none;
+      }
+    }
+
+    @include media-md {
+      ul {
+        display: block;
+      }
+      a.toggler {
+        display: none;
+      }
+    }
+  }
 }
