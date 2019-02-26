@@ -43,20 +43,20 @@
     &.compact-grid {
       li.item {
         margin: 0;
-        width: calc((100% - #{grid(4)}) / 3);
+        width: calc((100% - #{grid(6)}) / 3);
         float: left;
         margin-bottom: grid(2);
       }
 
       &.-four-per {
         li.item {
-          width: calc((100% - #{grid(4)}) / 4);
+          width: calc((100% - #{grid(8)}) / 4);
         }
       }
 
       &.-five-per {
         li.item {
-          width: calc((100% - #{grid(4)}) / 5);
+          width: calc((100% - #{grid(10)}) / 5);
         }
       }
     }
