@@ -303,6 +303,28 @@ function metaboxes() {
     ],
   ]);
 
+  // Organization Directory page fields
+  $organization_directory = new_cmb2_box([
+    'id'            => $prefix . 'organization_directory',
+    'title'         => esc_html__( 'Organization Directory', 'cmb2' ),
+    'object_types'  => ['page'],
+    'context'       => 'top',
+    'context'       => 'normal',
+    'show_slugs'    => ['grassroots-education'], // 'job-training'
+    'show_on_cb'    => '\Firebelly\CMB2\show_for_slugs',
+    'priority'      => 'high',
+  ]);
+  $organization_directory->add_field([
+    'name' => esc_html__( 'Intro Copy', 'cmb2' ),
+    'id'   => $prefix .'organization_directory_intro',
+    'type' => 'wysiwyg',
+    'desc' => 'Shown above Organizations directory. Manage Organizations <a href="/wp/wp-admin/edit.php?post_type=organization">here</a>',
+    'options' => [
+      'textarea_rows' => 4,
+    ],
+  ]);
+
+
   // Page resources (possibly a global field for all pages?)
   // output in footer.php, styles in _grassroots-education.scss for now
   $page_resources = new_cmb2_box([

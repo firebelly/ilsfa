@@ -60,25 +60,6 @@ function metaboxes() {
     ]
   ]);
 
-  // Organization Directory page fields
-  $organization_directory = new_cmb2_box([
-    'id'            => $prefix . 'organization_directory',
-    'title'         => esc_html__( 'Organization Directory', 'cmb2' ),
-    'object_types'  => ['page'],
-    'context'       => 'top',
-    'context'       => 'normal',
-    'show_slugs'    => ['grassroots-education'], // 'job-training'
-    'show_on_cb'    => '\Firebelly\CMB2\show_for_slugs',
-    'priority'      => 'high',
-  ]);
-  $organization_directory->add_field([
-    'name' => esc_html__( 'Intro', 'cmb2' ),
-    'id'   => $prefix .'organization_directory_intro',
-    'type' => 'wysiwyg',
-    'options' => [
-      'textarea_rows' => 4,
-    ],
-  ]);
 }
 add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\metaboxes' );
 
