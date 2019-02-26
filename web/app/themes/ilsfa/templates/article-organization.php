@@ -16,11 +16,7 @@ if (!empty($organization_post->meta['_cmb2_address'])) {
     <div class="image" <?= $post_image ?>></div>
   <?php endif; ?>
   <h3>
-    <?php if (!empty($organization_post->meta['_cmb2_website'])): ?>
-      <a rel="noopener" target="_blank" href="<?= $organization_post->meta['_cmb2_website'][0] ?>"><?= $organization_post->post_title ?></a>
-    <?php else: ?>
-      <?= $organization_post->post_title ?>
-    <?php endif; ?>
+    <?= $organization_post->post_title ?>
   </h3>
 
   <ul class="icon-list contact-items -small">

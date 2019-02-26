@@ -137,7 +137,7 @@ var ILSFA = (function($) {
 
   // Mobile expand/collapse behavior for Organization cards
   function _initOrganizations() {
-    $('.organizations-listing li a.toggler').on('click', function(e) {
+    $('.organizations-listing li').find('a.toggler,h3').on('click', function(e) {
       e.preventDefault();
       var $parent = $(this).parents('li.item:first');
       $parent.toggleClass('active');
