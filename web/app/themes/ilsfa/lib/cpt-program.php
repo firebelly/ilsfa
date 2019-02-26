@@ -164,7 +164,7 @@ function metaboxes() {
     'priority'      => 'high',
   ]);
   $vendors_tools->add_field([
-    'name'      => 'Vendors Intro Copy',
+    'name'      => 'Intro Copy',
     'id'        => $prefix . 'vendors_intro',
     'type'      => 'wysiwyg',
     'options'   => [
@@ -182,21 +182,14 @@ function metaboxes() {
     ],
   ]);
   $vendors_tools->add_group_field( $group_field_id, [
-    'name' => 'Vendor/Tool Title',
+    'name' => 'Title',
     'id'   => 'title',
     'type' => 'text',
   ]);
   $vendors_tools->add_group_field( $group_field_id, [
-    'name' => 'URL',
-    'id'   => 'url',
-    'type' => 'text',
-    'desc' => 'Use this if linking out',
-  ]);
-  $vendors_tools->add_group_field( $group_field_id, [
-    'name' => 'Resource',
-    'id'   => 'resource',
+    'name' => 'Resource/URL',
+    'id'   => 'file',
     'type' => 'file',
-    'desc' => 'Use this field if link to downloadable resource',
   ]);
 }
 add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\metaboxes' );
