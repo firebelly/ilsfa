@@ -310,7 +310,7 @@ function metaboxes() {
     'object_types'  => ['page'],
     'context'       => 'top',
     'context'       => 'normal',
-    'show_slugs'    => ['grassroots-education'], // 'job-training'
+    'show_slugs'    => ['grassroots-education', 'job-training'],
     'show_on_cb'    => '\Firebelly\CMB2\show_for_slugs',
     'priority'      => 'high',
   ]);
@@ -331,7 +331,7 @@ function metaboxes() {
     'id'            => $prefix . 'page_resources',
     'title'         => esc_html__( 'Materials List', 'cmb2' ),
     'object_types'  => ['page'],
-    'show_slugs'    => ['grassroots-education'],
+    'show_slugs'    => ['grassroots-education', 'job-training'],
     'show_on_cb'    => '\Firebelly\CMB2\show_for_slugs',
     'context'       => 'normal',
     'priority'      => 'high',

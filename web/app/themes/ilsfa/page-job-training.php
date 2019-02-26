@@ -1,6 +1,6 @@
 <?php
 /*
-  Template name: Grassroots Education
+  Template name: Job Training
 */
 
 // Get all post_meta
@@ -12,7 +12,7 @@ $per_page = get_option('posts_per_page');
 $org_sort = get_query_var('org_sort', 'asc');
 $org_type = 'grassroots-education';
 $args = [
-  'type'  => 'grassroots-education',
+  'type'  => 'job-training',
   'order' => $org_sort,
 ];
 
@@ -32,15 +32,6 @@ get_template_part('templates/page', 'header');
     <?= apply_filters('the_content', $post->post_content); ?>
   </div>
 </div>
-
-<?php if (!empty($post_meta['_cmb2_midpage_prompt'])): ?>
-  <div class="midpage-prompt">
-    <div class="user-content dark-bg">
-      <?= apply_filters('the_content', $post_meta['_cmb2_midpage_prompt'][0]) ?>
-    </div>
-  </div>
-<?php endif; ?>
-
 
 <?php if (!empty($organizations) || !empty($post_meta['_cmb2_organization_directory_intro'])): ?>
 <div class="organizations-listing" data-load-more-parent>
