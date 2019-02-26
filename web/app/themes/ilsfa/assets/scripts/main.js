@@ -13,7 +13,8 @@ var ILSFA = (function($) {
       $wpAdminBar,
       $jumpTo,
       scrollToBodyAnimating = false,
-      headerOffset;
+      headerOffset,
+      currentDomain = document.location.protocol + '//' + document.location.hostname;
 
   function _init() {
     // Cache some common DOM queries
@@ -48,6 +49,20 @@ var ILSFA = (function($) {
         scroll: true,
         tap: true
       }
+    });
+
+    // Track GA event for outbound links
+    $('a[href^="http"]:not([href*="' + currentDomain + '"])').on('click', function(e) {
+        if (typeof ga === 'undefined') {
+          return;
+        }
+        e.preventDefault();
+        ga('send', 'event', 'outbound', 'click', this.href, {
+          'transport': 'beacon',
+          'hitCallback': function() {
+            document.location = this.href;
+          }
+        });
     });
 
     // Set breakpoint vars
@@ -343,16 +358,6 @@ var ILSFA = (function($) {
   function _hideMobileNav() {
     $body.removeClass('menu-open');
     _resize();
-  }
-
-  // Track ajax pages in Analytics
-  function _trackPage() {
-    if (typeof ga !== 'undefined') { ga('send', 'pageview', document.location.href); }
-  }
-
-  // Track events in Analytics
-  function _trackEvent(category, action) {
-    if (typeof ga !== 'undefined') { ga('send', 'event', category, action); }
   }
 
   // Called in quick succession as window is resized
