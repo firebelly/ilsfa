@@ -1,0 +1,16 @@
+// Grassroots Education
+
+// Mid-page block with same styles as footer-outro
+.midpage-prompt {
+  @include global-padding;
+  background: $blurple;
+  .user-content {
+    >h2 {
+      @extend %h1;
+    }
+    &,
+    h2,h3 {
+      color: $white;
+    }
+  }
+}
