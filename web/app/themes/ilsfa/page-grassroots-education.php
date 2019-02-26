@@ -33,6 +33,15 @@ get_template_part('templates/page', 'header');
   </div>
 </div>
 
+<?php if (!empty($post_meta['_cmb2_midpage_prompt'])): ?>
+  <div class="midpage-prompt">
+    <div class="user-content dark-bg">
+      <?= apply_filters('the_content', $post_meta['_cmb2_midpage_prompt'][0]) ?>
+    </div>
+  </div>
+<?php endif; ?>
+
+
 <div class="organizations-listing" data-load-more-parent>
   <?php if (!empty($post_meta['_cmb2_organization_directory_intro'])): ?>
     <div class="user-content" id="organizations">

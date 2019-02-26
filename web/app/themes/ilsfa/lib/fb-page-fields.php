@@ -282,6 +282,68 @@ function metaboxes() {
     ],
   ]);
 
+  /**
+   * Grassroots Education fields
+   */
+  $grassroots_education = new_cmb2_box([
+    'id'            => $prefix . 'grassroots_education',
+    'title'         => esc_html__( 'Midpage Prompt', 'cmb2' ),
+    'object_types'  => ['page'],
+    'show_slugs'    => ['grassroots-education'],
+    'show_on_cb'    => '\Firebelly\CMB2\show_for_slugs',
+    'context'       => 'normal',
+    'priority'      => 'high',
+  ]);
+  $grassroots_education->add_field([
+    'id'   => $prefix .'midpage_prompt',
+    'desc' => 'Shows above Organizations',
+    'type' => 'wysiwyg',
+    'options' => [
+      'textarea_rows' => 10,
+    ],
+  ]);
+
+  // Page resources (possibly a global field for all pages?)
+  // output in footer.php, styles in _grassroots-education.scss for now
+  $page_resources = new_cmb2_box([
+    'id'            => $prefix . 'page_resources',
+    'title'         => esc_html__( 'Materials List', 'cmb2' ),
+    'object_types'  => ['page'],
+    'show_slugs'    => ['grassroots-education'],
+    'show_on_cb'    => '\Firebelly\CMB2\show_for_slugs',
+    'context'       => 'normal',
+    'priority'      => 'high',
+  ]);
+  $page_resources->add_field([
+    'name'            => 'Intro Copy',
+    'id'              => $prefix . 'page_resources_intro',
+    'type'            => 'wysiwyg',
+    'options'         => [
+      'textarea_rows' => 5,
+    ],
+  ]);
+  $group_field_id = $page_resources->add_field([
+    'id'              => $prefix .'page_resources',
+    'type'            => 'group',
+    'options'         => [
+      'group_title'   => __( 'Resource {#}', 'cmb2' ),
+      'add_button'    => __( 'Add Another Resource', 'cmb2' ),
+      'remove_button' => __( 'Remove Resource', 'cmb2' ),
+      'sortable'      => true,
+    ],
+  ]);
+  $page_resources->add_group_field( $group_field_id, [
+    'name' => 'Title',
+    'id'   => 'title',
+    'type' => 'text',
+  ]);
+  $page_resources->add_group_field( $group_field_id, [
+    'name' => 'Resource/Video/URL',
+    'id'   => 'file',
+    'type' => 'file',
+  ]);
+
+
 }
 
 function sanitize_text_callback( $value, $field_args, $field ) {
