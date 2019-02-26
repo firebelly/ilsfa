@@ -1,13 +1,43 @@
 <?php
-// Check for footer_outro
-$post_meta = !empty($post_meta) ? $post_meta : (!empty($post) && is_object($post) ? get_post_meta($post->ID) : []);
-if (!is_search() && !empty($post_meta['_cmb2_footer_outro'])): ?>
-<div class="footer-outro">
-  <div class="user-content dark-bg">
-    <?= apply_filters('the_content', $post_meta['_cmb2_footer_outro'][0]) ?>
-  </div>
-</div>
+// Various pre-footer content
+if (!is_search() && !is_404()):
+
+  // Try to get post_meta
+  $post_meta = !empty($post_meta) ? $post_meta : (!empty($post) && is_object($post) ? get_post_meta($post->ID) : []);
+
+  // Check for page_resources
+  if (!empty($post_meta['_cmb2_page_resources'])): ?>
+    <div class="page-resources">
+      <div class="grid">
+        <div class="one-half">
+          <?php if (!empty($post_meta['_cmb2_page_resources_intro'])): ?>
+            <div class="user-content">
+              <?= apply_filters('the_content', $post_meta['_cmb2_page_resources_intro'][0]) ?>
+            </div>
+          <?php endif; ?>
+        </div>
+
+        <div class="one-half tail">
+          <?php if (!empty($post_meta['_cmb2_page_resources'])): ?>
+            <?php \Firebelly\Utils\get_template_part_with_vars('templates/resources', 'list', ['resources_list' => $post_meta['_cmb2_page_resources'][0], 'class' => 'resources']); ?>
+          <?php endif; ?>
+        </div>
+      </div>
+    </div>
+  <?php endif; ?>
+  <?php
+
+  // Check for footer_outro
+  if (!empty($post_meta['_cmb2_footer_outro'])): ?>
+    <div class="footer-outro">
+      <div class="user-content dark-bg">
+        <?= apply_filters('the_content', $post_meta['_cmb2_footer_outro'][0]) ?>
+      </div>
+    </div>
+  <?php endif; ?>
+
 <?php endif; ?>
+
 <footer class="site-footer">
   <div class="wrap grid">
 
