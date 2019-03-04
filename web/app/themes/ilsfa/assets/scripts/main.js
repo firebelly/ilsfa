@@ -387,6 +387,7 @@ var ILSFA = (function($) {
     _setJumpToPosition();
   }
 
+  // Adjust jumpto nav based on headerOffset
   function _setJumpToPosition() {
     if ($jumpTo.length) {
       if ($jumpTo.is('.stuck')) {
@@ -397,6 +398,7 @@ var ILSFA = (function($) {
     }
   }
 
+  // Set headerOffset var used for jumptonav placement and scrollbody calculations
   function _setHeaderOffset() {
     headerOffset = $siteHeader.outerHeight();
     if ($wpAdminBar.length && $wpAdminBar.css('position') === 'fixed') {
@@ -453,6 +455,7 @@ var ILSFA = (function($) {
     }
   }
 
+  // Load more buttons for organizations lists
   function _initLoadMore() {
     $document.on('click', '.load-more a', function(e) {
       e.preventDefault();
