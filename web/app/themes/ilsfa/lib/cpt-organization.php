@@ -34,6 +34,14 @@ function metaboxes() {
     'priority'      => 'high',
   ]);
   $org_info->add_field([
+    'name'       => 'Description',
+    'id'         => $prefix . 'description',
+    'type'       => 'wysiwyg',
+    'options'    => [
+      'textarea_rows' => 10,
+    ],
+  ]);
+  $org_info->add_field([
     'name'       => 'Address',
     'id'         => $prefix . 'address',
     'type'       => 'address',

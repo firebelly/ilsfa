@@ -68,7 +68,7 @@ get_template_part('templates/page', 'header');
       </div>
     </div>
 
-    <ul class="cards compact-grid -four-per masonry" data-load-more-container>
+    <ul class="cards compact-grid -three-per masonry" data-load-more-container>
     <?= $organizations ?>
     </ul>
 

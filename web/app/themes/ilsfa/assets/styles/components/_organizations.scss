@@ -11,7 +11,7 @@
     color: $white;
     margin: 0 0 grid(1);
   }
-  .user-content {
+  > .user-content {
     margin: 0 0 grid(4);
     h2,
     h3,
@@ -27,6 +27,14 @@
   }
 
   li.item {
+    // Give content padding on right to avoid collision with toggler
+    padding: grid(3) grid(4) grid(6) grid(4);
+
+    h3 {
+      cursor: pointer;
+      margin-bottom: grid(3);
+    }
+    .description,
     ul {
       display: none;
     }
@@ -34,29 +42,31 @@
       position: absolute;
       bottom: grid(3);
       right: grid(3);
-      width: 24px;
-      height: 24px;
+      height: 28px;
+      .icon {
+        vertical-align: middle;
+        margin-left: grid(1);
+      }
+      h5 {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        line-height: 24px;
+      }
     }
-    .icon-cross {
+    .-opened {
       display: none;
     }
     &.active {
+      padding: grid(3) grid(4) grid(7) grid(4);
+      .description,
       ul {
         display: block;
       }
-      .icon-cross {
-        display: block;
+      .-opened {
+        display: inline-block;
       }
-      .icon-plus {
-        display: none;
-      }
-    }
-
-    @include media-md {
-      ul {
-        display: block;
-      }
-      a.toggler {
+      .-closed {
         display: none;
       }
     }

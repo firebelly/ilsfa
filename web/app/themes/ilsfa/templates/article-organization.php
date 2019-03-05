@@ -11,7 +11,7 @@ if (!empty($organization_post->meta['_cmb2_address'])) {
   ];
 }
 ?>
-<article class="event">
+<article class="organization">
   <?php if (!empty($post_image)): ?>
     <div class="image" <?= $post_image ?>></div>
   <?php endif; ?>
@@ -52,8 +52,21 @@ if (!empty($organization_post->meta['_cmb2_address'])) {
       </li>
     <?php endif; ?>
   </ul>
+
+  <?php if (!empty($organization_post->meta['_cmb2_description'])): ?>
+    <div class="user-content description">
+      <?= apply_filters('the_content', $organization_post->meta['_cmb2_description'][0]) ?>
+    </div>
+  <?php endif; ?>
+
   <a href="#" class="toggler">
-    <svg class="icon icon-plus" aria-hidden="true"><use xlink:href="#icon-plus"/></svg>
-    <svg class="icon icon-cross" aria-hidden="true"><use xlink:href="#icon-cross"/></svg>
+    <span class="-closed">
+      <h5>Details</h5>
+      <svg class="icon icon-plus" aria-hidden="true"><use xlink:href="#icon-plus"/></svg>
+    </span>
+    <span class="-opened">
+      <h5>Show Less</h5>
+      <svg class="icon icon-minus" aria-hidden="true"><use xlink:href="#icon-minus"/></svg>
+    </span>
   </a>
 </article>
