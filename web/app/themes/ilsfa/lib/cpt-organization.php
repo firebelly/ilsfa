@@ -84,28 +84,30 @@ add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\metaboxes' );
 function get_organizations($opts=[]) {
   $args = [
     'numberposts' => (!empty($opts['numberposts']) ? $opts['numberposts'] : get_option('posts_per_page')),
-    'offset' => (!empty($opts['offset']) ? $opts['offset'] : 0),
-    'orderby' => 'title',
-    'order' => (!empty($opts['order']) && strtolower($opts['order']) != 'asc' ? 'DESC' : 'ASC'),
+    'offset'      => (!empty($opts['offset']) ? $opts['offset'] : 0),
+    'orderby'     => 'title',
+    'order'       => (!empty($opts['order']) && strtolower($opts['order']) != 'asc' ? 'DESC' : 'ASC'),
     'post_type'   => 'organization',
   ];
+  if (!empty($opts['fields'])) {
+    $args['fields'] = $opts['fields'];
+  }
+  $args['tax_query'] = [];
   if (!empty($opts['type'])) {
-    $args['tax_query'] = [
+    $args['tax_query'][] =
       [
         'taxonomy' => 'organization_type',
         'field' => 'slug',
         'terms' => $opts['type']
-      ]
-    ];
+      ];
   }
   if (!empty($opts['category'])) {
-    $args['tax_query'] = [
+    $args['tax_query'][] =
       [
         'taxonomy' => 'organization_category',
         'field' => 'slug',
         'terms' => $opts['category']
-      ]
-    ];
+      ];
   }
 
   $organizations_posts = get_posts($args);

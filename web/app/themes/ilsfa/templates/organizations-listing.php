@@ -1,3 +1,30 @@
+<?php
+  // Get org_categories used by org_type
+  $org_post_ids = \Firebelly\PostTypes\Organization\get_organizations([
+    'numberposts' => -1,
+    'fields'      => 'ids',
+    'output'      => 'array',
+    'type'        => $org_type
+  ]);
+
+  // Find story topics that use those post IDs
+  $org_category_ids = $wpdb->get_col("
+  SELECT t.term_id FROM {$wpdb->terms} AS t
+        INNER JOIN {$wpdb->term_taxonomy} AS tt ON t.term_id = tt.term_id
+        INNER JOIN {$wpdb->term_relationships} AS r ON r.term_taxonomy_id = tt.term_taxonomy_id
+        WHERE tt.taxonomy IN('organization_category')
+        AND r.object_id IN (".implode(',', $org_post_ids).")
+        GROUP BY t.term_id
+  ");
+
+  // Pull those topics for filtering
+  $organization_categories = get_terms([
+    'taxonomy' => 'organization_category',
+    'include'  => $org_category_ids
+  ]);
+
+?>
+
 <?php if (!empty($organizations) || !empty($post_meta['_cmb2_organization_directory_intro'])): ?>
 <div class="organizations-listing" data-load-more-parent>
   <?php if (!empty($post_meta['_cmb2_organization_directory_intro'])): ?>
@@ -29,7 +56,6 @@
           <select name="org_filter" class="jumpselect">
             <option <?= $org_filter == '' ? 'selected ' : '' ?>value="<?= add_query_arg('org_filter', '') ?>#organizations">* All *</option>
             <?php
-            $organization_categories = get_terms(['taxonomy' => 'organization_category', 'hide_empty' => false]);
             foreach ($organization_categories as $term): ?>
               <option <?= $org_filter == $term->slug ? 'selected ' : '' ?>value="<?= add_query_arg('org_filter', $term->slug) ?>#organizations"><?= $term->name ?></option>
             <?php endforeach; ?>
