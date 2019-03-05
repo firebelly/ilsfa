@@ -180,9 +180,9 @@ function redirect_single_organizations() {
   // Single organization? Redirect to proper landing page based on type
   if (preg_match('#^organizations/#', $request_url)) {
     if ($type = \Firebelly\Utils\get_first_term($post->ID, 'organization_type')) {
-      $new_url = '/' . $type->slug . '/';
+      $new_url = '/' . $type->slug . '/#organizations';
     } else {
-      $new_url = '/grassroots-education/';
+      $new_url = '/grassroots-education/#organizations';
     }
     wp_redirect($new_url, 301);
   }
