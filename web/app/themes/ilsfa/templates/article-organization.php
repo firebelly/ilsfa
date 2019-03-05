@@ -1,6 +1,5 @@
 <?php
 $organization_post->meta = get_post_meta($organization_post->ID);
-$post_image = \Firebelly\Media\get_header_bg($organization_post, ['size' => 'medium']);
 
 if (!empty($organization_post->meta['_cmb2_address'])) {
   $address = unserialize($organization_post->meta['_cmb2_address'][0]);
@@ -10,11 +9,20 @@ if (!empty($organization_post->meta['_cmb2_address'])) {
     'locality' => $address['city'] . (!empty($address['state']) ? ', '.$address['state'] : '') . (!empty($address['zip']) ? ' '.$address['zip'] : ''),
   ];
 }
+$category_links = [];
+if ($categories = get_the_terms($organization_post->ID, 'organization_category')) {
+  foreach ($categories as $term) {
+    $category_links[] = '<a href="'.add_query_arg('org_filter', $term->slug).'#organizations">'.$term->name.'</a>';
+  }
+}
 ?>
 <article class="organization">
-  <?php if (!empty($post_image)): ?>
-    <div class="image" <?= $post_image ?>></div>
-  <?php endif; ?>
+  <?php if (!empty($category_links)): ?>
+    <h4 class="category">
+      <svg class="icon icon-category" aria-hidden="true"><use xlink:href="#icon-category"/></svg>
+      <?= implode(', ', $category_links) ?>
+    </h4>
+  <?php endif ?>
   <h3>
     <?= $organization_post->post_title ?>
   </h3>

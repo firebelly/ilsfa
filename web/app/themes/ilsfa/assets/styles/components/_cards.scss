@@ -40,23 +40,24 @@
 
   // Desktop styles
   @include media-md {
+    // 16px gutters or grid(2)
     &.compact-grid {
       li.item {
         margin: 0;
-        width: calc((100% - #{grid(6)}) / 3);
+        width: calc((100% - #{grid(4)}) / 3);
         float: left;
         margin-bottom: grid(2);
       }
 
       &.-four-per {
         li.item {
-          width: calc((100% - #{grid(8)}) / 4);
+          width: calc((100% - #{grid(6)}) / 4);
         }
       }
 
       &.-five-per {
         li.item {
-          width: calc((100% - #{grid(10)}) / 5);
+          width: calc((100% - #{grid(8)}) / 5);
         }
       }
     }

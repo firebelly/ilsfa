@@ -477,6 +477,7 @@ var ILSFA = (function($) {
               page: page+1,
               per_page: per_page,
               org_sort: $load_more.attr('data-org-sort'),
+              org_filter: $load_more.attr('data-org-filter'),
               org_type: $load_more.attr('data-org-type')
           },
           success: function(data) {
@@ -485,9 +486,13 @@ var ILSFA = (function($) {
             if (loadingTimer) {
               clearTimeout(loadingTimer);
             }
+            // Append new posts to more_container
             $more_container.append($data).removeClass('loading');
 
+            // Increase page in data attribute
             $load_more.attr('data-page-at', page+1);
+
+            // Tell masonry we appended some items
             $more_container.masonry('appended', $data, true);
 
             // Hide load more if last page

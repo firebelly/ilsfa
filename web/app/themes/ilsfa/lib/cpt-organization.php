@@ -9,13 +9,20 @@ use PostTypes\Taxonomy;
 
 $organizations = new PostType('organization', [
   'supports'   => ['title'],
-  'taxonomies' => ['organization_type'],
+  'taxonomies' => ['organization_type', 'organization_category'],
   'rewrite'    => ['with_front' => false],
 ]);
 
 // Custom taxonomies
 $organization_type = new Taxonomy('organization_type');
 $organization_type->register();
+
+$organization_category = new Taxonomy([
+  'name'     => 'organization_category',
+  'slug'     => 'organization_category',
+  'plural'   => 'Organization Categories',
+]);
+$organization_category->register();
 
 $organizations->register();
 
@@ -91,10 +98,19 @@ function get_organizations($opts=[]) {
       ]
     ];
   }
+  if (!empty($opts['category'])) {
+    $args['tax_query'] = [
+      [
+        'taxonomy' => 'organization_category',
+        'field' => 'slug',
+        'terms' => $opts['category']
+      ]
+    ];
+  }
 
   $organizations_posts = get_posts($args);
   if (!$organizations_posts) {
-    return false;
+    return '<p class="nothing-found">No posts found.</p>';
   }
 
   // Just count posts (used for load-more buttons)
@@ -129,6 +145,7 @@ function get_organizations($opts=[]) {
  */
 function add_query_vars_filter($vars){
   $vars[] = 'org_sort';
+  $vars[] = 'org_filter';
   return $vars;
 }
 add_filter('query_vars', __NAMESPACE__ . '\\add_query_vars_filter');
@@ -137,13 +154,15 @@ function load_more_organizations() {
   $page = !empty($_REQUEST['page']) ? $_REQUEST['page'] : 1;
   $per_page = !empty($_REQUEST['per_page']) ? $_REQUEST['per_page'] : get_option('posts_per_page');
   $order = !empty($_REQUEST['org_sort']) ? $_REQUEST['org_sort'] : 'asc';
+  $category = !empty($_REQUEST['org_filter']) ? $_REQUEST['org_filter'] : '';
   $type = !empty($_REQUEST['org_type']) ? $_REQUEST['org_type'] : 'grassroots-education';
   $offset = ($page-1) * $per_page;
   $args = [
-    'offset'         => $offset,
-    'numberposts'    => $per_page,
-    'order'          => $order,
-    'type'           => $type,
+    'offset'      => $offset,
+    'numberposts' => $per_page,
+    'order'       => $order,
+    'category'    => $category,
+    'type'        => $type,
   ];
   echo get_organizations($args);
 }
