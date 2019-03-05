@@ -10,9 +10,9 @@ $post_meta = get_post_meta($post->ID);
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $per_page = get_option('posts_per_page');
 $org_sort = get_query_var('org_sort', 'asc');
-$org_type = 'grassroots-education';
+$org_type = 'job-training';
 $args = [
-  'type'  => 'job-training',
+  'type'  => $org_type,
   'order' => $org_sort,
 ];
 

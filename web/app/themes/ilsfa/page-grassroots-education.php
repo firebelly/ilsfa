@@ -13,7 +13,7 @@ $org_sort = get_query_var('org_sort', 'asc');
 $org_filter = get_query_var('org_filter', '');
 $org_type = 'grassroots-education';
 $args = [
-  'type'     => 'grassroots-education',
+  'type'     => $org_type,
   'order'    => $org_sort,
   'category' => $org_filter,
 ];

@@ -168,3 +168,21 @@ function load_more_organizations() {
 }
 add_action('wp_ajax_load_more_organizations', __NAMESPACE__ . '\\load_more_organizations' );
 add_action('wp_ajax_nopriv_load_more_organizations', __NAMESPACE__ . '\\load_more_organizations');
+
+
+// Redirect single Organization requests to either /grassroots-education/ or /job-training/ landing pages
+function redirect_single_organizations() {
+  global $wp, $wpdb, $post;
+  $request_url = $wp->request;
+
+  // Single organization? Redirect to proper landing page based on type
+  if (preg_match('#^organizations/#', $request_url)) {
+    if ($type = \Firebelly\Utils\get_first_term($post->ID, 'organization_type')) {
+      $new_url = '/' . $type->slug . '/';
+    } else {
+      $new_url = '/grassroots-education/';
+    }
+    wp_redirect($new_url, 301);
+  }
+}
+add_action('template_redirect', __NAMESPACE__.'\\redirect_single_organizations');
