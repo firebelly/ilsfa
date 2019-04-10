@@ -247,7 +247,7 @@ function update_events_lat_lng($post_id='') {
 }
 
 /**
- * Geocode address for event and save in custom fields
+ * Geocode address and save in custom fields
  */
 function geocode_address($post_id, $post='') {
   if (empty($_POST['_cmb2_address'])) return;

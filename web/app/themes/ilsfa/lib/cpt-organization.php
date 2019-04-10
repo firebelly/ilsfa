@@ -54,6 +54,26 @@ function metaboxes() {
     'type'       => 'address',
   ]);
   $org_info->add_field([
+    'name'      => 'Lat',
+    'id'        => $prefix . 'lat',
+    'type'      => 'text_small',
+    'save_field'  => false,
+    'attributes'  => array(
+      'readonly' => 'readonly',
+      'disabled' => 'disabled',
+    ),
+  ]);
+  $org_info->add_field([
+    'name'      => 'Lng',
+    'id'        => $prefix . 'lng',
+    'type'      => 'text_small',
+    'save_field'  => false,
+    'attributes'  => array(
+      'readonly' => 'readonly',
+      'disabled' => 'disabled',
+    ),
+  ]);
+  $org_info->add_field([
     'name'      => 'Email',
     'id'        => $prefix . 'email',
     'type'      => 'text',
@@ -133,7 +153,7 @@ function get_organizations($opts=[]) {
   // Display all matching posts using article-{$post_type}.php
   $output = '';
   foreach ($organizations_posts as $organization_post) {
-    $output .= '<li class="item">';
+    $output .= '<li class="item" data-id="'.$organization_post->ID.'">';
     ob_start();
     include(locate_template('templates/article-organization.php'));
     $output .= ob_get_clean();
@@ -188,3 +208,6 @@ function redirect_single_organizations() {
   }
 }
 add_action('template_redirect', __NAMESPACE__.'\\redirect_single_organizations');
+
+// Geocode address on save
+add_action('save_post_organization', '\Firebelly\PostTypes\Event\geocode_address', 20, 2);
