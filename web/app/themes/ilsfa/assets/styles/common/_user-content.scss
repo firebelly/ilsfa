@@ -11,6 +11,16 @@
     }
   }
 
+  // Undo *+* for [video] embeds
+  .wp-video-shortcode {
+    * + * {
+      margin-top: 0;
+    }
+    @include media-md {
+      margin-top: 0;
+    }
+  }
+
   a:not(.button) {
     border-bottom: 2px solid $blurple-dark;
     @extend %inline-link;
