@@ -16,7 +16,7 @@ if ($categories = get_the_terms($organization_post->ID, 'organization_category')
   }
 }
 ?>
-<article class="organization">
+<article data-url="<?= !empty($organization_post->meta['_cmb2_website']) ? $organization_post->meta['_cmb2_website'][0] : '' ?>" data-id="<?= $organization_post->ID ?>" data-title="<?= $organization_post->post_title ?>" class="organization<?php if (!empty($organization_post->meta['_cmb2_lat']) && !empty($organization_post->meta['_cmb2_lng'])): ?> map-point" data-lat="<?= $organization_post->meta['_cmb2_lat'][0] ?>" data-lng="<?= $organization_post->meta['_cmb2_lng'][0] ?><?php endif; ?>">
   <?php if (!empty($category_links)): ?>
     <h4 class="category">
       <svg class="icon icon-category" aria-hidden="true"><use xlink:href="#icon-category"/></svg>
