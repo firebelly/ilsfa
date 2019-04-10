@@ -142,16 +142,6 @@ form {
     top: 50%;
     transform: translateY(-50%);
   }
-  &:after {
-    top: 19px;
-    width: 18px;
-    content: '';
-    height: 18px;
-    right: $gutter;
-    position: absolute;
-    pointer-events: none;
-    background-image: url('../svgs/icon-arrow-dropdown.svg');
-  }
 
   select {
     // reset
