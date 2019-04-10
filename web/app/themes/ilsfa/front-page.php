@@ -100,8 +100,7 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
 
   <div class="grid-item one-half events">
     <h2>Events</h2>
-    <p class="coming-soon">Coming soon</p>
-    <?php if (0 && $events = \Firebelly\PostTypes\Event\get_events(['output' => 'array'])): ?>
+    <?php if ($events = \Firebelly\PostTypes\Event\get_events(['output' => 'array'])): ?>
       <ul class="cards">
       <?php foreach ($events as $event): ?>
         <li>
