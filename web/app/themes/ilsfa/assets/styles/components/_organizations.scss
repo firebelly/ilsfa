@@ -1,21 +1,26 @@
 // Organizations (used on Job Training & Grassroots Education)
 
 .organizations-listing {
+  background: #BEBFC9;
   .filters {
+    background: $blurple-dark;
+    padding: $mobile-global-padding;
+    h2 {
+      color: $white;
+      margin-bottom: grid(4);
+    }
+
+    // Desktop styles
     @include media-md {
-      .one-half:nth-child(1) {
-        padding-right: grid(1);
-      }
-      .one-half:nth-child(2) {
-        padding-left: grid(1);
-      }
+      padding: grid(6) columns(1) grid(6) columns(2);
     }
   }
-	background: $blurple-dark;
-	@include global-padding(12);
   .select-wrap {
     width: 100%;
-    margin: 0 0 grid(4);
+    margin: 0 0 grid(2);
+  }
+  .cards {
+    margin-top: grid(2);
   }
   h4 {
     color: $white;
