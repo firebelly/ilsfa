@@ -2,12 +2,12 @@
 namespace Firebelly\Ajax;
 
 /**
- * Add wp_ajax_url variable to global js scope
+ * Add variables to global js scope
  */
-function wp_ajax_url() {
-  wp_localize_script('sage/js', 'wp_ajax_url', admin_url('admin-ajax.php'));
-}
-add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\wp_ajax_url', 100);
+add_action('wp_enqueue_scripts', function() {
+	wp_localize_script('sage/js', 'wp_ajax_url', admin_url('admin-ajax.php'));
+	wp_localize_script('sage/js', 'mapbox_key', getenv('MAPBOX_KEY'));
+}, 100);
 
 /**
  * Silly ajax helper, returns true if xmlhttprequest
