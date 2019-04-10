@@ -14,7 +14,8 @@
     "velocity": "~1.2.2",
     "waypoints": "^4.0.1",
     "masonry-layout": "masonry#^4.2.2",
-    "tooltipster": "^4.2.6"
+    "tooltipster": "^4.2.6",
+    "mapbox-gl-supported": "^1.2.0"
   },
   "overrides": {
     "modernizr": {
