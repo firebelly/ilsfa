@@ -14,6 +14,9 @@ var ILSFA = (function($) {
       $jumpTo,
       scrollToBodyAnimating = false,
       headerOffset,
+      map,
+      pointsLayer,
+      mapPointsData,
       currentDomain = document.location.protocol + '//' + document.location.hostname;
 
   function _init() {
@@ -125,6 +128,7 @@ var ILSFA = (function($) {
     _initForms();
     _initLoadMore();
     _initOrganizations();
+    _initMaps();
 
     // Scroll down to hash after page load
     $(window).load(function() {
@@ -144,6 +148,325 @@ var ILSFA = (function($) {
       $('.compact-grid').masonry();
     });
   }
+
+  // Init mapbox
+  function _initMaps() {
+    if($('#map').length) {
+      // Mapbox GL will only work in ie11+
+      // For ie9 and ie10, we will need to use the old school raster-tile mapbox
+      useMapboxGl = mapboxgl.supported();
+
+      // Get the correct CSS
+      var mapboxCss = useMapboxGl ? 'https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' : 'https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.css';
+      $('head').append('<link href="'+mapboxCss+'" rel="stylesheet" />');
+
+      // Get the correct JS, init maps on load
+      var mapboxJs = useMapboxGl ? 'https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js' : 'https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.js';
+      $.getScript(mapboxJs, function() {
+        if (breakpoints.md) {
+          _initMap(useMapboxGl, 11, [-87.6568088,41.8909229]);
+        }
+      });
+    }
+  }
+
+  function _initMap(useGl, startZoom, startCenter) {
+
+    var mapPoints = [];
+    var $mapPoint = $('.map-point');
+
+    // FOR MAPBOX GL (ie11+, and everything else)
+    if (useGl) {
+      if (typeof mapboxgl === 'undefined') { return; }
+      mapboxgl.accessToken = mapbox_key;
+      map = new mapboxgl.Map({
+        container: 'map',
+        scrollZoom: false,
+        zoom: startZoom,
+        center: startCenter,
+        style: 'mapbox://styles/firebellydesign/cju8lp5lo62kn1gmbwlcaljkl',
+        fadeDuration: 0
+      });
+
+      // Add nav
+      var nav = new mapboxgl.NavigationControl();
+      map.addControl(nav, 'top-left');
+
+      // Inject svg icons for map controls
+      $('#map .mapboxgl-ctrl-zoom-in').html('<svg class="icon icon-plus" aria-hidden="true" role="presentation"><use xlink:href="#icon-plus"/></svg>');
+      $('#map .mapboxgl-ctrl-zoom-out').html('<svg class="icon icon-minus" aria-hidden="true" role="presentation"><use xlink:href="#icon-minus"/></svg>');
+
+      // Just init single map?
+      if ($mapPoint.length === 0) { return; }
+
+      // Cull map points from DOM
+      mapPoints = [];
+      $mapPoint.each(function(){
+        var $this = $(this);
+        $this.addClass('mapped');
+        if ($this.attr('data-lat') !== '') {
+          mapPoints.push({
+            'type': 'Feature',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [parseFloat($this.attr('data-lng')), parseFloat($this.attr('data-lat'))]
+            },
+            'properties': {
+              'title': $this.attr('data-title'),
+              'url': $this.attr('data-url'),
+              'id': $this.attr('data-id')
+            }
+          });
+        }
+      });
+
+      // No map points with lat/lng found?
+      if (mapPoints.length === 0) { return; }
+
+      mapPointsData = {
+        'type': 'FeatureCollection',
+        'features': mapPoints
+      };
+
+
+      // Center map
+      if (mapPoints.length > 1) {
+        var bounds = new mapboxgl.LngLatBounds();
+        mapPointsData.features.forEach(function(feature) {
+          bounds.extend(feature.geometry.coordinates);
+        });
+        map.fitBounds(bounds, {padding: 100});
+      } else {
+        map.setCenter(mapPoints[0].geometry.coordinates);
+      }
+
+      map.on('load', function () {
+        map.addSource('points', {
+          'type': 'geojson',
+          'data': mapPointsData,
+          cluster: true,
+          clusterMaxZoom: 14, // Max zoom to cluster points on
+          clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
+        });
+
+        // Cluster layers
+        map.addLayer({
+          id: 'clusters',
+          type: 'circle',
+          source: 'points',
+          filter: ['has', 'point_count'],
+          paint: {
+            'circle-color': '#E04E22',
+            'circle-radius': 20,
+          }
+        });
+        map.addLayer({
+          id: 'cluster-count',
+          type: 'symbol',
+          source: 'points',
+          filter: ['has', 'point_count'],
+          layout: {
+            'text-field': '{point_count_abbreviated}',
+            'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+            'text-size': 16,
+          },
+          paint: {
+            'text-color': '#ffffff'
+          }
+        });
+
+        // Add points as a layer
+        map.addLayer({
+          'id': 'points',
+          'type': 'symbol',
+          'source': 'points',
+          filter: ['!', ['has', 'point_count']],
+          'layout': {
+            // 'text-field': '{title}',
+            'icon-image': 'icon-map-pin',
+            // 'icon-allow-overlap': true
+          }
+        });
+
+        // Add points as a hover layer with "map-pin-hover" icon
+        map.addLayer({
+          'id': 'points-hover',
+          'type': 'symbol',
+          'source': 'points',
+          'layout': {
+            'icon-image': 'icon-map-pin-hover',
+            // 'text-field': '{title}',
+            // 'icon-image': 'icon-map-pin-hover',
+            // 'icon-allow-overlap': true
+          },
+          'filter': ['==', 'id', ''] // filter all out initially
+        });
+
+        // When clicking on map, check if clicking on a pin, and open URL if so
+        map.on('click', function(e) {
+          var features = map.queryRenderedFeatures(e.point, { layers: ['points', 'points-hover'] });
+          if (features.length && features[0].properties.url !== '') {
+            window.open(features[0].properties.url, '_blank');
+          }
+        });
+
+        // Map hover state handling
+        map.on('mousemove', function(e) {
+          var features = map.queryRenderedFeatures(e.point, { layers: ['points', 'points-hover'] });
+
+          if (features.length) {
+            // Cursor pointer = clickable
+            map.getCanvas().style.cursor = 'pointer';
+
+            // Hover state for pin: show pins in points-hover that match id
+            map.setFilter('points-hover', ['==', 'id', features[0].properties.id]);
+
+            // Add "-hover" class to corresponding card
+            $('.cards li[data-id='+features[0].properties.id+']').addClass('-hover');
+          } else {
+            // Clear out hover states for pins and features
+            map.getCanvas().style.cursor = '';
+            $('.cards li').removeClass('-hover');
+            map.setFilter('points-hover', ['==', 'id', '']);
+          }
+        });
+
+        // Highlight related pins on map when hovering over card
+        // $('body').on('mouseenter', '.map-point', function() {
+        //   var url = $(this).find('a').attr('href');
+        //   map.setFilter('points-hover', ['!=', 'url', url]);
+        // }).on('mouseleave', '.map-point', function() {
+        //   map.setFilter('points-hover', ['==', 'url', '']);
+        // });
+
+        // Sticky map
+        // var map_waypoint = new Waypoint.Sticky({
+        //   element: $('.map-container')[0],
+        //   wrapper: '<div class="map-sticky-wrapper" />',
+        //   // context: $('#map-sticky-parent')[0]
+        //   // handler: function(direction) {
+        //   //   _resize();
+        //   // },
+        //   offset: headerOffset
+        // });
+
+      });
+
+    } else {
+
+    // Old school Mapbox js (ie9,10)
+
+    //   if (typeof L.mapbox === 'undefined') { return; }
+
+    //   L.mapbox.accessToken = mapbox_key;
+
+    //   // Convert given zoom and centers to something readable by raster mapbox js
+    //   var zoom = Math.ceil(startZoom)+1;
+    //   var center = [startCenter[1],startCenter[0]];
+
+    //   // Init map
+    //   map = new L.mapbox.Map('map', null, { zoomControl: false }).setView(center, zoom);
+
+    //   var rasterTileLayer = L.mapbox.styleLayer('mapbox://styles/tsquared1017/cj8c5fqt57w1q2slaz7ca5t7a').addTo(map);
+
+    //   // Add loaded class when the raster tile layer is up and runnin
+    //   rasterTileLayer.on('load', function(e) {
+    //     $('#map').addClass('loaded');
+    //   });
+
+    //   // disable drag and zoom handlers
+    //   map.scrollWheelZoom.disable();
+
+    //   // Add mapbox nav controls (styling overrided in _maps.scss)
+    //   new L.Control.Zoom({ position: 'topright' }).addTo(map);
+
+    //   // Just init single map?
+    //   if ($mapPoint.length === 0) { return; }
+
+    //   mapPoints = [];
+    //   $mapPoint.each(function(){
+    //     var $this = $(this);
+    //     $this.addClass('mapped');
+    //     mapPoints.push({
+    //       'type': 'Feature',
+    //       'geometry': {
+    //         'type': 'Point',
+    //         'coordinates': [parseFloat($this.attr('data-lng')), parseFloat($this.attr('data-lat'))]
+    //       },
+    //       'properties': {
+    //         'title': $this.attr('data-title'),
+    //         'url': $this.attr('data-url'),
+    //         'enabled': !$this.hasClass('disabled'),
+    //         'icon' : {
+    //           'iconUrl': '/assets/svgs/map-pin.svg',
+    //           'iconSize': [30, 30],
+    //           'iconAnchor': [15, 15],
+    //         },
+    //       },
+    //     });
+    //   });
+
+    //   pointsLayer = L.mapbox.featureLayer(null, {id: 'points', 'type': 'symbol'}).addTo(map);
+
+    //   // Give layers proper icons
+    //   pointsLayer.on('layeradd', function(e) {
+    //     var marker = e.layer,
+    //       feature = marker.feature;
+    //       marker.setIcon(L.icon(feature.properties.icon));
+    //       marker.unbindPopup();
+    //   });
+
+    //   // Add geoJson
+    //   pointsLayer.setGeoJSON(mapPoints);
+
+    //   // Add click event
+    //   pointsLayer.on('click', function(e) {
+    //     if(e.layer.feature.properties.enabled) {
+    //       location.href = e.layer.feature.properties.url;
+    //     }
+    //   });
+
+    //   map.setView(pointsLayer.getBounds().getCenter());
+
+    }
+
+  }
+
+  // function _addMapPoints() {
+  //   var $mapPoints = $('.map-point:not(.mapped)');
+  //   if ($mapPoints.length) {
+
+  //     // Cull map points from DOM
+  //     $mapPoints.each(function(){
+  //       var $this = $(this);
+  //       $this.addClass('mapped');
+  //       if ($this.attr('data-lat') !== '') {
+  //         mapPointsData.features.push({
+  //           'type': 'Feature',
+  //           'geometry': {
+  //             'type': 'Point',
+  //             'coordinates': [parseFloat($this.attr('data-lng')), parseFloat($this.attr('data-lat'))]
+  //           },
+  //           'properties': {
+  //             'title': $this.attr('data-title'),
+  //             'url': $this.attr('data-url')
+  //           }
+  //         });
+  //       }
+  //     });
+
+  //     map.getSource('points').setData(mapPointsData);
+  //     // Center
+  //     var bounds = new mapboxgl.LngLatBounds();
+  //     mapPointsData.features.forEach(function(feature) {
+  //       bounds.extend(feature.geometry.coordinates);
+  //     });
+  //     map.fitBounds(bounds, {padding: 150});
+  //     // Resize map
+  //     map.resize();
+
+  //   }
+  // }
 
   // Slugify a string, e.g. "The Foo Bar" -> "the-foo-bar"
   function _slugify(text) {
