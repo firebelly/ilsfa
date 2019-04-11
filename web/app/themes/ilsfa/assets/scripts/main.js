@@ -15,6 +15,7 @@ var ILSFA = (function($) {
       scrollToBodyAnimating = false,
       headerOffset,
       map,
+      popup,
       pointsLayer,
       mapPointsData,
       currentDomain = document.location.protocol + '//' + document.location.hostname;
@@ -146,6 +147,9 @@ var ILSFA = (function($) {
       var $parent = $(this).parents('li.item:first');
       $parent.toggleClass('active');
       $('.compact-grid').masonry();
+      if (map) {
+        map.resize();
+      }
     });
   }
 
@@ -302,11 +306,23 @@ var ILSFA = (function($) {
           'filter': ['==', 'id', ''] // filter all out initially
         });
 
+        // Create a popup, but don't add it to the map yet.
+        popup = new mapboxgl.Popup({
+          closeButton: false
+        });
+
         // When clicking on map, check if clicking on a pin, and open URL if so
         map.on('click', function(e) {
           var features = map.queryRenderedFeatures(e.point, { layers: ['points', 'points-hover'] });
-          if (features.length && features[0].properties.url !== '') {
-            window.open(features[0].properties.url, '_blank');
+          if (features.length > 0) {
+            var $mapPoint = $('.map-point[data-id=' + features[0].properties.id + ']');
+            // Scroll down to map point card
+            _scrollBody($mapPoint);
+            // Show map point details
+            if (!$mapPoint.hasClass('active')) {
+              $mapPoint.find('a.toggler').trigger('click', e);
+            }
+            // window.open(features[0].properties.url, '_blank');
           }
         });
 
@@ -315,29 +331,38 @@ var ILSFA = (function($) {
           var features = map.queryRenderedFeatures(e.point, { layers: ['points', 'points-hover'] });
 
           if (features.length) {
+            var feature = features[0];
+
             // Cursor pointer = clickable
             map.getCanvas().style.cursor = 'pointer';
 
             // Hover state for pin: show pins in points-hover that match id
-            map.setFilter('points-hover', ['==', 'id', features[0].properties.id]);
+            map.setFilter('points-hover', ['==', 'id', feature.properties.id]);
 
             // Add "-hover" class to corresponding card
-            $('.cards li[data-id='+features[0].properties.id+']').addClass('-hover');
+            // $('.cards li[data-id='+feature.properties.id+']').addClass('-hover');
+
+            // Display a popup with the name of the county
+            popup.setLngLat(e.lngLat)
+            .setText(feature.properties.title)
+            .addTo(map);
+
           } else {
             // Clear out hover states for pins and features
             map.getCanvas().style.cursor = '';
             $('.cards li').removeClass('-hover');
+            popup.remove();
             map.setFilter('points-hover', ['==', 'id', '']);
           }
         });
 
         // Highlight related pins on map when hovering over card
-        // $('body').on('mouseenter', '.map-point', function() {
-        //   var url = $(this).find('a').attr('href');
-        //   map.setFilter('points-hover', ['!=', 'url', url]);
-        // }).on('mouseleave', '.map-point', function() {
-        //   map.setFilter('points-hover', ['==', 'url', '']);
-        // });
+        $('body').on('mouseenter', '.map-point', function() {
+          var id = $(this).attr('data-id');
+          map.setFilter('points-hover', ['==', 'id', id]);
+        }).on('mouseleave', '.map-point', function() {
+          map.setFilter('points-hover', ['==', 'id', '']);
+        });
 
         // Sticky map
         // var map_waypoint = new Waypoint.Sticky({

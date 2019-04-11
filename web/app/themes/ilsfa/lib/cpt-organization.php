@@ -153,7 +153,12 @@ function get_organizations($opts=[]) {
   // Display all matching posts using article-{$post_type}.php
   $output = '';
   foreach ($organizations_posts as $organization_post) {
-    $output .= '<li class="item" data-id="'.$organization_post->ID.'">';
+    $organization_post->meta = get_post_meta($organization_post->ID);
+    $output .= '<li class="item map-point" data-id="'.$organization_post->ID.'" data-url="' . (!empty($organization_post->meta['_cmb2_website']) ? $organization_post->meta['_cmb2_website'][0] : '') . '" data-id="' . $organization_post->ID . '" data-title="' . $organization_post->post_title . '"';
+    if (!empty($organization_post->meta['_cmb2_lat']) && !empty($organization_post->meta['_cmb2_lng'])) {
+      $output .= 'map-point" data-lat="' . $organization_post->meta['_cmb2_lat'][0] . '" data-lng="' . $organization_post->meta['_cmb2_lng'][0] . '"';
+    }
+    $output .= '>';
     ob_start();
     include(locate_template('templates/article-organization.php'));
     $output .= ob_get_clean();

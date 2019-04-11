@@ -14,6 +14,9 @@
     background: $white;
     box-shadow: 0 2px 4px rgba(0,0,0,0.5);
     width: 100%;
+    &.-hover {
+      background: #eee;
+    }
     h3 {
       color: $blurple;
       margin: 0 0 grid(4);
