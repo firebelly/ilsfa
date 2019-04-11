@@ -16,6 +16,7 @@ var ILSFA = (function($) {
       headerOffset,
       map,
       popup,
+      hoveredCluster,
       pointsLayer,
       mapPointsData,
       currentDomain = document.location.protocol + '//' + document.location.hostname;
@@ -260,7 +261,11 @@ var ILSFA = (function($) {
           source: 'points',
           filter: ['has', 'point_count'],
           paint: {
-            'circle-color': '#E04E22',
+            'circle-color': ['case',
+            ['boolean', ['feature-state', 'hover'], false],
+            '#212126',
+            '#E04E22',
+            ],
             'circle-radius': 20,
           }
         });
@@ -277,6 +282,30 @@ var ILSFA = (function($) {
           paint: {
             'text-color': '#ffffff'
           }
+        });
+
+        // Inspect a cluster on click
+        map.on('click', 'clusters', function (e) {
+          var features = map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
+          var clusterId = features[0].properties.cluster_id;
+          map.getSource('points').getClusterExpansionZoom(clusterId, function (err, zoom) {
+            if (err) {
+              return;
+            }
+
+            map.easeTo({
+              center: features[0].geometry.coordinates,
+              zoom: zoom
+            });
+          });
+        });
+
+        // Show clusters as clickable
+        map.on('mouseenter', 'clusters', function () {
+          map.getCanvas().style.cursor = 'pointer';
+        });
+        map.on('mouseleave', 'clusters', function () {
+          map.getCanvas().style.cursor = '';
         });
 
         // Add points as a layer
@@ -329,6 +358,20 @@ var ILSFA = (function($) {
         // Map hover state handling
         map.on('mousemove', function(e) {
           var features = map.queryRenderedFeatures(e.point, { layers: ['points', 'points-hover'] });
+          var clusters = map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
+
+          if (clusters.length > 0) {
+            if (hoveredCluster) {
+              map.setFeatureState({source: 'points', id: hoveredCluster}, { hover: false });
+            }
+            hoveredCluster = clusters[0].id;
+            map.setFeatureState({source: 'points', id: hoveredCluster}, { hover: true });
+          } else {
+            if (hoveredCluster) {
+              map.setFeatureState({source: 'points', id: hoveredCluster}, { hover: false});
+            }
+            hoveredCluster =  null;
+          }
 
           if (features.length) {
             var feature = features[0];
@@ -349,7 +392,10 @@ var ILSFA = (function($) {
 
           } else {
             // Clear out hover states for pins and features
-            map.getCanvas().style.cursor = '';
+            if (clusters.length===0) {
+              // Only unset pointer if not hovering over a cluster
+              map.getCanvas().style.cursor = '';
+            }
             $('.cards li').removeClass('-hover');
             popup.remove();
             map.setFilter('points-hover', ['==', 'id', '']);
