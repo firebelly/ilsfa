@@ -337,7 +337,8 @@ var ILSFA = (function($) {
 
         // Create a popup, but don't add it to the map yet.
         popup = new mapboxgl.Popup({
-          closeButton: false
+          closeButton: false,
+          offset: 20
         });
 
         // When clicking on map, check if clicking on a pin, and open URL if so
@@ -386,7 +387,7 @@ var ILSFA = (function($) {
             // $('.cards li[data-id='+feature.properties.id+']').addClass('-hover');
 
             // Display a popup with the name of the county
-            popup.setLngLat(e.lngLat)
+            popup.setLngLat(feature.geometry.coordinates)
             .setText(feature.properties.title)
             .addTo(map);
 
