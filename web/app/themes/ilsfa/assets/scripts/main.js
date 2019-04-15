@@ -13,7 +13,10 @@ var ILSFA = (function($) {
       $wpAdminBar,
       $jumpTo,
       scrollToBodyAnimating = false,
-      headerOffset,
+      headerOffset = 0,
+      jumpToOffset = 0,
+      $map,
+      $mapContainer,
       map,
       popup,
       hoveredCluster,
@@ -29,6 +32,8 @@ var ILSFA = (function($) {
     $siteHeader = $('header.site-header');
     $jumpTo = $('.jumpto');
     $wpAdminBar = $('#wpadminbar');
+    $map = $('#map');
+    $mapContainer = $('.map-container');
 
     // DOM is loaded
     $body.addClass('loaded');
@@ -147,16 +152,21 @@ var ILSFA = (function($) {
       e.preventDefault();
       var $parent = $(this).parents('li.item:first');
       $parent.toggleClass('active');
+
+      // Reinit masonry
       $('.compact-grid').masonry();
-      if (map) {
-        map.resize();
-      }
+
+      // Update map size and offsets
+      _setMapSize();
+
+      // Update waypoint offsets
+      Waypoint.refreshAll();
     });
   }
 
   // Init mapbox
   function _initMaps() {
-    if($('#map').length) {
+    if ($map.length) {
       // Mapbox GL will only work in ie11+
       // For ie9 and ie10, we will need to use the old school raster-tile mapbox
       useMapboxGl = mapboxgl.supported();
@@ -178,7 +188,7 @@ var ILSFA = (function($) {
   function _initMap(useGl, startZoom, startCenter) {
 
     var mapPoints = [];
-    var $mapPoint = $('.map-point');
+    var $mapPoints = $('.map-point');
 
     // FOR MAPBOX GL (ie11+, and everything else)
     if (useGl) {
@@ -202,11 +212,11 @@ var ILSFA = (function($) {
       $('#map .mapboxgl-ctrl-zoom-out').html('<svg class="icon icon-minus" aria-hidden="true" role="presentation"><use xlink:href="#icon-minus"/></svg>');
 
       // Just init single map?
-      if ($mapPoint.length === 0) { return; }
+      if ($mapPoints.length === 0) { return; }
 
       // Cull map points from DOM
       mapPoints = [];
-      $mapPoint.each(function(){
+      $mapPoints.each(function(){
         var $this = $(this);
         $this.addClass('mapped');
         if ($this.attr('data-lat') !== '') {
@@ -411,17 +421,6 @@ var ILSFA = (function($) {
           map.setFilter('points-hover', ['==', 'id', '']);
         });
 
-        // Sticky map
-        // var map_waypoint = new Waypoint.Sticky({
-        //   element: $('.map-container')[0],
-        //   wrapper: '<div class="map-sticky-wrapper" />',
-        //   // context: $('#map-sticky-parent')[0]
-        //   // handler: function(direction) {
-        //   //   _resize();
-        //   // },
-        //   offset: headerOffset
-        // });
-
       });
 
     } else {
@@ -443,7 +442,7 @@ var ILSFA = (function($) {
 
     //   // Add loaded class when the raster tile layer is up and runnin
     //   rasterTileLayer.on('load', function(e) {
-    //     $('#map').addClass('loaded');
+    //     $map.addClass('loaded');
     //   });
 
     //   // disable drag and zoom handlers
@@ -501,6 +500,27 @@ var ILSFA = (function($) {
     //   map.setView(pointsLayer.getBounds().getCenter());
 
     }
+
+    // Sticky map
+    var mapTopWaypoint = new Waypoint.Sticky({
+      element: $mapContainer[0],
+      wrapper: '<div class="map-sticky-wrapper" />',
+      // context: $('#map-sticky-parent')[0]
+      handler: function(direction) {
+        _setHeaderOffset();
+        _setMapSize();
+      },
+      offset: function() {
+        return headerOffset + jumpToOffset;
+      }
+    });
+    var mapBottomWaypoint = new Waypoint({
+      element: $('.map-column')[0],
+      handler: function(direction) {
+        $mapContainer.toggleClass('stuck-bottom', direction==='down');
+      },
+      offset: 'bottom-in-view'
+    });
 
   }
 
@@ -609,6 +629,9 @@ var ILSFA = (function($) {
         // Just remove element if no jumpto links to add
         $jumpTo.remove();
       }
+
+      // Update offset calculations
+      _setHeaderOffset();
     }
   }
 
@@ -779,6 +802,7 @@ var ILSFA = (function($) {
     }
 
     _setHeaderOffset();
+    _setMapSize();
     _setJumpToPosition();
   }
 
@@ -793,11 +817,28 @@ var ILSFA = (function($) {
     }
   }
 
+  // Adjust map size for viewport - headers
+  function _setMapSize() {
+    if (map) {
+      $mapContainer.height($(window).height() - headerOffset - jumpToOffset);
+      map.resize();
+      if ($mapContainer.hasClass('stuck')) {
+        $mapContainer.css('top', headerOffset + jumpToOffset);
+      } else {
+        $mapContainer.css('top', '');
+      }
+    }
+  }
+
   // Set headerOffset var used for jumptonav placement and scrollbody calculations
   function _setHeaderOffset() {
     headerOffset = $siteHeader.outerHeight();
     if ($wpAdminBar.length && $wpAdminBar.css('position') === 'fixed') {
       headerOffset = headerOffset + $wpAdminBar.outerHeight();
+    }
+    // Also calculate jumpToOffset used in various placement calculations (e.g. sticky map)
+    if ($jumpTo.length) {
+      jumpToOffset = $jumpTo.outerHeight();
     }
   }
 

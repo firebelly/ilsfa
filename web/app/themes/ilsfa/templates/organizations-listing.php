@@ -81,7 +81,7 @@
       <?php endif; ?>
     </div>
 
-    <div class="one-half -tail">
+    <div class="one-half -tail map-column">
       <div class="map-container">
         <div id="map"></div>
       </div>

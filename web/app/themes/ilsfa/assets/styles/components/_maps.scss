@@ -1,5 +1,8 @@
 // Maps
 
+.map-column {
+  position: relative;
+}
 .map-container {
   width: 100%;
   height: 100%;
@@ -7,8 +10,19 @@
   // Stuck!
   &.stuck {
     position: fixed;
-    z-index: 50;
-    top: $nav-height-mobile;
+    width: 50%;
+    &.stuck-bottom {
+      position: absolute;
+      top: auto !important;
+      bottom: 0;
+      width: 100%;
+    }
+  }
+}
+@include max-screen($breakpoint-md) {
+  .map-container,
+  .map-sticky-wrapper {
+    display: none;
   }
 }
 
@@ -17,13 +31,8 @@
   z-index: 0;
   display: none;
   @include media-md {
-    min-height: 500px;
     height: 100%;
     display: block;
-    // max-height: 100vh;
-    // background-image: url('../images/map-image.jpg');
-    // background-size: cover;
-    // background-position: center center;
   }
 
   &.loaded {
