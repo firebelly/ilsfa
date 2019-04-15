@@ -159,6 +159,11 @@ var ILSFA = (function($) {
       // Update map size and offsets
       _setMapSize();
 
+      // Fly to point on map
+      if ($parent.hasClass('active') && $parent.attr('data-lat') !== '') {
+        _mapFlyTo([$parent.attr('data-lng'), $parent.attr('data-lat')], $parent.attr('data-title'));
+      }
+
       // Update waypoint offsets
       Waypoint.refreshAll();
     });
@@ -259,37 +264,37 @@ var ILSFA = (function($) {
         map.addSource('points', {
           'type': 'geojson',
           'data': mapPointsData,
-          cluster: true,
-          clusterMaxZoom: 14, // Max zoom to cluster points on
-          clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
+          'cluster': true,
+          'clusterMaxZoom': 14, // Max zoom to cluster points on
+          'clusterRadius': 50 // Radius of each cluster when clustering points (defaults to 50)
         });
 
         // Cluster layers
         map.addLayer({
-          id: 'clusters',
-          type: 'circle',
-          source: 'points',
-          filter: ['has', 'point_count'],
-          paint: {
+          'id': 'clusters',
+          'type': 'circle',
+          'source': 'points',
+          'filter': ['has', 'point_count'],
+          'paint': {
             'circle-color': ['case',
-            ['boolean', ['feature-state', 'hover'], false],
-            '#212126',
-            '#E04E22',
+              ['boolean', ['feature-state', 'hover'], false],
+              '#212126',
+              '#E04E22',
             ],
             'circle-radius': 20,
           }
         });
         map.addLayer({
-          id: 'cluster-count',
-          type: 'symbol',
-          source: 'points',
-          filter: ['has', 'point_count'],
-          layout: {
+          'id': 'cluster-count',
+          'type': 'symbol',
+          'source': 'points',
+          'filter': ['has', 'point_count'],
+          'layout': {
             'text-field': '{point_count_abbreviated}',
             'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
             'text-size': 16,
           },
-          paint: {
+          'paint': {
             'text-color': '#ffffff'
           }
         });
@@ -302,15 +307,14 @@ var ILSFA = (function($) {
             if (err) {
               return;
             }
-
             map.easeTo({
-              center: features[0].geometry.coordinates,
-              zoom: zoom
+              'center': features[0].geometry.coordinates,
+              'zoom': zoom
             });
           });
         });
 
-        // Show clusters as clickable
+        // Show clusters as clickable with pointer cursor
         map.on('mouseenter', 'clusters', function () {
           map.getCanvas().style.cursor = 'pointer';
         });
@@ -323,11 +327,10 @@ var ILSFA = (function($) {
           'id': 'points',
           'type': 'symbol',
           'source': 'points',
-          filter: ['!', ['has', 'point_count']],
+          // 'source-layer': 'original',
+          'filter': ['!', ['has', 'point_count']],
           'layout': {
-            // 'text-field': '{title}',
             'icon-image': 'icon-map-pin',
-            // 'icon-allow-overlap': true
           }
         });
 
@@ -336,19 +339,17 @@ var ILSFA = (function($) {
           'id': 'points-hover',
           'type': 'symbol',
           'source': 'points',
+          // 'source-layer': 'original',
           'layout': {
             'icon-image': 'icon-map-pin-hover',
-            // 'text-field': '{title}',
-            // 'icon-image': 'icon-map-pin-hover',
-            // 'icon-allow-overlap': true
           },
           'filter': ['==', 'id', ''] // filter all out initially
         });
 
         // Create a popup, but don't add it to the map yet.
         popup = new mapboxgl.Popup({
-          closeButton: false,
-          offset: 20
+          'closeButton': false,
+          'offset': 20
         });
 
         // When clicking on map, check if clicking on a pin, and open URL if so
@@ -356,8 +357,14 @@ var ILSFA = (function($) {
           var features = map.queryRenderedFeatures(e.point, { layers: ['points', 'points-hover'] });
           if (features.length > 0) {
             var $mapPoint = $('.map-point[data-id=' + features[0].properties.id + ']');
+
             // Scroll down to map point card
             _scrollBody($mapPoint);
+
+            // Show highlight on card
+            $mapPoints.removeClass('-hover');
+            $mapPoint.addClass('-hover');
+
             // Show map point details
             if (!$mapPoint.hasClass('active')) {
               $mapPoint.find('a.toggler').trigger('click', e);
@@ -371,13 +378,18 @@ var ILSFA = (function($) {
           var features = map.queryRenderedFeatures(e.point, { layers: ['points', 'points-hover'] });
           var clusters = map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
 
+          // Any clusters being hovered over?
           if (clusters.length > 0) {
+            // Clear out any previously hovered over clusters
             if (hoveredCluster) {
               map.setFeatureState({source: 'points', id: hoveredCluster}, { hover: false });
             }
+            // Set current cluster as hovered element
             hoveredCluster = clusters[0].id;
+            // Set property hovered:true to trigger styles set above
             map.setFeatureState({source: 'points', id: hoveredCluster}, { hover: true });
           } else {
+            // Clear out any previously hovered over clusters
             if (hoveredCluster) {
               map.setFeatureState({source: 'points', id: hoveredCluster}, { hover: false});
             }
@@ -394,12 +406,12 @@ var ILSFA = (function($) {
             map.setFilter('points-hover', ['==', 'id', feature.properties.id]);
 
             // Add "-hover" class to corresponding card
-            // $('.cards li[data-id='+feature.properties.id+']').addClass('-hover');
+            $('.cards li[data-id='+feature.properties.id+']').addClass('-hover');
 
             // Display a popup with the name of the county
             popup.setLngLat(feature.geometry.coordinates)
-            .setText(feature.properties.title)
-            .addTo(map);
+              .setText(feature.properties.title)
+              .addTo(map);
 
           } else {
             // Clear out hover states for pins and features
@@ -522,6 +534,18 @@ var ILSFA = (function($) {
       offset: 'bottom-in-view'
     });
 
+  }
+
+  function _mapFlyTo(latLng, title) {
+    if (map) {
+      map.flyTo({
+        center: latLng,
+        zoom: 14
+      });
+      popup.setLngLat(latLng)
+      .setText(title)
+      .addTo(map);
+    }
   }
 
   // function _addMapPoints() {

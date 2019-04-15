@@ -15,7 +15,7 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.5);
     width: 100%;
     &.-hover {
-      background: #eee;
+      box-shadow:inset 0px 0px 0px 4px $green;
     }
     h3 {
       color: $blurple;
