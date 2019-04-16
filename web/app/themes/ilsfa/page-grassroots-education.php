@@ -35,14 +35,6 @@ get_template_part('templates/page', 'header');
   </div>
 </div>
 
-<?php if (!empty($post_meta['_cmb2_midpage_prompt'])): ?>
-  <div class="midpage-prompt">
-    <div class="user-content dark-bg">
-      <?= apply_filters('the_content', $post_meta['_cmb2_midpage_prompt'][0]) ?>
-    </div>
-  </div>
-<?php endif; ?>
-
 <?php \Firebelly\Utils\get_template_part_with_vars('templates/organizations', 'listing', [
   'organizations' => $organizations,
   'post_meta'     => $post_meta,
@@ -53,3 +45,11 @@ get_template_part('templates/page', 'header');
   'org_type'      => $org_type,
   'org_filter'    => $org_filter,
 ]); ?>
+
+<?php if (!empty($post_meta['_cmb2_midpage_prompt'])): ?>
+  <div class="midpage-prompt">
+    <div class="user-content dark-bg">
+      <?= apply_filters('the_content', $post_meta['_cmb2_midpage_prompt'][0]) ?>
+    </div>
+  </div>
+<?php endif; ?>
