@@ -303,6 +303,106 @@ function metaboxes() {
     ],
   ]);
 
+
+  /**
+   * Job Training fields
+   */
+
+  // Testimonials
+  $testimonials = new_cmb2_box([
+    'id'            => $prefix . 'testimonials',
+    'title'         => esc_html__( 'Testimonials', 'cmb2' ),
+    'object_types'  => ['page'],
+    'show_slugs'    => ['job-training'],
+    'show_on_cb'    => '\Firebelly\CMB2\show_for_slugs',
+    'context'       => 'normal',
+    'priority'      => 'high',
+  ]);
+  $group_field_id = $testimonials->add_field([
+    'id'              => $prefix .'testimonials',
+    'type'            => 'group',
+    'options'         => [
+      'group_title'   => __( 'Testimonial {#}', 'cmb2' ),
+      'add_button'    => __( 'Add Another Testimonial', 'cmb2' ),
+      'remove_button' => __( 'Remove Testimonial', 'cmb2' ),
+      'sortable'      => true,
+    ],
+  ]);
+  $testimonials->add_group_field( $group_field_id, [
+    'name' => 'Quote',
+    'id'   => 'quote',
+    'type' => 'textarea_small',
+  ]);
+  $testimonials->add_group_field( $group_field_id, [
+    'name' => 'Attribution',
+    'id'   => 'attribution',
+    'type' => 'text',
+  ]);
+  $testimonials->add_group_field( $group_field_id, [
+    'name' => 'Image',
+    'id'   => 'file',
+    'type' => 'file',
+  ]);
+
+
+  /**
+   * Environmental Justice Community fields
+   */
+  $ejc_fields = new_cmb2_box([
+    'id'            => $prefix . 'ejc_fields',
+    'title'         => __( 'EJC Blocks', 'cmb2' ),
+    'object_types'  => ['page'],
+    'context'       => 'normal',
+    'show_slugs'    => ['environmental-justice-communities'],
+    'show_on_cb'    => '\Firebelly\CMB2\show_for_slugs',
+    'priority'      => 'high',
+  ]);
+  $group_field_id = $ejc_fields->add_field([
+    'id'              => $prefix . 'ejc_blocks',
+    'type'            => 'group',
+    'options'         => [
+      'group_title'   => __( 'EJC block {#}', 'cmb2' ),
+      'add_button'    => __( 'Add Another Block', 'cmb2' ),
+      'remove_button' => __( 'Remove Block', 'cmb2' ),
+      'sortable'      => true,
+    ],
+  ]);
+  $ejc_fields->add_group_field( $group_field_id, [
+    'name' => 'Headline',
+    'id'   => 'headline',
+    'type' => 'text',
+  ]);
+  $ejc_fields->add_group_field( $group_field_id, [
+    'name' => 'Body',
+    'id'   => 'body',
+    'type' => 'wysiwyg',
+    'options' => [
+      'textarea_rows' => 6,
+    ],
+  ]);
+  $ejc_mid_fields = new_cmb2_box([
+    'id'            => $prefix . 'ejc_mid_fields',
+    'title'         => esc_html__( 'Midpage Prompt With Image', 'cmb2' ),
+    'object_types'  => ['page'],
+    'show_slugs'    => ['environmental-justice-communities'],
+    'show_on_cb'    => '\Firebelly\CMB2\show_for_slugs',
+    'context'       => 'normal',
+    'priority'      => 'high',
+  ]);
+  $ejc_mid_fields->add_field([
+    'id'   => $prefix .'midpage_prompt',
+    'type' => 'wysiwyg',
+    'options' => [
+      'textarea_rows' => 8,
+    ],
+  ]);
+  $ejc_mid_fields->add_field([
+    'id'   => $prefix .'midpage_prompt_image',
+    'title' => 'Image',
+    'type' => 'file',
+  ]);
+
+
   // Organization Directory page fields
   $organization_directory = new_cmb2_box([
     'id'            => $prefix . 'organization_directory',
@@ -331,7 +431,7 @@ function metaboxes() {
     'id'            => $prefix . 'page_resources',
     'title'         => esc_html__( 'Materials List', 'cmb2' ),
     'object_types'  => ['page'],
-    'show_slugs'    => ['grassroots-education', 'job-training'],
+    'show_slugs'    => ['grassroots-education', 'job-training', 'environmental-justice-communities'],
     'show_on_cb'    => '\Firebelly\CMB2\show_for_slugs',
     'context'       => 'normal',
     'priority'      => 'high',
