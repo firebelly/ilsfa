@@ -34,13 +34,14 @@
   background: $blurple;
   margin-top: $mobile-global-padding;
   .user-content {
-    >h2 {
-      @extend %h1;
-    }
     &,
     h2,h3 {
       color: $white;
     }
+  }
+  // Full width prompts
+  .button {
+    width: 100%;
   }
 
   // Mobile-only styles
@@ -57,9 +58,6 @@
     margin-top: grid(12);
     .text {
       padding: grid(12) columns(2,10);
-      >h2 {
-        color: $blurple;
-      }
     }
     .image-wrap {
       height: 100%;
