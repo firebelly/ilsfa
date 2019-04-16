@@ -8,7 +8,8 @@
         $icon = 'video';
       } else if (preg_match('/(ppt|doc|pdf|pptx|docx|xls|xlsx|zip)$/', $resource['file'])) {
         $icon = 'document';
-      } else if (\Firebelly\Utils\is_external_link($resource['file'])) {
+      } else if (\Firebelly\Utils\is_external_link($resource['file']) || preg_match('#^/(.*)/$#', $resource['file'])) {
+        // Matches external links or internal /relative/urls/
         $icon = 'link-out';
       }
       ?>
