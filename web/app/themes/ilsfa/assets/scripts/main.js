@@ -320,6 +320,7 @@ var ILSFA = (function($) {
           'filter': ['!', ['has', 'point_count']],
           'layout': {
             'icon-image': 'icon-map-pin',
+            'icon-allow-overlap': true
           }
         });
 
@@ -330,6 +331,7 @@ var ILSFA = (function($) {
           'source': 'points',
           'layout': {
             'icon-image': 'icon-map-pin-hover',
+            'icon-allow-overlap': true
           },
           'filter': ['==', 'id', ''] // filter all out initially
         });
