@@ -63,10 +63,15 @@ if (!is_search() && !is_404()):
       <ul class="contact-blocks">
         <li>
           <h3>Mailing Address</h3>
-          <address class="vcard">
-            <span class="street-address"><?= \Firebelly\SiteOptions\get_option('contact_address'); ?></span>
-            <span class="street-address-2"><?= \Firebelly\SiteOptions\get_option('contact_address_2'); ?></span>
-            <span class="locality"><?= \Firebelly\SiteOptions\get_option('contact_locality'); ?></span>
+          <?php
+          $address = \Firebelly\SiteOptions\get_option('contact_address');
+          $address_2 = \Firebelly\SiteOptions\get_option('contact_address_2');
+          $locality = \Firebelly\SiteOptions\get_option('contact_locality');
+          ?>
+          <address class="vcard"><a rel="noopener" target="_blank" href="https://www.google.com/maps/search/?api=1&query=<?= urlencode($address.' '.$address_2.' '.$locality) ?>">
+            <span class="street-address"><?= $address ?></span>
+            <?php if (!empty($address_2)): ?><span class="street-address-2"><?= $address_2 ?></span><?php endif; ?>
+            <span class="locality"><?= $locality ?></span>
           </address>
         </li>
         <li>

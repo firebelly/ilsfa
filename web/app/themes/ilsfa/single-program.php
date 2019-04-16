@@ -91,11 +91,11 @@ get_template_part('templates/page', 'header-tertiary');
     <ul class="icon-list contact-items -small">
       <li class="address-item">
         <svg class="icon icon-location" aria-hidden="true"><use xlink:href="#icon-location"/></svg>
-        <address class="vcard">
-          <span class="street-address"><?= $contact_info['address'] ?></span>
-          <span class="street-address-2"><?= $contact_info['address_2'] ?></span>
+        <address class="vcard"><a rel="noopener" target="_blank" href="https://www.google.com/maps/search/?api=1&query=<?= urlencode($contact_info['address'].' '.$contact_info['address_2'].' '.$contact_info['locality']) ?>">
+          <span class="street-address"><?= $contact_info['address'] ?></span><br>
+          <?php if (!empty($contact_info['address_2'])): ?><span class="street-address-2"><?= $contact_info['address_2'] ?></span><br><?php endif; ?>
           <span class="locality"><?= $contact_info['locality'] ?></span>
-        </address>
+        </a></address>
       </li>
       <li class="phone-item">
         <svg class="icon icon-phone" aria-hidden="true"><use xlink:href="#icon-phone"/></svg>

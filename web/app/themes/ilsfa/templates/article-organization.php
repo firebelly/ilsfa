@@ -31,11 +31,11 @@ if ($categories = get_the_terms($organization_post->ID, 'organization_category')
     <?php if (!empty($address)): ?>
       <li class="address-item">
         <svg class="icon icon-location" aria-hidden="true"><use xlink:href="#icon-location"/></svg>
-        <address class="vcard">
-          <span class="street-address"><?= $org_address['address'] ?></span>
-          <span class="street-address-2"><?= $org_address['address_2'] ?></span>
+        <address class="vcard"><a rel="noopener" target="_blank" href="https://www.google.com/maps/search/?api=1&query=<?= urlencode($org_address['address'].' '.$org_address['address_2'].' '.$org_address['locality']) ?>">
+          <span class="street-address"><?= $org_address['address'] ?></span><br>
+          <?php if (!empty($org_address['address_2'])): ?><span class="street-address-2"><?= $org_address['address_2'] ?></span><br><?php endif; ?>
           <span class="locality"><?= $org_address['locality'] ?></span>
-        </address>
+        </a></address>
       </li>
     <?php endif; ?>
 
