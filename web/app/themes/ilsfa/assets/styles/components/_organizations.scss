@@ -2,12 +2,18 @@
 
 .organizations-listing {
   background: #BEBFC9;
+
   .filters {
     background: $blurple-dark;
     padding: $mobile-global-padding;
     h2 {
       color: $white;
       margin-bottom: grid(4);
+    }
+
+    // Full width Load More
+    > a.button {
+      width: 100%;
     }
 
     // Desktop styles

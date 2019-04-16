@@ -69,15 +69,11 @@
         </ul>
 
         <?php if ($total_pages>1): ?>
-          <div class="grid">
-            <div class="one-half">
-              <div class="load-more" data-post-type="organization" data-page-at="<?= $paged ?>" data-per-page="<?= $per_page ?>" data-total-pages="<?= $total_pages ?>" data-org-sort="<?= $org_sort ?>" data-org-type="<?= $org_type ?>" data-org-region="<?= $org_region ?>">
-                <a class="button -wide -icon-right" href="#">
-                  Load More <svg class="icon icon-plus" aria-hidden="true"><use xlink:href="#icon-plus"/></svg>
-                </a>
-              </div>
+            <div class="load-more" data-post-type="organization" data-page-at="<?= $paged ?>" data-per-page="<?= $per_page ?>" data-total-pages="<?= $total_pages ?>" data-org-sort="<?= $org_sort ?>" data-org-type="<?= $org_type ?>" data-org-region="<?= $org_region ?>">
+              <a class="button -wide -icon-right" href="#">
+                Load More <svg class="icon icon-plus" aria-hidden="true"><use xlink:href="#icon-plus"/></svg>
+              </a>
             </div>
-          </div>
         <?php endif; ?>
       <?php endif; ?>
     </div>
