@@ -5,6 +5,76 @@
   margin: grid(2) 0;
 }
 
+// Eligibility/EJC blocks
+.midpage-blocks {
+  @include global-padding(0);
+  padding-top: 0;
+  h3 {
+    color: $red;
+    margin-bottom: grid(2);
+  }
+  li {
+    margin-top: grid(4);
+    padding-top: grid(2);
+    border-top: 1px solid $blurple-dark;
+  }
+
+  // Desktop styles
+  @include media-md {
+    h3 {
+      padding-right: grid(2);
+    }
+    li {
+      border-top: 2px solid $blurple-dark;
+    }
+  }
+}
+
+.midpage-prompt-with-image {
+  background: $blurple;
+  margin-top: $mobile-global-padding;
+  .user-content {
+    >h2 {
+      @extend %h1;
+    }
+    &,
+    h2,h3 {
+      color: $white;
+    }
+  }
+
+  // Mobile-only styles
+  @include max-screen($breakpoint-md) {
+    .image {
+      @include aspect-ratio(320,160);
+    }
+    .text {
+      padding: $mobile-global-padding;
+    }
+  }
+  // Desktop styles
+  @include media-md {
+    margin-top: grid(12);
+    .text {
+      padding: grid(12) columns(2,10);
+      >h2 {
+        color: $blurple;
+      }
+    }
+    .image-wrap {
+      height: 100%;
+    }
+    .image {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+    }
+  }
+}
+
+
 // Intro + resources list for pages (only used on grassroots education for now)
 .page-resources {
   @include global-padding(12);
@@ -73,7 +143,7 @@ ul.icon-list {
     }
     address {
       span {
-        display: block;
+        display: inline-block;
       }
     }
     margin: grid(1) 0;
