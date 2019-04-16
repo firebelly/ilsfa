@@ -57,7 +57,7 @@
         "wpackagist-plugin/update-from-bottom": "^1.0",
         "wpackagist-plugin/wp-mail-smtp": "^1.1",
         "wpackagist-plugin/disable-gutenberg": "^1.5",
-        "wpackagist-plugin/redirection": "^3.7",
+        "wpackagist-plugin/redirection": "^4.2",
         "guzzlehttp/guzzle": "^6.3",
         "wpackagist-plugin/expire-passwords": "^0.6.0",
         "wpackagist-plugin/force-strong-passwords": "^1.8",
