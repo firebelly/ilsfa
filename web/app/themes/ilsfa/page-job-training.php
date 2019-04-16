@@ -10,12 +10,12 @@ $post_meta = get_post_meta($post->ID);
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $per_page = get_option('posts_per_page');
 $org_sort = get_query_var('org_sort', 'asc');
-$org_filter = get_query_var('org_filter', '');
+$org_region = get_query_var('org_region', '');
 $org_type = 'job-training';
 $args = [
   'type'     => $org_type,
   'order'    => $org_sort,
-  'category' => $org_filter,
+  'region'   => $org_region,
 ];
 
 // Get post count for load more
@@ -43,5 +43,5 @@ get_template_part('templates/page', 'header');
   'total_pages'   => $total_pages,
   'org_sort'      => $org_sort,
   'org_type'      => $org_type,
-  'org_filter'    => $org_filter,
+  'org_region'    => $org_region,
 ]); ?>

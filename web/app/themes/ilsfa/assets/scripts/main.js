@@ -148,13 +148,10 @@ var ILSFA = (function($) {
 
   // Mobile expand/collapse behavior for Organization cards
   function _initOrganizations() {
-    $('.organizations-listing li').find('a.toggler,h3').on('click', function(e) {
+    $document.on('click', '.organizations-listing .toggler', function(e) {
       e.preventDefault();
       var $parent = $(this).parents('li.item:first');
       $parent.toggleClass('active');
-
-      // Reinit masonry
-      $('.compact-grid').masonry();
 
       // Update map size and offsets
       _setMapSize();
@@ -192,8 +189,11 @@ var ILSFA = (function($) {
 
   function _initMap(useGl, startZoom, startCenter) {
 
-    var mapPoints = [];
     var $mapPoints = $('.map-point');
+    mapPointsData = {
+      'type': 'FeatureCollection',
+      'features': []
+    };
 
     // FOR MAPBOX GL (ie11+, and everything else)
     if (useGl) {
@@ -216,16 +216,12 @@ var ILSFA = (function($) {
       $('#map .mapboxgl-ctrl-zoom-in').html('<svg class="icon icon-plus" aria-hidden="true" role="presentation"><use xlink:href="#icon-plus"/></svg>');
       $('#map .mapboxgl-ctrl-zoom-out').html('<svg class="icon icon-minus" aria-hidden="true" role="presentation"><use xlink:href="#icon-minus"/></svg>');
 
-      // Just init single map?
-      if ($mapPoints.length === 0) { return; }
-
       // Cull map points from DOM
-      mapPoints = [];
       $mapPoints.each(function(){
         var $this = $(this);
         $this.addClass('mapped');
         if ($this.attr('data-lat') !== '') {
-          mapPoints.push({
+          mapPointsData.features.push({
             'type': 'Feature',
             'geometry': {
               'type': 'Point',
@@ -241,23 +237,17 @@ var ILSFA = (function($) {
       });
 
       // No map points with lat/lng found?
-      if (mapPoints.length === 0) { return; }
-
-      mapPointsData = {
-        'type': 'FeatureCollection',
-        'features': mapPoints
-      };
-
+      if (mapPointsData.features.length === 0) { return; }
 
       // Center map
-      if (mapPoints.length > 1) {
+      if (mapPointsData.features.length > 1) {
         var bounds = new mapboxgl.LngLatBounds();
         mapPointsData.features.forEach(function(feature) {
           bounds.extend(feature.geometry.coordinates);
         });
         map.fitBounds(bounds, {padding: 100});
       } else {
-        map.setCenter(mapPoints[0].geometry.coordinates);
+        map.setCenter(mapPointsData.features[0].geometry.coordinates);
       }
 
       map.on('load', function () {
@@ -327,7 +317,6 @@ var ILSFA = (function($) {
           'id': 'points',
           'type': 'symbol',
           'source': 'points',
-          // 'source-layer': 'original',
           'filter': ['!', ['has', 'point_count']],
           'layout': {
             'icon-image': 'icon-map-pin',
@@ -339,7 +328,6 @@ var ILSFA = (function($) {
           'id': 'points-hover',
           'type': 'symbol',
           'source': 'points',
-          // 'source-layer': 'original',
           'layout': {
             'icon-image': 'icon-map-pin-hover',
           },
@@ -546,45 +534,46 @@ var ILSFA = (function($) {
         popup.setLngLat(latLng)
           .setText(title)
           .addTo(map);
-      }, 750);
+      }, 500);
     }
   }
 
-  // function _addMapPoints() {
-  //   var $mapPoints = $('.map-point:not(.mapped)');
-  //   if ($mapPoints.length) {
+  function _addMapPoints() {
+    var $mapPoints = $('.map-point:not(.mapped)');
+    if ($mapPoints.length) {
 
-  //     // Cull map points from DOM
-  //     $mapPoints.each(function(){
-  //       var $this = $(this);
-  //       $this.addClass('mapped');
-  //       if ($this.attr('data-lat') !== '') {
-  //         mapPointsData.features.push({
-  //           'type': 'Feature',
-  //           'geometry': {
-  //             'type': 'Point',
-  //             'coordinates': [parseFloat($this.attr('data-lng')), parseFloat($this.attr('data-lat'))]
-  //           },
-  //           'properties': {
-  //             'title': $this.attr('data-title'),
-  //             'url': $this.attr('data-url')
-  //           }
-  //         });
-  //       }
-  //     });
+      // Cull map points from DOM
+      $mapPoints.each(function(){
+        var $this = $(this);
+        $this.addClass('mapped');
+        if ($this.attr('data-lat') !== '') {
+          mapPointsData.features.push({
+            'type': 'Feature',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [parseFloat($this.attr('data-lng')), parseFloat($this.attr('data-lat'))]
+            },
+            'properties': {
+              'title': $this.attr('data-title'),
+              'url': $this.attr('data-url'),
+              'id': $this.attr('data-id')
+            }
+          });
+        }
+      });
 
-  //     map.getSource('points').setData(mapPointsData);
-  //     // Center
-  //     var bounds = new mapboxgl.LngLatBounds();
-  //     mapPointsData.features.forEach(function(feature) {
-  //       bounds.extend(feature.geometry.coordinates);
-  //     });
-  //     map.fitBounds(bounds, {padding: 150});
-  //     // Resize map
-  //     map.resize();
+      map.getSource('points').setData(mapPointsData);
+      // Center
+      var bounds = new mapboxgl.LngLatBounds();
+      mapPointsData.features.forEach(function(feature) {
+        bounds.extend(feature.geometry.coordinates);
+      });
+      map.fitBounds(bounds, {padding: 150});
+      // Resize map
+      map.resize();
 
-  //   }
-  // }
+    }
+  }
 
   // Slugify a string, e.g. "The Foo Bar" -> "the-foo-bar"
   function _slugify(text) {
@@ -939,7 +928,7 @@ var ILSFA = (function($) {
               page: page+1,
               per_page: per_page,
               org_sort: $load_more.attr('data-org-sort'),
-              org_filter: $load_more.attr('data-org-filter'),
+              org_region: $load_more.attr('data-org-region'),
               org_type: $load_more.attr('data-org-type')
           },
           success: function(data) {
@@ -955,7 +944,13 @@ var ILSFA = (function($) {
             $load_more.attr('data-page-at', page+1);
 
             // Tell masonry we appended some items
-            $more_container.masonry('appended', $data, true);
+            if ($more_container.hasClass('compact-grid')) {
+              $more_container.masonry('appended', $data, true);
+            }
+
+            if (map) {
+              _addMapPoints();
+            }
 
             // Hide load more if last page
             if ($load_more.attr('data-total-pages') <= page + 1) {

@@ -1,5 +1,6 @@
 <?php
 $organization_post->meta = get_post_meta($organization_post->ID);
+$org_type = \Firebelly\Utils\get_first_term($organization_post, 'organization_type');
 
 if (!empty($organization_post->meta['_cmb2_address'])) {
   $address = unserialize($organization_post->meta['_cmb2_address'][0]);
@@ -9,21 +10,21 @@ if (!empty($organization_post->meta['_cmb2_address'])) {
     'locality' => $address['city'] . (!empty($address['state']) ? ', '.$address['state'] : '') . (!empty($address['zip']) ? ' '.$address['zip'] : ''),
   ];
 }
-$category_links = [];
-if ($categories = get_the_terms($organization_post->ID, 'organization_category')) {
-  foreach ($categories as $term) {
-    $category_links[] = '<a href="'.add_query_arg('org_filter', $term->slug).'#organizations">'.$term->name.'</a>';
+$region_links = [];
+if ($regions = get_the_terms($organization_post->ID, 'organization_region')) {
+  foreach ($regions as $term) {
+    $region_links[] = '<a href="'.add_query_arg('org_region', $term->slug, (\Firebelly\Ajax\is_ajax() ? '' : '/'.$org_type->slug.'/')).'#organizations">'.$term->name.'</a>';
   }
 }
 ?>
 <article class="organization">
-  <?php if (!empty($category_links)): ?>
+  <?php if (!empty($region_links)): ?>
     <h4 class="category">
       <svg class="icon icon-category" aria-hidden="true"><use xlink:href="#icon-category"/></svg>
-      <?= implode(', ', $category_links) ?>
+      <?= implode(', ', $region_links) ?>
     </h4>
   <?php endif ?>
-  <h3>
+  <h3 class="toggler">
     <?= $organization_post->post_title ?>
   </h3>
 

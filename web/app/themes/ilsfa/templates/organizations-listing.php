@@ -1,5 +1,5 @@
 <?php
-  // Get org_categories used by org_type
+  // Get org_regions used by org_type
   $org_post_ids = \Firebelly\PostTypes\Organization\get_organizations([
     'numberposts' => -1,
     'fields'      => 'ids',
@@ -8,23 +8,23 @@
   ]);
 
   if (is_array($org_post_ids)) {
-    // Find categories that use those post IDs
-    $org_category_ids = $wpdb->get_col("
+    // Find regions that use those post IDs
+    $org_region_ids = $wpdb->get_col("
     SELECT t.term_id FROM {$wpdb->terms} AS t
           INNER JOIN {$wpdb->term_taxonomy} AS tt ON t.term_id = tt.term_id
           INNER JOIN {$wpdb->term_relationships} AS r ON r.term_taxonomy_id = tt.term_taxonomy_id
-          WHERE tt.taxonomy IN('organization_category')
+          WHERE tt.taxonomy IN('organization_region')
           AND r.object_id IN (".implode(',', $org_post_ids).")
           GROUP BY t.term_id
     ");
 
-    // Pull those topics for filtering
-    $organization_categories = get_terms([
-      'taxonomy' => 'organization_category',
-      'include'  => $org_category_ids
+    // Pull those regions for filtering
+    $organization_regions = get_terms([
+      'taxonomy' => 'organization_region',
+      'include'  => $org_region_ids
     ]);
   } else {
-    $organization_categories = [];
+    $organization_regions = [];
   }
 
 ?>
@@ -52,13 +52,14 @@
             <?php endforeach; ?>
           </select>
         </div>
+        <h4>Region</h4>
         <div class="select-wrap">
           <svg class="icon icon-arrow-dropdown" aria-hidden="true"><use xlink:href="#icon-arrow-dropdown"/></svg>
-          <select name="org_filter" class="jumpselect">
-            <option <?= $org_filter == '' ? 'selected ' : '' ?>value="<?= add_query_arg('org_filter', '') ?>#organizations">* All *</option>
+          <select name="org_region" class="jumpselect">
+            <option <?= $org_region == '' ? 'selected ' : '' ?>value="<?= add_query_arg('org_region', '') ?>#organizations">* All *</option>
             <?php
-            foreach ($organization_categories as $term): ?>
-              <option <?= $org_filter == $term->slug ? 'selected ' : '' ?>value="<?= add_query_arg('org_filter', $term->slug) ?>#organizations"><?= $term->name ?></option>
+            foreach ($organization_regions as $term): ?>
+              <option <?= $org_region == $term->slug ? 'selected ' : '' ?>value="<?= add_query_arg('org_region', $term->slug) ?>#organizations"><?= $term->name ?></option>
             <?php endforeach; ?>
           </select>
         </div>
@@ -70,7 +71,7 @@
         <?php if ($total_pages>1): ?>
           <div class="grid">
             <div class="one-half">
-              <div class="load-more" data-post-type="organization" data-page-at="<?= $paged ?>" data-per-page="<?= $per_page ?>" data-total-pages="<?= $total_pages ?>" data-org-sort="<?= $org_sort ?>" data-org-type="<?= $org_type ?>" data-org-filter="<?= $org_filter ?>">
+              <div class="load-more" data-post-type="organization" data-page-at="<?= $paged ?>" data-per-page="<?= $per_page ?>" data-total-pages="<?= $total_pages ?>" data-org-sort="<?= $org_sort ?>" data-org-type="<?= $org_type ?>" data-org-region="<?= $org_region ?>">
                 <a class="button -wide -icon-right" href="#">
                   Load More <svg class="icon icon-plus" aria-hidden="true"><use xlink:href="#icon-plus"/></svg>
                 </a>
