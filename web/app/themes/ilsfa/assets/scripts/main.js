@@ -408,7 +408,7 @@ var ILSFA = (function($) {
             // Add "-hover" class to corresponding card
             $('.cards li[data-id='+feature.properties.id+']').addClass('-hover');
 
-            // Display a popup with the name of the county
+            // Display popup with card title
             popup.setLngLat(feature.geometry.coordinates)
               .setText(feature.properties.title)
               .addTo(map);
@@ -542,9 +542,11 @@ var ILSFA = (function($) {
         center: latLng,
         zoom: 14
       });
-      popup.setLngLat(latLng)
-      .setText(title)
-      .addTo(map);
+      setTimeout(function() {
+        popup.setLngLat(latLng)
+          .setText(title)
+          .addTo(map);
+      }, 750);
     }
   }
 
