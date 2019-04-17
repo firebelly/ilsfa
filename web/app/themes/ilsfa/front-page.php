@@ -138,4 +138,3 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
 <?php
 // Restore $post for populating "footer outro" area
 $post = $original_post;
-?>

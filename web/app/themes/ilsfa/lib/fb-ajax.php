@@ -7,6 +7,7 @@ namespace Firebelly\Ajax;
 add_action('wp_enqueue_scripts', function() {
 	wp_localize_script('sage/js', 'wp_ajax_url', admin_url('admin-ajax.php'));
 	wp_localize_script('sage/js', 'mapbox_key', getenv('MAPBOX_KEY'));
+	wp_localize_script('sage/js', 'mapbox_style', getenv('MAPBOX_STYLE'));
 }, 100);
 
 /**
