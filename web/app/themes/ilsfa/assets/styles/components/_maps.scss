@@ -35,10 +35,6 @@
     display: block;
   }
 
-  &.loaded {
-    background: none;
-  }
-
   .mapboxgl-ctrl-icon.mapboxgl-ctrl-compass {
     display: none;
   }
@@ -106,4 +102,11 @@
 
 .mapboxgl-popup-content-wrapper {
   padding: 1%;
+}
+
+// Mapbox.js
+
+// Hide X close button in popup
+a.leaflet-popup-close-button {
+  display: none;
 }
