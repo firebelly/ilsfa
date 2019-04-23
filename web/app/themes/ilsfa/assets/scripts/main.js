@@ -37,7 +37,6 @@ var ILSFA = (function($) {
     $mapContainer = $('.map-container');
     mapboxGlSupported = mapboxgl.supported();
 
-
     // DOM is loaded
     $body.addClass('loaded');
 
@@ -447,17 +446,18 @@ var ILSFA = (function($) {
       // Give layers proper icons
       pointsLayer.on('layeradd', function(e) {
         var marker = e.layer,
-          feature = marker.feature;
-          marker.setIcon(L.icon(feature.properties.icon));
-          marker.unbindPopup();
+            feature = marker.feature;
+        marker.setIcon(L.icon(feature.properties.icon));
+        marker.unbindPopup();
       });
-
-      _addMapPoints();
 
       // Add click event
       pointsLayer.on('click', function(e) {
         _mapPointClick(e.layer.feature.properties.id, e);
       });
+
+      // Add all map points
+      _addMapPoints();
 
     }
 
@@ -538,6 +538,7 @@ var ILSFA = (function($) {
     if ($mapPoints.length) {
 
       if (mapboxGlSupported) {
+
         // Cull map points from DOM
         $mapPoints.each(function(){
           var $this = $(this);
@@ -598,11 +599,7 @@ var ILSFA = (function($) {
         // Add geoJson source
         pointsLayer.setGeoJSON(mapPointsData.features);
 
-        // Add click event
-        pointsLayer.on('click', function(e) {
-          _mapPointClick(e.layer.feature.properties.id, e);
-        });
-
+        // Center w/ new map points added
         map.setView(pointsLayer.getBounds().getCenter());
 
       }
