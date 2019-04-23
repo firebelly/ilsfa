@@ -14,6 +14,12 @@ $post_image = \Firebelly\Media\get_header_bg($event_post, ['size' => 'medium']);
   <?php else: ?>
     <h3><?= $event_post->post_title ?></h3>
   <?php endif; ?>
+  <?php if (!empty($event_post->post_content)): ?>
+    <div class="user-content">
+      <p><?= \Firebelly\Utils\get_excerpt($event_post, 25) ?></p>
+    </div>
+  <?php endif; ?>
+
   <ul class="icon-list details -small">
     <li class="date">
       <svg class="icon icon-date" aria-hidden="true"><use xlink:href="#icon-date"/></svg>
@@ -27,6 +33,8 @@ $post_image = \Firebelly\Media\get_header_bg($event_post, ['size' => 'medium']);
     <?php endif; ?>
   </ul>
   <?php if (!empty($event_post_meta['_cmb2_event_url'])): ?>
-    <a class="button -icon -round" target="_blank" rel="noopener" href="<?= $event_post_meta['_cmb2_event_url'][0] ?>" title="Event Details"><svg class="icon-arrow" aria-hidden="true"><use xlink:href="#icon-arrow"/></svg></a>
+    <a class="button" target="_blank" rel="noopener" href="<?= $event_post_meta['_cmb2_event_url'][0] ?>">Event Details</a>
+  <?php else: ?>
+    <a class="button" href="<?= get_permalink($event_post) ?>">Event Details</a>
   <?php endif ?>
 </article>
