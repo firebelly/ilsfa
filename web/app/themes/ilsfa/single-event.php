@@ -14,7 +14,7 @@ if (!empty($post_meta['_cmb2_address'])) {
 ?>
 
 <?php
-get_template_part('templates/page', 'header-tertiary');
+get_template_part('templates/page', 'header');
 ?>
 
 <div class="page-content">
