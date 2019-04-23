@@ -114,31 +114,12 @@ class FbSiteOptions {
 
     // Set our CMB2 fields
 
-    // $cmb->add_field( array(
-    //   'name'       => __( 'PayPal ID', 'cmb2' ),
-    //   'id'         => 'paypal_id',
-    //   'type'       => 'text',
-    //   'before_row' => '<h3>Donations</h3>',
-    // ) );
-
-    // $cmb->add_field( array(
-    //   'name'       => __( 'Twitter ID', 'cmb2' ),
-    //   'id'         => 'twitter_id',
-    //   'type'       => 'text',
-    //   'before_row' => '<h3>Footer Links & Info</h3>',
-    // ) );
-
-    // $cmb->add_field( array(
-    //   'name' => __( 'Facebook ID', 'cmb2' ),
-    //   'id'   => 'facebook_id',
-    //   'type' => 'text',
-    // ) );
-
-    // $cmb->add_field( array(
-    //   'name' => __( 'Vimeo ID', 'cmb2' ),
-    //   'id'   => 'vimeo_id',
-    //   'type' => 'text',
-    // ) );
+    $cmb->add_field( array(
+      'name' => __( 'Salesforce Import Notifications', 'cmb2' ),
+      'id'   => 'salesforce_notifications_email',
+      'desc' => 'Sends summaries of Salesforce imports',
+      'type' => 'text',
+    ) );
 
     $cmb->add_field( array(
       'name' => __( 'IPA URL', 'cmb2' ),
