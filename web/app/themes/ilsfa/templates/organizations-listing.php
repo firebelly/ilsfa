@@ -13,18 +13,18 @@
     SELECT t.term_id FROM {$wpdb->terms} AS t
           INNER JOIN {$wpdb->term_taxonomy} AS tt ON t.term_id = tt.term_id
           INNER JOIN {$wpdb->term_relationships} AS r ON r.term_taxonomy_id = tt.term_taxonomy_id
-          WHERE tt.taxonomy IN('organization_region')
+          WHERE tt.taxonomy IN('region')
           AND r.object_id IN (".implode(',', $org_post_ids).")
           GROUP BY t.term_id
     ");
 
     // Pull those regions for filtering
-    $organization_regions = get_terms([
-      'taxonomy' => 'organization_region',
+    $regions = get_terms([
+      'taxonomy' => 'region',
       'include'  => $org_region_ids
     ]);
   } else {
-    $organization_regions = [];
+    $regions = [];
   }
 
 ?>
@@ -58,7 +58,7 @@
           <select name="org_region" class="jumpselect">
             <option <?= $org_region == '' ? 'selected ' : '' ?>value="<?= add_query_arg('org_region', '') ?>#organizations">* All *</option>
             <?php
-            foreach ($organization_regions as $term): ?>
+            foreach ($regions as $term): ?>
               <option <?= $org_region == $term->slug ? 'selected ' : '' ?>value="<?= add_query_arg('org_region', $term->slug) ?>#organizations"><?= $term->name ?></option>
             <?php endforeach; ?>
           </select>

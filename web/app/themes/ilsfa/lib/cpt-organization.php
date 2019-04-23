@@ -9,7 +9,7 @@ use PostTypes\Taxonomy;
 
 $organizations = new PostType('organization', [
   'supports'   => ['title'],
-  'taxonomies' => ['organization_type', 'organization_region'],
+  'taxonomies' => ['organization_type', 'region'],
   'rewrite'    => ['with_front' => false],
 ]);
 
@@ -17,12 +17,8 @@ $organizations = new PostType('organization', [
 $organization_type = new Taxonomy('organization_type');
 $organization_type->register();
 
-$organization_region = new Taxonomy([
-  'name'     => 'organization_region',
-  'slug'     => 'organization_region',
-  'plural'   => 'Organization Regions',
-]);
-$organization_region->register();
+$region = new Taxonomy('region');
+$region->register();
 
 $organizations->register();
 
@@ -124,7 +120,7 @@ function get_organizations($opts=[]) {
   if (!empty($opts['region'])) {
     $args['tax_query'][] =
       [
-        'taxonomy' => 'organization_region',
+        'taxonomy' => 'region',
         'field' => 'slug',
         'terms' => $opts['region']
       ];

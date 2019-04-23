@@ -11,7 +11,7 @@ if (!empty($organization_post->meta['_cmb2_address'])) {
   ];
 }
 $region_links = [];
-if ($regions = get_the_terms($organization_post->ID, 'organization_region')) {
+if ($regions = get_the_terms($organization_post->ID, 'region')) {
   foreach ($regions as $term) {
     $region_links[] = '<a href="'.add_query_arg('org_region', $term->slug, (\Firebelly\Ajax\is_ajax() ? '' : '/'.$org_type->slug.'/')).'#organizations">'.$term->name.'</a>';
   }
