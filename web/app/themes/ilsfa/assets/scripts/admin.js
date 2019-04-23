@@ -36,7 +36,31 @@ var FB_admin = (function($) {
       $tabs.find($(this).attr('href').replace('#', '.')).addClass('current');
     });
   }
-  // public functions
+
+  // Salesforce Importer
+  $('#salesforce-import-form').on('submit', function(e) {
+    e.preventDefault();
+    window.scrollTo(0,0);
+    $('#salesforce-import-submit').prop('disabled', true).val('Please wait...');
+
+    // Show spinner + Working text after submitting
+    var $log = $('#salesforce-import-form .log-output')
+    $log.html('<p><img src="/wp/wp-admin/images/spinner-2x.gif" style="display:inline-block; width:20px; height:auto;"> Working... (be patient, can take a while if there are new events)</p>');
+
+    $.ajax({
+      type: 'POST',
+      url: ajaxurl,
+      data: $(this).serialize(),
+      success: function(data) {
+        // Display log messages from import script
+        $log.html(data.html_log)
+        $('#salesforce-import-submit').prop('disabled', false).val('Run Importer');
+      }
+    });
+
+  });
+
+  // Public functions
   return {
     init: _init
   };
