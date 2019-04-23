@@ -36,5 +36,11 @@ get_template_part('templates/page', 'header-tertiary');
         <span class="locality"><?= $address_info['locality'] ?></span>
       </a></address>
     </li>
+    <?php if (!empty($post_meta['_cmb2_event_url'])): ?>
+      <li class="link">
+        <svg class="icon icon-link" aria-hidden="true"><use xlink:href="#icon-link"/></svg>
+        <a target="_blank" rel="noopener" href="<?= $post_meta['_cmb2_event_url'][0] ?>">Event URL</a>
+      </li>
+    <?php endif; ?>
   </ul>
 </div>

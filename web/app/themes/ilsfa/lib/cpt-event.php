@@ -100,12 +100,12 @@ function metaboxes() {
     ),
   ]);
 
-  $event_info->add_field([
-    'name'        => 'Event URL',
-    'id'          => $prefix . 'event_url',
-    'type'        => 'text',
-    'description' => 'e.g. If set, events will link out to external URL',
-  ]);
+  // $event_info->add_field([
+  //   'name'        => 'Event URL',
+  //   'id'          => $prefix . 'event_url',
+  //   'type'        => 'text',
+  //   'description' => 'e.g. If set, events will link out to external URL',
+  // ]);
 
   $event_when = new_cmb2_box([
     'id'            => 'event_when',

@@ -9,11 +9,7 @@ $post_image = \Firebelly\Media\get_header_bg($event_post, ['size' => 'medium']);
   <?php if (!empty($post_image)): ?>
     <div class="image" <?= $post_image ?>></div>
   <?php endif; ?>
-  <?php if (!empty($event_post_meta['_cmb2_event_url'])): ?>
-    <h3><a href="<?= $event_post_meta['_cmb2_event_url'][0] ?>"><?= $event_post->post_title ?></a></h3>
-  <?php else: ?>
-    <h3><?= $event_post->post_title ?></h3>
-  <?php endif; ?>
+  <h3><a href="<?= get_permalink($event_post) ?>"><?= $event_post->post_title ?></a></h3>
   <?php if (!empty($event_post->post_content)): ?>
     <div class="user-content">
       <p><?= \Firebelly\Utils\get_excerpt($event_post, 25) ?></p>
@@ -32,9 +28,5 @@ $post_image = \Firebelly\Media\get_header_bg($event_post, ['size' => 'medium']);
       </li>
     <?php endif; ?>
   </ul>
-  <?php if (!empty($event_post_meta['_cmb2_event_url'])): ?>
-    <a class="button" target="_blank" rel="noopener" href="<?= $event_post_meta['_cmb2_event_url'][0] ?>">Event Details</a>
-  <?php else: ?>
-    <a class="button" href="<?= get_permalink($event_post) ?>">Event Details</a>
-  <?php endif ?>
+  <a class="button" href="<?= get_permalink($event_post) ?>">Event Details</a>
 </article>
