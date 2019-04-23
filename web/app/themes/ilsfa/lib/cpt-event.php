@@ -8,19 +8,20 @@ use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
 use PostTypes\Taxonomy;
 
 $cpt = new PostType(['name' => 'event', 'slug' => 'event'], [
-  'taxonomies' => ['event_type', 'event_series'],
+  'taxonomies' => ['topic', 'region'],
   'supports'   => ['title', 'editor', 'thumbnail'],
   'has_archive' => true,
   'rewrite'    => ['with_front' => false, 'slug' => 'events'],
 ]);
 
+$topic = new Taxonomy('topic');
+$topic->register();
+
 $cpt->columns()->add([
     'date_start' => __('Date Start'),
-    'date_end' => __('Date End'),
-    'time' => __('Time'),
-    'featured' => __('Featured'),
+    // 'date_end' => __('Date End'),
 ]);
-$cpt->columns()->hide(['event_type', 'date', 'featured']);
+$cpt->columns()->hide(['workshop_type', 'date', 'featured']);
 $cpt->columns()->sortable([
     'date_start' => ['_cmb2_date_start', true],
     'date_end' => ['_cmb2_date_end', true]
@@ -39,19 +40,9 @@ $cpt->columns()->populate('date_end', function($column, $post_id) {
     echo 'n/a';
   }
 });
-$cpt->columns()->populate('time', function($column, $post_id) {
-  if ($val = get_post_meta($post_id, '_cmb2_date_start', true)) {
-    echo date('g:ia', $val);
-  } else {
-    echo 'n/a';
-  }
-});
-$cpt->columns()->populate('featured', function($column, $post_id) {
-  echo (get_post_meta($post_id, '_cmb2_featured', true)) ? '&check;' : '';
-});
 
 // Add some admin filters
-$cpt->filters(['event_series', 'event_type']);
+$cpt->filters(['topic', 'region']);
 $cpt->register();
 
 /**
@@ -98,12 +89,22 @@ function metaboxes() {
       'disabled' => 'disabled',
     ),
   ]);
+  $event_info->add_field([
+    'name'      => 'Salesforce ID',
+    'id'        => $prefix . 'salesforce_id',
+    'type'      => 'text',
+    'save_field'  => false,
+    'attributes'  => array(
+      'readonly' => 'readonly',
+      'disabled' => 'disabled',
+    ),
+  ]);
 
   $event_info->add_field([
     'name'        => 'Event URL',
     'id'          => $prefix . 'event_url',
     'type'        => 'text',
-    // 'description' => 'e.g. https://www.eventbrite.com/e/xxxx',
+    'description' => 'e.g. If set, events will link out to external URL',
   ]);
 
   $event_when = new_cmb2_box([
@@ -170,17 +171,6 @@ function get_events($opts=[]) {
 
 
 /**
- * Daily cronjob to import new Eventbrite events
- */
-add_action('wp', __NAMESPACE__ . '\\activate_eventbrite_import');
-function activate_eventbrite_import() {
-  if (!wp_next_scheduled('eventbrite_import')) {
-    wp_schedule_event(current_time('timestamp'), 'twicedaily', 'eventbrite_import');
-  }
-}
-add_action( 'eventbrite_import', __NAMESPACE__ . '\eventbrite_import' );
-
-/**
  * Alter WP query for Event archive pages to sort by date_start
  */
 function event_query($query){
@@ -202,32 +192,17 @@ function get_dates($post) {
   if (!empty($post->meta['_cmb2_date_start'])) {
     $output .= '<time datetime="' . date('Y-m-d', $post->meta['_cmb2_date_start'][0]) . '">' . date('m/d/y', $post->meta['_cmb2_date_start'][0]) . '</time>';
   }
-  if (!empty($post->meta['_cmb2_date_end']) && (empty($post->meta['_cmb2_date_start']) || date('Y-m-d', $post->meta['_cmb2_date_end'][0]) != date('Y-m-d', $post->meta['_cmb2_date_start'][0]))) {
-    if (!empty($post->meta['_cmb2_date_start'])) $output .= ' – ';
-    $output .= '<time datetime="' . date('Y-m-d', $post->meta['_cmb2_date_end'][0]) . '">' . date('m/d/y', $post->meta['_cmb2_date_end'][0]) . '</time>';
-  }
-  if (!empty($post->meta['_cmb2_time'])) {
-    $output .= ' <span class="timespan">' . $post->meta['_cmb2_time'][0] . '</span>';
-  }
   $output .= '</div>';
   return $output;
 }
 
 /**
- * Update lookup table for events geodata, if post_id isn't sent, all posts are updates/inserted into wp_events_lat_lng
+ * Update lookup table for post geodata, if post_id isn't sent, all posts are updates/inserted into wp_fb_posts_lat_lng
  */
-function update_events_lat_lng($post_id='') {
+function update_posts_lat_lng($post_id='') {
   global $wpdb;
-  // CREATE TABLE `wp_events_lat_lng` (
-  //   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  //   `post_id` int(11) unsigned NOT NULL,
-  //   `lat` varchar(15) NOT NULL DEFAULT '',
-  //   `lng` varchar(15) NOT NULL DEFAULT '',
-  //   PRIMARY KEY (`id`),
-  //   KEY `post_id` (`post_id`),
-  //   KEY `lat` (`lat`),
-  //   KEY `lng` (`lng`)
-  // ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+  // Make sure we have lat/lng cache tables set up
+  check_lat_lng_tables();
   $event_cache = [];
   $post_id_sql = empty($post_id) ? '' : ' AND post_id='.(int)$post_id;
   $event_posts = $wpdb->get_results("SELECT post_id, meta_key, meta_value FROM $wpdb->postmeta WHERE meta_key IN ('_cmb2_lat','_cmb2_lng') AND meta_value != '' {$post_id_sql} ORDER BY post_id");
@@ -236,11 +211,11 @@ function update_events_lat_lng($post_id='') {
       $event_cache[$event->post_id][$event->meta_key] = $event->meta_value;
     }
     foreach ($event_cache as $event_id=>$arr) {
-      $cnt = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM wp_events_lat_lng WHERE post_id=%d", $event_id) );
+      $cnt = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM wp_fb_posts_lat_lng WHERE post_id=%d", $event_id) );
       if ($cnt>0) {
-        $wpdb->query( $wpdb->prepare("UPDATE wp_events_lat_lng SET lat=%s, lng=%s WHERE post_id=%d", $arr['_cmb2_lat'], $arr['_cmb2_lng'], $event_id) );
+        $wpdb->query( $wpdb->prepare("UPDATE wp_fb_posts_lat_lng SET lat=%s, lng=%s WHERE post_id=%d", $arr['_cmb2_lat'], $arr['_cmb2_lng'], $event_id) );
       } else {
-        $wpdb->query( $wpdb->prepare("INSERT INTO wp_events_lat_lng (post_id,lat,lng) VALUES (%d,%s,%s)", $event_id, $arr['_cmb2_lat'], $arr['_cmb2_lng']) );
+        $wpdb->query( $wpdb->prepare("INSERT INTO wp_fb_posts_lat_lng (post_id,lat,lng) VALUES (%d,%s,%s)", $event_id, $arr['_cmb2_lat'], $arr['_cmb2_lng']) );
       }
     }
   }
@@ -249,15 +224,21 @@ function update_events_lat_lng($post_id='') {
 /**
  * Geocode address and save in custom fields
  */
-function geocode_address($post_id, $post='') {
-  if (empty($_POST['_cmb2_address'])) return;
-  $address = wp_parse_args($_POST['_cmb2_address'], [
-    'address-1' => '',
-    'address-2' => '',
-    'city'      => '',
-    'state'     => '',
-    'zip'       => '',
-   ]);
+function geocode_address($post_id, $internal='') {
+  // Called internally for an existing post (e.g. importing events)
+  if (!empty($internal)) {
+    $address = get_post_meta($post_id, '_cmb2_address', true);
+  } else {
+    // Use POST in case this is a new post
+    if (empty($_POST['_cmb2_address'])) return;
+    $address = wp_parse_args($_POST['_cmb2_address'], [
+      'address-1' => '',
+      'address-2' => '',
+      'city'      => '',
+      'state'     => '',
+      'zip'       => '',
+     ]);
+  }
 
   if (!empty($address['address-1'])):
     $address_combined = $address['address-1'] . ' ' . $address['address-2'] . ' ' . $address['city'] . ', ' . $address['state'] . ' ' . $address['zip'];
@@ -269,26 +250,23 @@ function geocode_address($post_id, $post='') {
         $lng = $xml->result->geometry->location->lng;
         update_post_meta($post_id, '_cmb2_lat', (string)$lat);
         update_post_meta($post_id, '_cmb2_lng', (string)$lng);
-        // Update wp_events_lat_lng cache table
-        update_events_lat_lng($post_id);
+        // Update wp_fb_posts_lat_lng cache table
+        update_posts_lat_lng($post_id);
     endif;
   endif;
 }
-add_action('save_post_event', __NAMESPACE__ . '\\geocode_address', 20, 2);
+add_action('save_post_event', __NAMESPACE__ . '\\geocode_address', 20, 1);
 
 /**
- * Make sure date_end is populated — set to date_start if empty
+ * Check for lat/lng cache tables for geocoding lookups and zipcode distance
  */
-function check_dates($post_id) {
-  if (empty($_POST['_cmb2_date_start'])) return;
-  $date_start = $_POST['_cmb2_date_start'];
-  $date_end = $_POST['_cmb2_date_end'];
-  if (empty($date_end['date'])) {
-    $_POST['_cmb2_date_end'] = $_POST['_cmb2_date_start'];
+function check_lat_lng_tables() {
+  global $wpdb;
+  if (!$wpdb->get_var("SHOW TABLES LIKE 'wp_fb_posts_lat_lng'")) {
+    // If table not present, create tables + populate zip data
+    require(__DIR__.'/data/events-lat-lng-tables-zip-data.php');
   }
 }
-add_action('save_post_event', __NAMESPACE__ . '\\check_dates', 20, 1);
-
 
 /**
  * Show Edit Page link when viewing Events archive
@@ -308,3 +286,55 @@ function custom_admin_bar() {
   }
 }
 add_action('wp_before_admin_bar_render', __NAMESPACE__ . '\custom_admin_bar');
+
+/**
+ * Daily cronjob to import new Salesforce events
+ */
+add_action('wp', __NAMESPACE__ . '\\activate_salesforce_import');
+function activate_salesforce_import() {
+  if (!wp_next_scheduled('salesforce_import')) {
+    wp_schedule_event(current_time('timestamp'), 'twicedaily', 'salesforce_import');
+  }
+}
+add_action( 'salesforce_import', __NAMESPACE__ . '\salesforce_import' );
+
+/**
+ * Handle AJAX response from Salesforce Import form
+ */
+add_action('wp_ajax_salesforce_import', __NAMESPACE__ . '\salesforce_import');
+function salesforce_import() {
+  require_once 'salesforce-importer.php';
+
+  $importer = new \SalesforceImporter;
+  $log = $importer->do_import();
+
+  if (\Firebelly\Ajax\is_ajax()) {
+    wp_send_json($log);
+  }
+}
+
+/**
+ * Show link to Salesforce Import page
+ */
+add_action('admin_menu', __NAMESPACE__ . '\salesforce_import_admin_menu');
+function salesforce_import_admin_menu() {
+  add_submenu_page('edit.php?post_type=event', 'Salesforce Import', 'Salesforce Import', 'manage_options', 'salesforce-import', __NAMESPACE__ . '\salesforce_import_admin_form');
+}
+
+/**
+ * Basic Salesforce Import admin page
+ */
+function salesforce_import_admin_form() {
+?>
+  <div class="wrap">
+    <h2>Salesforce Importer</h2>
+    <p>This runs every night as an automated cronjob, but you can also run it manually here.</p>
+    <form method="post" id="salesforce-import-form" enctype="multipart/form-data" action="<?= admin_url('admin-ajax.php') ?>">
+      <div class="progress-bar"><div class="progress-done"></div></div>
+      <div class="log-output"></div>
+      <input type="hidden" name="action" value="salesforce_import">
+      <p class="submit"><input type="submit" class="button" id="salesforce-import-submit" name="submit" value="Run Importer"></p>
+    </form>
+  </div>
+<?php
+}
