@@ -438,6 +438,8 @@ var ILSFA = (function($) {
       // Add mapbox nav controls (styling overrided in _maps.scss)
       new L.Control.Zoom({ position: 'topleft' }).addTo(map);
 
+      _setMapSize();
+
       if ($mapPoints.length === 0) { return; }
 
       // Add points to map
@@ -569,8 +571,8 @@ var ILSFA = (function($) {
         });
         map.fitBounds(bounds, {padding: 150});
 
-        // Resize map
-        map.resize();
+        // Update map size and offsets
+        _resize();
 
       } else {
 
@@ -602,6 +604,8 @@ var ILSFA = (function($) {
         // Center w/ new map points added
         map.setView(pointsLayer.getBounds().getCenter());
 
+        // Update map size and offsets
+        _resize();
       }
     }
   }
@@ -985,6 +989,7 @@ var ILSFA = (function($) {
 
             if (map) {
               _addMapPoints();
+              Waypoint.refreshAll();
             }
 
             // Hide load more if last page
