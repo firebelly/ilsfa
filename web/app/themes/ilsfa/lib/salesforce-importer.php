@@ -6,16 +6,19 @@
 use jamiehollern\salesforce\Salesforce; // see https://github.com/jamiehollern/salesforce
 
 class SalesforceImporter {
-  private $log = ['error' => [], 'notice' => [], 'stats' => []];
+  private $log = [
+    'error' => [],
+    'notice' => [],
+    'stats' => [],
+    'num_skipped' => 0,
+    'num_updated' => 0,
+    'num_imported' => 0,
+  ];
   private $taxonomy_cache = [];
   private $prefix = '_cmb2_';
-  private $num_skipped = 0;
-  private $num_updated = 0;
-  private $num_imported = 0;
   private $salesforce;
-  private $force_update_meta;
 
-  function do_import($force_update_meta=false) {
+  function do_import() {
     $page = 1;
     $time_start = microtime(true);
 
@@ -54,14 +57,14 @@ class SalesforceImporter {
     }
 
     // Build summary notices
-    if ($this->num_skipped)
-      $this->log['notice'][] = sprintf("Skipped %s entries", $this->num_skipped);
+    if ($this->log['num_skipped'])
+      $this->log['notice'][] = sprintf("Skipped %s entries", $this->log['num_skipped']);
 
-    if ($this->num_updated)
-      $this->log['notice'][] = sprintf("Updated %s entries", $this->num_updated);
+    if ($this->log['num_updated'])
+      $this->log['notice'][] = sprintf("Updated %s entries", $this->log['num_updated']);
 
-    if ($this->num_imported)
-      $this->log['notice'][] = sprintf("Imported %s entries", $this->num_imported);
+    if ($this->log['num_imported'])
+      $this->log['notice'][] = sprintf("Imported %s entries", $this->log['num_imported']);
 
     $exec_time = microtime(true) - $time_start;
     $this->log['stats']['exec_time'] = sprintf("%.2f", $exec_time);
@@ -79,7 +82,7 @@ class SalesforceImporter {
 
     // Send email report?
     $salesforce_notifications_email = \Firebelly\SiteOptions\get_option('salesforce_notifications_email');
-    if ($this->num_imported > 0 && !empty($salesforce_notifications_email)) {
+    if ($this->log['num_imported'] > 0 && !empty($salesforce_notifications_email)) {
       add_filter('wp_mail_content_type', ['SalesforceImporter', 'set_html_email']);
       wp_mail($salesforce_notifications_email, 'ILSFA Salesforce Import '.date('Y-m-d'), $this->log['html_log']);
       remove_filter('wp_mail_content_type', ['SalesforceImporter', 'set_html_email']);
@@ -171,12 +174,12 @@ class SalesforceImporter {
             wp_set_object_terms($event_id, $cat_ids, 'region');
           }
 
-          $this->num_imported++;
+          $this->log['num_imported']++;
           $this->log['notice'][] = '<h3>New event #'.$event_id.' created for <a target="_blank" href="' . \Firebelly\Utils\cronjob_edit_link($event_id) . '">'.$event_title.'</a></h3>';
         }
       } else {
         $event_id = $wpdb->get_var($wpdb->prepare("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s", $this->prefix.'salesforce_id', $event['Id']));
-        $this->num_updated++;
+        $this->log['num_updated']++;
       }
 
       if ($event_id) {
