@@ -3,4 +3,31 @@
 .events-listing {
 	background: $blurple-dark;
 	@include global-padding(12);
+
+	.cards {
+		>li h3 {
+			margin-bottom: grid(2);
+		}
+	}
+
+  .filters {
+  	h4 {
+  	  color: $white;
+  	  margin-bottom: grid(1);
+  	}
+
+  	margin: 0 0 grid(4);
+		.select-wrap {
+			width: 100%;
+		}
+
+		@include media-md {
+			.one-half:nth-child(1) {
+				padding-right: grid(1);
+			}
+			.one-half:nth-child(2) {
+				padding-left: grid(1);
+			}
+		}
+	}
 }
