@@ -9,13 +9,13 @@ $post_meta = get_post_meta($post->ID);
 // Get query vars and build args for pulling organizations
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $per_page = get_option('posts_per_page');
-$org_sort = get_query_var('org_sort', 'asc');
-$org_region = get_query_var('org_region', '');
+$sort = get_query_var('sort', 'asc');
+$region = get_query_var('region', '');
 $org_type = 'grassroots-education';
 $args = [
   'type'     => $org_type,
-  'order'    => $org_sort,
-  'region'   => $org_region,
+  'order'    => $sort,
+  'region'   => $region,
 ];
 
 // Get post count for load more
@@ -42,9 +42,9 @@ get_template_part('templates/page', 'header');
   'paged'         => $paged,
   'per_page'      => $per_page,
   'total_pages'   => $total_pages,
-  'org_sort'      => $org_sort,
+  'sort'          => $sort,
   'org_type'      => $org_type,
-  'org_region'    => $org_region,
+  'region'        => $region,
 ]); ?>
 
 <?php if (!empty($post_meta['_cmb2_midpage_prompt'])): ?>

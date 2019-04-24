@@ -958,12 +958,12 @@ var ILSFA = (function($) {
           url: wp_ajax_url,
           method: 'post',
           data: {
-              action: 'load_more_organizations',
+              action: 'load_more_posts',
               post_type: post_type,
               page: page+1,
               per_page: per_page,
-              org_sort: $load_more.attr('data-org-sort'),
-              org_region: $load_more.attr('data-org-region'),
+              sort: $load_more.attr('data-org-sort'),
+              region: $load_more.attr('data-org-region'),
               org_type: $load_more.attr('data-org-type')
           },
           success: function(data) {

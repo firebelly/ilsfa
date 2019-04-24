@@ -152,7 +152,7 @@ function get_organizations($opts=[]) {
     $organization_post->meta = get_post_meta($organization_post->ID);
     $output .= '<li class="item map-point" data-id="'.$organization_post->ID.'" data-url="' . (!empty($organization_post->meta['_cmb2_website']) ? $organization_post->meta['_cmb2_website'][0] : '') . '" data-id="' . $organization_post->ID . '" data-title="' . $organization_post->post_title . '"';
     if (!empty($organization_post->meta['_cmb2_lat']) && !empty($organization_post->meta['_cmb2_lng'])) {
-      $output .= 'map-point" data-lat="' . $organization_post->meta['_cmb2_lat'][0] . '" data-lng="' . $organization_post->meta['_cmb2_lng'][0] . '"';
+      $output .= ' data-lat="' . $organization_post->meta['_cmb2_lat'][0] . '" data-lng="' . $organization_post->meta['_cmb2_lng'][0] . '"';
     }
     $output .= '>';
     ob_start();
@@ -167,30 +167,29 @@ function get_organizations($opts=[]) {
  * Add query vars for filtering/sorting
  */
 function add_query_vars_filter($vars){
-  $vars[] = 'org_sort';
-  $vars[] = 'org_region';
+  $vars[] = 'sort';
+  $vars[] = 'region';
   return $vars;
 }
 add_filter('query_vars', __NAMESPACE__ . '\\add_query_vars_filter');
 
-function load_more_organizations() {
+function load_more_posts() {
   $page = !empty($_REQUEST['page']) ? $_REQUEST['page'] : 1;
   $per_page = !empty($_REQUEST['per_page']) ? $_REQUEST['per_page'] : get_option('posts_per_page');
-  $order = !empty($_REQUEST['org_sort']) ? $_REQUEST['org_sort'] : 'asc';
-  $region = !empty($_REQUEST['org_region']) ? $_REQUEST['org_region'] : '';
-  $type = !empty($_REQUEST['org_type']) ? $_REQUEST['org_type'] : 'grassroots-education';
+  $order = !empty($_REQUEST['sort']) ? $_REQUEST['sort'] : 'asc';
+  $region = !empty($_REQUEST['region']) ? $_REQUEST['region'] : '';
+  $org_type = !empty($_REQUEST['org_type']) ? $_REQUEST['org_type'] : 'grassroots-education';
   $offset = ($page-1) * $per_page;
   $args = [
     'offset'      => $offset,
     'numberposts' => $per_page,
     'order'       => $order,
     'region'      => $region,
-    'type'        => $type,
   ];
   echo get_organizations($args);
 }
-add_action('wp_ajax_load_more_organizations', __NAMESPACE__ . '\\load_more_organizations' );
-add_action('wp_ajax_nopriv_load_more_organizations', __NAMESPACE__ . '\\load_more_organizations');
+add_action('wp_ajax_load_more_organizations', __NAMESPACE__ . '\\load_more_posts' );
+add_action('wp_ajax_nopriv_load_more_organizations', __NAMESPACE__ . '\\load_more_posts');
 
 
 // Redirect single Organization requests to either /grassroots-education/ or /job-training/ landing pages
