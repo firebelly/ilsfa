@@ -3,8 +3,6 @@
  * Salesforce Importer - ILSFA - Firebelly 2019
  */
 
-use jamiehollern\salesforce\Salesforce; // see https://github.com/jamiehollern/salesforce
-
 class SalesforceImporter {
   private $log = [
     'error' => [],
