@@ -191,3 +191,28 @@ function cronjob_edit_link($id=0, $context = 'display') {
 function is_external_link($url) {
   return strpos(getenv('WP_HOME'), $url)===false && preg_match('/^http/', $url);
 }
+
+function get_active_terms_for_posts($post_ids, $taxonomy) {
+  global $wpdb;
+
+  // Find taxonomy terms used by $post_ids
+  $term_ids = $wpdb->get_col("
+  SELECT t.term_id FROM {$wpdb->terms} AS t
+        INNER JOIN {$wpdb->term_taxonomy} AS tt ON t.term_id = tt.term_id
+        INNER JOIN {$wpdb->term_relationships} AS r ON r.term_taxonomy_id = tt.term_taxonomy_id
+        WHERE tt.taxonomy IN('{$taxonomy}')
+        AND r.object_id IN (".implode(',', $post_ids).")
+        GROUP BY t.term_id
+  ");
+
+  if (!empty($term_ids)) {
+    $terms = get_terms([
+      'taxonomy' => $taxonomy,
+      'include'  => $term_ids,
+    ]);
+  } else {
+    return [];
+  }
+
+  return $terms;
+}

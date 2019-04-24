@@ -133,25 +133,40 @@ function get_events($opts=[]) {
   if (empty($opts['num_posts'])) $opts['num_posts'] = get_option('posts_per_page');
   if (!empty($_REQUEST['past_events'])) $opts['past_events'] = 1; // support for AJAX requests
   $args = [
-    'numberposts' => $opts['num_posts'],
+    'numberposts' => (!empty($opts['numberposts']) ? $opts['numberposts'] : get_option('posts_per_page')),
+    'offset'      => (!empty($opts['offset']) ? $opts['offset'] : 0),
+    'orderby'     => 'title',
+    'order'       => (!empty($opts['order']) && strtolower($opts['order']) != 'asc' ? 'DESC' : 'ASC'),
     'post_type'   => 'event',
     'meta_key'    => '_cmb2_date_start',
     'orderby'     => 'meta_value_num',
   ];
-
-  // Make sure we're only pulling upcoming or past events
-  $args['order'] = !empty($opts['past_events']) ? 'DESC' : 'ASC';
-  $args['meta_query'] = [
-    [
-      'key'     => '_cmb2_date_end',
-      'value'   => current_time('timestamp'),
-      'compare' => (!empty($opts['past_events']) ? '<=' : '>')
-    ],
-  ];
+  if (!empty($opts['fields'])) {
+    $args['fields'] = $opts['fields'];
+  }
+  $args['tax_query'] = [];
+  if (!empty($opts['region'])) {
+    $args['tax_query'][] =
+      [
+        'taxonomy' => 'region',
+        'field' => 'slug',
+        'terms' => $opts['region']
+      ];
+  }
 
   $event_posts = get_posts($args);
   if (!$event_posts) {
-    return false;
+    return '<p class="nothing-found">No posts found.</p>';
+  }
+
+  // Just count posts (used for load-more buttons)
+  if (!empty($opts['countposts'])) {
+    $args = array_merge($args, [
+      'posts_per_page' => -1,
+      'fields' => 'ids',
+    ]);
+    $count_query = new \WP_Query($args);
+    return $count_query->found_posts;
   }
 
   // Just return array of posts?
@@ -161,14 +176,20 @@ function get_events($opts=[]) {
 
   // Display all matching posts using article-{$post_type}.php
   $output = '';
-  foreach ($event_posts as $event_post):
+  foreach ($event_posts as $event_post) {
+    $event_post->meta = get_post_meta($event_post->ID);
+    $output .= '<li class="item map-point" data-id="'.$event_post->ID.'" data-url="' . (!empty($event_post->meta['_cmb2_event_url']) ? $event_post->meta['_cmb2_event_url'][0] : '') . '" data-id="' . $event_post->ID . '" data-title="' . $event_post->post_title . '"';
+    if (!empty($event_post->meta['_cmb2_lat']) && !empty($event_post->meta['_cmb2_lng'])) {
+      $output .= ' data-lat="' . $event_post->meta['_cmb2_lat'][0] . '" data-lng="' . $event_post->meta['_cmb2_lng'][0] . '"';
+    }
+    $output .= '>';
     ob_start();
     include(locate_template('templates/article-event.php'));
     $output .= ob_get_clean();
-  endforeach;
+    $output .= '</li>';
+  }
   return $output;
 }
-
 
 /**
  * Alter WP query for Event archive pages to sort by date_start
