@@ -141,7 +141,7 @@
 
 // On-the fly media-queries
 @mixin screen($res-min, $res-max) {
-  @media screen and (min-width: $res-min) and (max-width: $res-max) {
+  @media screen and (min-width: $res-min) and (max-width: #{$res-max - 1px}) {
     @content;
   }
 }
