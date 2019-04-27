@@ -54,7 +54,7 @@ if (!is_search() && !is_404()):
             <a href="<?= \Firebelly\SiteOptions\get_option('ipa_url'); ?>" target="_blank"><img alt="IPA logo" src="<?= \Roots\Sage\Assets\asset_path('images/logo-ipa.png'); ?>"></a>
           <?php else: ?>
             <img alt="IPA logo" src="<?= \Roots\Sage\Assets\asset_path('images/logo-ipa.png'); ?>">
-          <?php endif ?>
+          <?php endif; ?>
         </li>
       </ul>
     </div>
@@ -71,7 +71,7 @@ if (!is_search() && !is_404()):
           <address class="vcard"><a rel="noopener" target="_blank" href="https://www.google.com/maps/search/?api=1&query=<?= urlencode($address.' '.$address_2.' '.$locality) ?>">
             <span class="street-address"><?= $address ?></span>
             <?php if (!empty($address_2)): ?><span class="street-address-2"><?= $address_2 ?></span><?php endif; ?>
-            <span class="locality"><?= $locality ?></span>
+            <span class="locality"><?= $locality ?></span></a>
           </address>
         </li>
         <li>
@@ -79,7 +79,7 @@ if (!is_search() && !is_404()):
           <p><?= \Firebelly\SiteOptions\get_option('contact_phone'); ?></p>
           <?php if (!empty(\Firebelly\SiteOptions\get_option('contact_phone_text'))): ?>
             <p><?= \Firebelly\SiteOptions\get_option('contact_phone_text'); ?></p>
-          <?php endif ?>
+          <?php endif; ?>
         </li>
         <li>
           <h3>Fax</h3>
