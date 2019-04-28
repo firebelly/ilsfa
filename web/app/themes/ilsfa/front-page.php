@@ -100,7 +100,7 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
 
   <div class="grid-item one-half events">
     <h2>Events</h2>
-    <?php if ($events = \Firebelly\PostTypes\Event\get_events(['output' => 'array'])): ?>
+    <?php if ($events = \Firebelly\PostTypes\Event\get_events(['output' => 'array', 'numberposts' => 3])): ?>
       <ul class="cards">
       <?php foreach ($events as $event): ?>
         <li>

@@ -172,7 +172,7 @@
 
     // Desktop styles
     @include media-md {
-      p {
+      p.coming-soon {
         @include p1;
       }
     }
