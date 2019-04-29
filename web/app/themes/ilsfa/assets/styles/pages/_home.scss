@@ -138,47 +138,60 @@
   }
 
   // Action blocks
-  .action-blocks {
-  }
+  .action-blocks {}
 
   // Events
-  .events {
-    @include global-padding;
-    background: $blurple-dark;
+  .events-listing {
     >h2 {
       color: $white;
       margin: 0 0 grid(4);
     }
-    p.coming-soon {
-      color: $white;
-      @extend %h4;
-    }
-    article {
-      >h3 {
-        margin: 0 0 grid(2);
-      }
-    }
-    // Add padding to avoid (>) button?
-    // .details {
-    //   li {
-    //     padding-right: grid(6);
-    //   }
-    // }
-    a.button.-icon {
-      position: absolute;
-      bottom: grid(3);
-      right: grid(3);
-    }
+  }
+  // .events {
+  //   @include global-padding;
+  //   background: $blurple-dark;
+  //   >h2 {
+  //     color: $white;
+  //     margin: 0 0 grid(4);
+  //   }
+  //   p.coming-soon {
+  //     color: $white;
+  //     @extend %h4;
+  //   }
+  //   article {
+  //     >h3 {
+  //       margin: 0 0 grid(2);
+  //     }
+  //   }
+  //   // Add padding to avoid (>) button?
+  //   // .details {
+  //   //   li {
+  //   //     padding-right: grid(6);
+  //   //   }
+  //   // }
+  //   a.button.-icon {
+  //     position: absolute;
+  //     bottom: grid(3);
+  //     right: grid(3);
+  //   }
 
-    // Desktop styles
-    @include media-md {
-      p.coming-soon {
-        @include p1;
+  //   // Desktop styles
+  //   @include media-md {
+  //     p.coming-soon {
+  //       @include p1;
+  //     }
+  //   }
+  // }
+
+  // Announcements
+  .announcements-with-image {
+    // Mobile-only styles
+    @include max-screen($breakpoint-md) {
+      .image {
+        display: none;
       }
     }
   }
-
-  // Announcements
   .announcements {
     @include global-padding;
     >h2 {

@@ -17,6 +17,9 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
   // Fallback to page title
   $intro_title = Titles\title();
 }
+
+$announcements = get_posts(['numberposts' => 3]);
+$events = \Firebelly\PostTypes\Event\get_events(['numberposts' => 3]);
 ?>
 
 <header class="page-header-homepage">
@@ -26,6 +29,36 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
   </div>
   <h2 class="page-title"><?= nl2br($intro_title); ?></h2>
 </header>
+
+<?php if (!empty($announcements)): ?>
+<div class="grid announcements-with-image">
+  <div class="grid-item one-half">
+    <?php if (!empty($post_meta['_cmb2_announcements_image'])): ?>
+      <div class="image-wrap -inset-shadow -expanded">
+        <div class="image" <?= \Firebelly\Media\get_header_bg($post_meta['_cmb2_announcements_image_id'][0], ['size' => 'large']) ?>>
+          <div class="filter white-multiply"></div><div class="filter blue-screen"></div><div class="filter blue-multiply"></div>
+        </div>
+      </div>
+    <?php endif; ?>
+  </div>
+  <div class="grid-item one-half">
+    <div class="announcements">
+      <h2>Announcements</h2>
+      <ul>
+      <?php foreach ($announcements as $announcement): ?>
+        <li>
+          <?php \Firebelly\Utils\get_template_part_with_vars('templates/article', 'post', ['post' => $announcement, 'simple' => true]); ?>
+        </li>
+      <?php endforeach; ?>
+      </ul>
+
+      <div class="actions">
+        <a href="/announcements/" class="button">All Announcements</a>
+      </div>
+    </div>
+  </div>
+</div>
+<?php endif; ?>
 
 <?php if (!empty($post_meta['_cmb2_intro_supporting_statement'])): ?>
 <div class="supporting-statement">
@@ -95,45 +128,19 @@ if (!empty($post_meta['_cmb2_intro_title'])) {
   </div>
 <?php endif; ?>
 
-<?php // Events & Announcements ?>
-<div class="grid">
+<?php // Events ?>
+<?php if (!empty($events)): ?>
+<div class="events-listing">
+  <h2>Events</h2>
+  <ul class="cards compact-grid">
+    <?= $events ?>
+  </ul>
 
-  <div class="grid-item one-half events">
-    <h2>Events</h2>
-    <?php if ($events = \Firebelly\PostTypes\Event\get_events(['output' => 'array', 'numberposts' => 3])): ?>
-      <ul class="cards">
-      <?php foreach ($events as $event): ?>
-        <li>
-          <?php \Firebelly\Utils\get_template_part_with_vars('templates/article', 'event', ['event_post' => $event]); ?>
-        </li>
-      <?php endforeach; ?>
-      </ul>
-
-      <div class="actions">
-        <a href="/events/" class="button">All Events</a>
-      </div>
-    <?php endif; ?>
+  <div class="actions">
+    <a href="/events/" class="button">All Events</a>
   </div>
-
-  <div class="grid-item one-half announcements">
-    <?php $announcements = get_posts(['numberposts' => 3]) ?>
-    <?php if (!empty($announcements)): ?>
-      <h2>Announcements</h2>
-      <ul>
-      <?php foreach ($announcements as $announcement): ?>
-        <li>
-          <?php \Firebelly\Utils\get_template_part_with_vars('templates/article', 'post', ['post' => $announcement, 'simple' => true]); ?>
-        </li>
-      <?php endforeach; ?>
-      </ul>
-
-      <div class="actions">
-        <a href="/announcements/" class="button">All Announcements</a>
-      </div>
-    <?php endif; ?>
-  </div>
-
 </div>
+<?php endif; ?>
 
 <?php
 // Restore $post for populating "footer outro" area
