@@ -64,7 +64,7 @@ function metaboxes() {
 
   $homepage_announcements_extras = new_cmb2_box([
     'id'            => $prefix . 'homepage_announcements_extras',
-    'title'         => esc_html__( 'Announcements Info', 'cmb2' ),
+    'title'         => esc_html__( 'Homepage Announcements', 'cmb2' ),
     'object_types'  => ['page'],
     'show_on'       => ['key' => 'page-template', 'value' => 'front-page.php'],
     'context'       => 'normal',
@@ -74,6 +74,7 @@ function metaboxes() {
     'name' => esc_html__( 'Announcements Image', 'cmb2' ),
     'id'   => $prefix .'announcements_image',
     'type' => 'file',
+    'desc' => 'Shown at left of announcements on desktop',
   ]);
 
   $homepage_overview_blocks = new_cmb2_box([
