@@ -217,6 +217,11 @@ function metaboxes() {
     'show_on_cb'    => '\Firebelly\CMB2\show_for_slugs',
     'priority'      => 'high',
   ]);
+  $residents_fields->add_field([
+    'id'   => $prefix .'eligibility_blocks_headline',
+    'name' => 'Headline',
+    'type' => 'text',
+  ]);
   $group_field_id = $residents_fields->add_field([
     'id'              => $prefix . 'eligibility_blocks',
     'type'            => 'group',
@@ -372,6 +377,11 @@ function metaboxes() {
     'show_slugs'    => ['environmental-justice-communities'],
     'show_on_cb'    => '\Firebelly\CMB2\show_for_slugs',
     'priority'      => 'high',
+  ]);
+  $ejc_fields->add_field([
+    'id'   => $prefix .'ejc_blocks_headline',
+    'name' => 'Headline',
+    'type' => 'text',
   ]);
   $group_field_id = $ejc_fields->add_field([
     'id'              => $prefix . 'ejc_blocks',

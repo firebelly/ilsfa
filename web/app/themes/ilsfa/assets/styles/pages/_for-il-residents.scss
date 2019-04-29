@@ -2,12 +2,6 @@
 
 .page.for-il-residents {
 
-  .page-content {
-    padding-top: grid(2);
-    // No padding on bottom as page-content leads directly into Eligibility grid
-    padding-bottom: 0;
-  }
-
   // Programs
   .programs {
     @include media-md {

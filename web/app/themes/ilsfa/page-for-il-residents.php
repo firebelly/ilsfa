@@ -20,6 +20,9 @@ get_template_part('templates/page', 'header');
 <?php // Eligibility Blocks ?>
 <?php if (!empty($post_meta['_cmb2_eligibility_blocks'])): ?>
   <ul class="midpage-blocks">
+    <?php if (!empty($post_meta['_cmb2_eligibility_blocks_headline'])): ?>
+      <li class="headline"><h2><?= $post_meta['_cmb2_eligibility_blocks_headline'][0] ?></h2></li>
+    <?php endif; ?>
     <?php foreach (unserialize($post_meta['_cmb2_eligibility_blocks'][0]) as $block): ?>
       <li class="grid">
         <div class="grid-item one-half">
