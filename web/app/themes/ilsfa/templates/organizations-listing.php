@@ -1,18 +1,20 @@
 <?php
-  // Get org_regions used by org_type
-  $org_post_ids = \Firebelly\PostTypes\Organization\get_organizations([
-    'numberposts' => -1,
-    'fields'      => 'ids',
-    'output'      => 'array',
-    'type'        => $org_type
-  ]);
+// Get a list of org IDs matching org_type
+$org_post_ids = \Firebelly\PostTypes\Organization\get_organizations([
+  'numberposts' => -1,
+  'fields'      => 'ids',
+  'output'      => 'array',
+  'type'        => $org_type
+]);
 
-  if (is_array($org_post_ids)) {
-    $regions = \Firebelly\Utils\get_active_terms_for_posts($org_post_ids, 'region');
-  } else {
-    $regions = [];
-  }
-
+// Get regions and categories used by org_type
+if (is_array($org_post_ids)) {
+  $regions = \Firebelly\Utils\get_active_terms_for_posts($org_post_ids, 'region');
+  $categories = \Firebelly\Utils\get_active_terms_for_posts($org_post_ids, 'organization_category');
+} else {
+  $regions = [];
+  $categories = [];
+}
 ?>
 
 <?php if (!empty($organizations) || !empty($post_meta['_cmb2_organization_directory_intro'])): ?>
@@ -37,6 +39,21 @@
           <?php endforeach; ?>
         </select>
       </div>
+
+      <?php if (!empty($show_categories)): ?>
+        <h4>Category</h4>
+        <div class="select-wrap">
+          <svg class="icon icon-arrow-dropdown" aria-hidden="true"><use xlink:href="#icon-arrow-dropdown"/></svg>
+          <select name="org_category" class="jumpselect">
+            <option <?= $org_category == '' ? 'selected ' : '' ?>value="<?= add_query_arg('org_category', '') ?>#organizations">* All *</option>
+            <?php
+            foreach ($categories as $term): ?>
+              <option <?= $org_category == $term->slug ? 'selected ' : '' ?>value="<?= add_query_arg('org_category', $term->slug) ?>#organizations"><?= $term->name ?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+      <?php endif; ?>
+
       <h4>Region</h4>
       <div class="select-wrap">
         <svg class="icon icon-arrow-dropdown" aria-hidden="true"><use xlink:href="#icon-arrow-dropdown"/></svg>
@@ -54,7 +71,7 @@
       </ul>
 
       <?php if ($total_pages>1): ?>
-          <div class="load-more" data-post-type="organization" data-page-at="<?= $paged ?>" data-per-page="<?= $per_page ?>" data-total-pages="<?= $total_pages ?>" data-org-sort="<?= $sort ?>" data-org-type="<?= $org_type ?>" data-org-region="<?= $region ?>">
+          <div class="load-more" data-post-type="organization" data-page-at="<?= $paged ?>" data-per-page="<?= $per_page ?>" data-total-pages="<?= $total_pages ?>" data-org-sort="<?= $sort ?>" data-org-type="<?= $org_type ?>" data-org-region="<?= $region ?>" data-org-category="<?= $org_category ?>">
             <a class="button -wide -icon-right" href="#">
               Load More <svg class="icon icon-plus" aria-hidden="true"><use xlink:href="#icon-plus"/></svg>
             </a>

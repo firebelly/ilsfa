@@ -34,6 +34,7 @@ function load_more_posts() {
     'region'      => $region,
   ];
   if ($post_type == 'organization') {
+    $args['org_category'] = !empty($_REQUEST['org_category']) ? $_REQUEST['org_category'] : '';
   	$args['type'] = !empty($_REQUEST['org_type']) ? $_REQUEST['org_type'] : 'grassroots-education';
     echo \Firebelly\PostTypes\Organization\get_organizations($args);
   } else if ($post_type == 'event') {

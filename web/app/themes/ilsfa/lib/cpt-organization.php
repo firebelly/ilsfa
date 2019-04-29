@@ -9,13 +9,20 @@ use PostTypes\Taxonomy;
 
 $organizations = new PostType('organization', [
   'supports'   => ['title'],
-  'taxonomies' => ['organization_type', 'region'],
+  'taxonomies' => ['organization_type', 'region', 'organization_category'],
   'rewrite'    => ['with_front' => false],
 ]);
 
 // Custom taxonomies
 $organization_type = new Taxonomy('organization_type');
 $organization_type->register();
+
+$organization_category = new Taxonomy([
+  'name'     => 'organization_category',
+  'slug'     => 'organization_category',
+  'plural'   => 'Organization Categories',
+]);
+$organization_category->register();
 
 $region = new Taxonomy('region');
 $region->register();
@@ -113,16 +120,24 @@ function get_organizations($opts=[]) {
     $args['tax_query'][] =
       [
         'taxonomy' => 'organization_type',
-        'field' => 'slug',
-        'terms' => $opts['type']
+        'field'    => 'slug',
+        'terms'    => $opts['type']
+      ];
+  }
+  if (!empty($opts['org_category'])) {
+    $args['tax_query'][] =
+      [
+        'taxonomy' => 'organization_category',
+        'field'    => 'slug',
+        'terms'    => $opts['org_category']
       ];
   }
   if (!empty($opts['region'])) {
     $args['tax_query'][] =
       [
         'taxonomy' => 'region',
-        'field' => 'slug',
-        'terms' => $opts['region']
+        'field'    => 'slug',
+        'terms'    => $opts['region']
       ];
   }
 
@@ -169,30 +184,14 @@ function get_organizations($opts=[]) {
 function add_query_vars_filter($vars){
   $vars[] = 'sort';
   $vars[] = 'region';
+  $vars[] = 'org_category';
   return $vars;
 }
 add_filter('query_vars', __NAMESPACE__ . '\\add_query_vars_filter');
 
-function load_more_posts() {
-  $page = !empty($_REQUEST['page']) ? $_REQUEST['page'] : 1;
-  $per_page = !empty($_REQUEST['per_page']) ? $_REQUEST['per_page'] : get_option('posts_per_page');
-  $order = !empty($_REQUEST['sort']) ? $_REQUEST['sort'] : 'asc';
-  $region = !empty($_REQUEST['region']) ? $_REQUEST['region'] : '';
-  $org_type = !empty($_REQUEST['org_type']) ? $_REQUEST['org_type'] : 'grassroots-education';
-  $offset = ($page-1) * $per_page;
-  $args = [
-    'offset'      => $offset,
-    'numberposts' => $per_page,
-    'order'       => $order,
-    'region'      => $region,
-  ];
-  echo get_organizations($args);
-}
-add_action('wp_ajax_load_more_organizations', __NAMESPACE__ . '\\load_more_posts' );
-add_action('wp_ajax_nopriv_load_more_organizations', __NAMESPACE__ . '\\load_more_posts');
-
-
-// Redirect single Organization requests to either /grassroots-education/ or /job-training/ landing pages
+/**
+  * Redirect single Organization requests to either /grassroots-education/ or /job-training/ landing pages
+  */
 function redirect_single_organizations() {
   global $wp, $wpdb, $post;
   $request_url = $wp->request;
@@ -209,5 +208,7 @@ function redirect_single_organizations() {
 }
 add_action('template_redirect', __NAMESPACE__.'\\redirect_single_organizations');
 
-// Geocode address on save
+/**
+ * Geocode address on save
+ */
 add_action('save_post_organization', '\Firebelly\PostTypes\Event\geocode_address', 20, 2);

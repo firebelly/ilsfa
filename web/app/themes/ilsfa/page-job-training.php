@@ -11,11 +11,13 @@ $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $per_page = get_option('posts_per_page');
 $sort = get_query_var('sort', 'asc');
 $region = get_query_var('region', '');
+$org_category = get_query_var('org_category', '');
 $org_type = 'job-training';
 $args = [
-  'type'     => $org_type,
-  'order'    => $sort,
-  'region'   => $region,
+  'type'         => $org_type,
+  'order'        => $sort,
+  'region'       => $region,
+  'org_category' => $org_category,
 ];
 
 // Get post count for load more
@@ -36,12 +38,14 @@ get_template_part('templates/page', 'header');
 </div>
 
 <?php \Firebelly\Utils\get_template_part_with_vars('templates/organizations', 'listing', [
-  'organizations' => $organizations,
-  'post_meta'     => $post_meta,
-  'paged'         => $paged,
-  'per_page'      => $per_page,
-  'total_pages'   => $total_pages,
-  'sort'          => $sort,
-  'org_type'      => $org_type,
-  'region'        => $region,
+  'organizations'   => $organizations,
+  'post_meta'       => $post_meta,
+  'paged'           => $paged,
+  'per_page'        => $per_page,
+  'total_pages'     => $total_pages,
+  'sort'            => $sort,
+  'org_type'        => $org_type,
+  'org_category'    => $org_category,
+  'show_categories' => 1,
+  'region'          => $region,
 ]); ?>

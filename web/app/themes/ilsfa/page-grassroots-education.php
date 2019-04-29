@@ -12,6 +12,7 @@ $per_page = get_option('posts_per_page');
 $sort = get_query_var('sort', 'asc');
 $region = get_query_var('region', '');
 $org_type = 'grassroots-education';
+$org_category = get_query_var('org_category', '');
 $args = [
   'type'     => $org_type,
   'order'    => $sort,
@@ -44,6 +45,7 @@ get_template_part('templates/page', 'header');
   'total_pages'   => $total_pages,
   'sort'          => $sort,
   'org_type'      => $org_type,
+  'org_category'  => $org_category,
   'region'        => $region,
 ]); ?>
 
