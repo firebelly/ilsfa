@@ -154,7 +154,7 @@ function metaboxes() {
     'priority'      => 'high',
   ]);
   $homepage_action_blocks->add_field([
-    'name' => esc_html__( 'Headline', 'cmb2' ),
+    'name' => esc_html__( 'Table Headline', 'cmb2' ),
     'id'   => $prefix .'action_blocks_headline',
     'type' => 'text',
   ]);
@@ -380,7 +380,7 @@ function metaboxes() {
   ]);
   $ejc_fields->add_field([
     'id'   => $prefix .'ejc_blocks_headline',
-    'name' => 'Headline',
+    'name' => 'Table Headline',
     'type' => 'text',
   ]);
   $group_field_id = $ejc_fields->add_field([
