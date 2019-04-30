@@ -240,17 +240,6 @@ var ILSFA = (function($) {
       // No map points with lat/lng found?
       if (mapPointsData.features.length === 0) { return; }
 
-      // Center map
-      if (mapPointsData.features.length > 1) {
-        var bounds = new mapboxgl.LngLatBounds();
-        mapPointsData.features.forEach(function(feature) {
-          bounds.extend(feature.geometry.coordinates);
-        });
-        map.fitBounds(bounds, {padding: 100});
-      } else {
-        map.setCenter(mapPointsData.features[0].geometry.coordinates);
-      }
-
       map.on('load', function () {
         map.addSource('points', {
           'type': 'geojson',
@@ -411,7 +400,18 @@ var ILSFA = (function($) {
           map.setFilter('points-hover', ['==', 'id', '']);
         });
 
-      });
+        // Center map
+        if (mapPointsData.features.length > 1) {
+          var bounds = new mapboxgl.LngLatBounds();
+          mapPointsData.features.forEach(function(feature) {
+            bounds.extend(feature.geometry.coordinates);
+          });
+          map.fitBounds(bounds, {padding: 100});
+        } else {
+          map.setCenter(mapPointsData.features[0].geometry.coordinates);
+        }
+
+      }); // end map onload
 
     } else {
 
