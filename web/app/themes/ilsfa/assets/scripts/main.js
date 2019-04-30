@@ -512,7 +512,7 @@ var ILSFA = (function($) {
         // Mapbox GL
         map.flyTo({
           center: latLng,
-          zoom: 14
+          zoom: 11
         });
         setTimeout(function() {
           _mapPopup(latLng, title);
