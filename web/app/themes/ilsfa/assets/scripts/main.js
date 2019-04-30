@@ -159,7 +159,7 @@ var ILSFA = (function($) {
       _setMapSize();
 
       // Fly to point on map
-      if ($parent.hasClass('active') && $parent.attr('data-lat') !== '') {
+      if ($parent.hasClass('active') && !$parent.hasClass('no-coords')) {
         _mapFlyTo([$parent.attr('data-lng'), $parent.attr('data-lat')], $parent.attr('data-title'));
       }
 
@@ -219,7 +219,7 @@ var ILSFA = (function($) {
       $mapPoints.each(function(){
         var $this = $(this);
         $this.addClass('mapped');
-        if ($this.attr('data-lat') !== '') {
+        if ($this.attr('data-lat')) {
           mapPointsData.features.push({
             'type': 'Feature',
             'geometry': {
@@ -232,6 +232,8 @@ var ILSFA = (function($) {
               'id': $this.attr('data-id')
             }
           });
+        } else {
+          $this.addClass('no-coords');
         }
       });
 
@@ -403,6 +405,7 @@ var ILSFA = (function($) {
 
         // Highlight related pins on map when hovering over card
         $('body').on('mouseenter', '.map-point', function() {
+          if ($(this).attr(''))
           var id = $(this).attr('data-id');
           map.setFilter('points-hover', ['==', 'id', id]);
         }).on('mouseleave', '.map-point', function() {
@@ -545,7 +548,7 @@ var ILSFA = (function($) {
         $mapPoints.each(function(){
           var $this = $(this);
           $this.addClass('mapped');
-          if ($this.attr('data-lat') !== '') {
+          if ($this.attr('data-lat')) {
             mapPointsData.features.push({
               'type': 'Feature',
               'geometry': {
@@ -558,6 +561,8 @@ var ILSFA = (function($) {
                 'id': $this.attr('data-id')
               }
             });
+          } else {
+            $this.addClass('no-coords');
           }
         });
 
@@ -579,23 +584,27 @@ var ILSFA = (function($) {
         // Cull map points from DOM
         $mapPoints.each(function(){
           var $this = $(this).addClass('mapped');
-          mapPointsData.features.push({
-            'type': 'Feature',
-            'geometry': {
-              'type': 'Point',
-              'coordinates': [parseFloat($this.attr('data-lng')), parseFloat($this.attr('data-lat'))]
-            },
-            'properties': {
-              'title': $this.attr('data-title'),
-              'url': $this.attr('data-url'),
-              'id': $this.attr('data-id'),
-              'icon' : {
-                'iconUrl': '/app/themes/ilsfa/dist/images/icon-map-pin.svg',
-                'iconSize': [36, 48],
-                'iconAnchor': [18, 24],
+          if ($this.attr('data-lat')) {
+            mapPointsData.features.push({
+              'type': 'Feature',
+              'geometry': {
+                'type': 'Point',
+                'coordinates': [parseFloat($this.attr('data-lng')), parseFloat($this.attr('data-lat'))]
               },
-            },
-          });
+              'properties': {
+                'title': $this.attr('data-title'),
+                'url': $this.attr('data-url'),
+                'id': $this.attr('data-id'),
+                'icon' : {
+                  'iconUrl': '/app/themes/ilsfa/dist/images/icon-map-pin.svg',
+                  'iconSize': [36, 48],
+                  'iconAnchor': [18, 24],
+                },
+              },
+            });
+          } else {
+            $this.addClass('no-coords');
+          }
         });
 
         // Add geoJson source
