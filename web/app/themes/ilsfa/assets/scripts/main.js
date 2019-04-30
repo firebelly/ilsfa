@@ -404,8 +404,7 @@ var ILSFA = (function($) {
         });
 
         // Highlight related pins on map when hovering over card
-        $('body').on('mouseenter', '.map-point', function() {
-          if ($(this).attr(''))
+        $('body').on('mouseenter', '.map-point:not(.no-coords)', function() {
           var id = $(this).attr('data-id');
           map.setFilter('points-hover', ['==', 'id', id]);
         }).on('mouseleave', '.map-point', function() {
@@ -569,15 +568,15 @@ var ILSFA = (function($) {
         // Add points to source
         map.getSource('points').setData(mapPointsData);
 
+        // Update map size and offsets
+        _resize();
+
         // Center
         var bounds = new mapboxgl.LngLatBounds();
         mapPointsData.features.forEach(function(feature) {
           bounds.extend(feature.geometry.coordinates);
         });
-        map.fitBounds(bounds, {padding: 150});
-
-        // Update map size and offsets
-        _resize();
+        map.fitBounds(bounds, {padding: 100});
 
       } else {
 
@@ -610,11 +609,11 @@ var ILSFA = (function($) {
         // Add geoJson source
         pointsLayer.setGeoJSON(mapPointsData.features);
 
-        // Center w/ new map points added
-        map.setView(pointsLayer.getBounds().getCenter());
-
         // Update map size and offsets
         _resize();
+
+        // Center w/ new map points added
+        map.setView(pointsLayer.getBounds().getCenter());
       }
     }
   }
