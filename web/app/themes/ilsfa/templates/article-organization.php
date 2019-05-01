@@ -1,6 +1,7 @@
 <?php
 $organization_post->meta = get_post_meta($organization_post->ID);
 $org_type = \Firebelly\Utils\get_first_term($organization_post, 'organization_type');
+$address = [];
 
 if (!empty($organization_post->meta['_cmb2_address'])) {
   $address = unserialize($organization_post->meta['_cmb2_address'][0]);
