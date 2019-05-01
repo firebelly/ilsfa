@@ -246,7 +246,7 @@ var ILSFA = (function($) {
           'data': mapPointsData,
           'cluster': true,
           'clusterMaxZoom': 14, // Max zoom to cluster points on
-          'clusterRadius': 50 // Radius of each cluster when clustering points (defaults to 50)
+          'clusterRadius': 35 // Radius of each cluster when clustering points (defaults to 50)
         });
 
         // Cluster layers
