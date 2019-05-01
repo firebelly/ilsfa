@@ -261,20 +261,24 @@ function geocode_address($post_id, $internal='') {
      ]);
   }
 
-  if (!empty($address['address-1'])):
+  if (!empty($address['address-1'])) {
     $address_combined = $address['address-1'] . ' ' . $address['address-2'] . ' ' . $address['city'] . ', ' . $address['state'] . ' ' . $address['zip'];
     $request_url = "https://maps.googleapis.com/maps/api/geocode/xml?address=" . urlencode($address_combined) . '&key=' . getenv('GOOGLE_API_KEY');
     $xml = simplexml_load_file($request_url);
     $status = $xml->status;
-    if(strcmp($status, 'OK')===0):
-        $lat = $xml->result->geometry->location->lat;
-        $lng = $xml->result->geometry->location->lng;
-        update_post_meta($post_id, '_cmb2_lat', (string)$lat);
-        update_post_meta($post_id, '_cmb2_lng', (string)$lng);
-        // Update wp_fb_posts_lat_lng cache table
-        update_posts_lat_lng($post_id);
-    endif;
-  endif;
+    if(strcmp($status, 'OK')===0) {
+      $lat = $xml->result->geometry->location->lat;
+      $lng = $xml->result->geometry->location->lng;
+      update_post_meta($post_id, '_cmb2_lat', (string)$lat);
+      update_post_meta($post_id, '_cmb2_lng', (string)$lng);
+      // Update wp_fb_posts_lat_lng cache table
+      update_posts_lat_lng($post_id);
+    }
+  } else {
+    // Clear out lat/lng if address has been emptied
+    update_post_meta($post_id, '_cmb2_lat', '');
+    update_post_meta($post_id, '_cmb2_lng', '');
+  }
 }
 add_action('save_post_event', __NAMESPACE__ . '\\geocode_address', 20, 1);
 
