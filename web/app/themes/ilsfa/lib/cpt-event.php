@@ -247,7 +247,7 @@ function update_posts_lat_lng($post_id='') {
  */
 function geocode_address($post_id, $internal='') {
   // Called internally for an existing post (e.g. importing events)
-  if (!empty($internal)) {
+  if (!empty($internal) && !is_object($internal)) {
     $address = get_post_meta($post_id, '_cmb2_address', true);
   } else {
     // Use POST in case this is a new post
@@ -280,7 +280,7 @@ function geocode_address($post_id, $internal='') {
     update_post_meta($post_id, '_cmb2_lng', '');
   }
 }
-add_action('save_post_event', __NAMESPACE__ . '\\geocode_address', 20, 1);
+add_action('save_post_event', __NAMESPACE__ . '\\geocode_address', 20);
 
 /**
  * Check for lat/lng cache tables for geocoding lookups and zipcode distance
