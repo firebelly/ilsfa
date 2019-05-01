@@ -57,6 +57,13 @@ function metaboxes() {
     'type'       => 'address',
   ]);
   $org_info->add_field([
+    'name'       => 'Show On Map',
+    'id'         => $prefix . 'show_on_map',
+    'type'       => 'checkbox',
+    'default'    => \Firebelly\CMB2\set_checkbox_default_for_new_post(true),
+    'desc'       => 'If checked, will show pin on maps',
+  ]);
+  $org_info->add_field([
     'name'      => 'Lat',
     'id'        => $prefix . 'lat',
     'type'      => 'text_small',
@@ -165,8 +172,9 @@ function get_organizations($opts=[]) {
   $output = '';
   foreach ($organizations_posts as $organization_post) {
     $organization_post->meta = get_post_meta($organization_post->ID);
+    $show_on_map = !empty($organization_post->meta['_cmb2_show_on_map']) && $organization_post->meta['_cmb2_show_on_map'][0] == 'on';
     $output .= '<li class="item map-point" data-id="'.$organization_post->ID.'" data-url="' . (!empty($organization_post->meta['_cmb2_website']) ? $organization_post->meta['_cmb2_website'][0] : '') . '" data-id="' . $organization_post->ID . '" data-title="' . $organization_post->post_title . '"';
-    if (!empty($organization_post->meta['_cmb2_lat']) && !empty($organization_post->meta['_cmb2_lng'])) {
+    if ($show_on_map && !empty($organization_post->meta['_cmb2_lat']) && !empty($organization_post->meta['_cmb2_lng'])) {
       $output .= ' data-lat="' . $organization_post->meta['_cmb2_lat'][0] . '" data-lng="' . $organization_post->meta['_cmb2_lng'][0] . '"';
     }
     $output .= '>';
