@@ -16,6 +16,9 @@ RewriteRule ^(.*)$ https://www.illinoissfa.com%{REQUEST_URI} [R=301,L]
 
 # Force HTTPS
 RewriteCond %{REQUEST_URI} !\.well-known
+RewriteCond %{HTTPS} !on
+# webfaction version:
+# RewriteCond %{HTTP:X-Forwarded-SSL} !on
 RewriteCond %{HTTP_HOST} !^ilsfa\.firebelly\.co [NC]
 RewriteCond %{HTTP_HOST} !^ilsfa\.(localhost|sage) [NC]
 RewriteRule ^(.*)$ https://www.illinoissfa.com%{REQUEST_URI} [R=301,L]
