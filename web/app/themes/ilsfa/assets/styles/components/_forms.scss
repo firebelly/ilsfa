@@ -154,6 +154,7 @@ form {
     height: grid(9);
     border-radius: 8px 8px 0 0;
     background-color: $blurple;
+    color: $white;
     padding: $gutter 50px $gutter $gutter;
     @include transition(background-color);
 
