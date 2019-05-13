@@ -4,13 +4,6 @@ if (!empty($event_post_meta['_cmb2_address'])) {
   $address = unserialize($event_post_meta['_cmb2_address'][0]);
 }
 $post_image = \Firebelly\Media\get_header_bg($event_post, ['size' => 'medium']);
-$topic_links = [];
-if ($topics = get_the_terms($event_post->ID, 'topic')) {
-  foreach ($topics as $term) {
-    // $topic_links[] = '<a href="'.add_query_arg('org_category', $term->slug, (\Firebelly\Ajax\is_ajax() ? '' : '/events/')).'#events">'.$term->name.'</a>';
-    $topic_links[] = '<span class="term">' . $term->name . '</span>';
-  }
-}
 $region_links = [];
 if ($regions = get_the_terms($event_post->ID, 'region')) {
   foreach ($regions as $term) {
@@ -19,12 +12,6 @@ if ($regions = get_the_terms($event_post->ID, 'region')) {
 }
 ?>
 <article class="event">
-  <?php if (!empty($topic_links)): ?>
-    <h4 class="category">
-      <svg class="icon icon-category" aria-hidden="true"><use xlink:href="#icon-category"/></svg>
-      <?= implode(', ', $topic_links) ?>
-    </h4>
-  <?php endif ?>
   <?php if (!empty($post_image)): ?>
     <div class="image" <?= $post_image ?>></div>
   <?php endif; ?>
