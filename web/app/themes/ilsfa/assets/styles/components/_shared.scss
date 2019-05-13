@@ -178,6 +178,11 @@ ul.icon-list {
         width: 16px;
         height: 16px;
       }
+      // odd sized svg
+      &.category svg {
+        width: 21px;
+        height: 24px;
+      }
     }
   }
 }

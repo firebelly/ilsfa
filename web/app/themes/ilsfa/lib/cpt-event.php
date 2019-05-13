@@ -209,9 +209,21 @@ add_action('pre_get_posts', __NAMESPACE__ . '\\event_query');
  */
 function get_dates($post) {
   if (empty($post->meta)) $post->meta = get_post_meta($post->ID);
+
+  $start_day = date('m/d/y', $post->meta['_cmb2_date_start'][0]);
+  $end_day = date('m/d/y', $post->meta['_cmb2_date_end'][0]);
+  $day_text = $start_day == $end_day ? $start_day : $start_day . '–' . $end_day;
+  $start_time = date('g:iA', $post->meta['_cmb2_date_start'][0]);
+  $end_time = date('g:iA', $post->meta['_cmb2_date_end'][0]);
+  if ($start_time != $end_time) {
+    $time_text = $start_time . '–' . $end_time;
+  } else {
+    $time_text = $start_time;
+  }
+
   $output = '<div class="date">';
   if (!empty($post->meta['_cmb2_date_start'])) {
-    $output .= '<time datetime="' . date('Y-m-d', $post->meta['_cmb2_date_start'][0]) . '">' . date('m/d/y', $post->meta['_cmb2_date_start'][0]) . '</time>';
+    $output .= '<time datetime="' . date('Y-m-d', $post->meta['_cmb2_date_start'][0]) . '">' . $day_text . ' ' . $time_text . '</time>';
   }
   $output .= '</div>';
   return $output;

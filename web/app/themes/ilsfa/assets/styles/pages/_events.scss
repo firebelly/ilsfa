@@ -8,6 +8,26 @@
 		>li h3 {
 			margin-bottom: grid(2);
 		}
+		h4.category {
+		  margin: 0 0 grid(1);
+		  padding: 0;
+		  .icon {
+		    vertical-align: middle;
+		    fill: $red;
+		    width: 21px;
+		    height: 24px;
+		  }
+		  span.term,
+		  a {
+		    display: inline-block;
+		    &:nth-of-type(1) {
+		      margin-left: grid(-1);
+		    }
+		  }
+		  &, a, span.term {
+		    color: $blurple-dark;
+		  }
+		}
 	}
 
   .filters {
