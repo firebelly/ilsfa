@@ -218,9 +218,12 @@ function metaboxes() {
     'priority'      => 'high',
   ]);
   $residents_fields->add_field([
-    'id'   => $prefix .'eligibility_blocks_headline',
-    'name' => 'Headline',
-    'type' => 'text',
+    'id'   => $prefix .'eligibility_blocks_intro',
+    'name' => 'Intro',
+    'type' => 'wysiwyg',
+    'options' => [
+      'textarea_rows' => 6,
+    ],
   ]);
   $group_field_id = $residents_fields->add_field([
     'id'              => $prefix . 'eligibility_blocks',
@@ -379,9 +382,12 @@ function metaboxes() {
     'priority'      => 'high',
   ]);
   $ejc_fields->add_field([
-    'id'   => $prefix .'ejc_blocks_headline',
-    'name' => 'Table Headline',
-    'type' => 'text',
+    'id'   => $prefix .'ejc_blocks_intro',
+    'name' => 'Table Intro',
+    'type' => 'wysiwyg',
+    'options' => [
+      'textarea_rows' => 6,
+    ],
   ]);
   $group_field_id = $ejc_fields->add_field([
     'id'              => $prefix . 'ejc_blocks',

@@ -86,11 +86,18 @@ address {
 .page-content {
   @include global-padding(6);
 
+  &.block-intro {
+    padding-bottom: 0;
+  }
+
   // First user-content block gets 10 columns on desktop
   @include media-md {
     >.user-content {
       width: columns(10,16);
     }
+    // &.block-intro {
+    //   padding-bottom: 0;
+    // }
   }
 }
 
