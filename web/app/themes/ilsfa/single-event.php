@@ -50,6 +50,7 @@ get_template_part('templates/page', 'header');
     <li class="address-item">
       <svg class="icon icon-location" aria-hidden="true"><use xlink:href="#icon-location"/></svg>
       <address class="vcard"><a rel="noopener" target="_blank" href="https://www.google.com/maps/search/?api=1&query=<?= urlencode($address_info['address'].' '.$address_info['address_2'].' '.$address_info['locality']) ?>">
+        <?php if (!empty($post_meta['_cmb2_venue'])): ?><span class="venue"><?= $post_meta['_cmb2_venue'][0] ?></span><br><?php endif; ?>
         <span class="street-address"><?= $address_info['address'] ?></span><br>
         <?php if (!empty($address_info['address_2'])): ?><span class="street-address-2"><?= $address_info['address_2'] ?></span><br><?php endif; ?>
         <span class="locality"><?= $address_info['locality'] ?></span>
