@@ -635,20 +635,12 @@ var ILSFA = (function($) {
       // Clear out dummy li for spacing
       $jumpTo.find('li').remove();
 
-      // Get page-content headers
-      $('main .page-content h2').each(function() {
-        title = $(this).attr('data-jumpto') || $(this).text();
-        $(this).attr('data-jumpto-hash', _slugify(title));
-        jumpToLinks.push({title: title, el: this});
-      });
-
-      // Find manually added [data-jumpto] areas
-      $('[data-jumpto]').each(function() {
-        // Skip if jumpto link has already been processed above
+      // Get page-content headers and manually added [data-jumpto] links
+      $('main .page-content h2, [data-jumpto]').each(function() {
         if (!$(this).attr('data-jumpto-hash')) {
-          title = $(this).attr('data-jumpto');
-          jumpToLinks.push({title: title, el: this});
+          title = $(this).attr('data-jumpto') || $(this).text();
           $(this).attr('data-jumpto-hash', _slugify(title));
+          jumpToLinks.push({title: title, el: this});
         }
       });
 
