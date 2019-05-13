@@ -38,7 +38,7 @@
 
 .midpage-prompt-with-image {
   background: $blurple;
-  margin-top: $mobile-global-padding;
+  margin: $mobile-global-padding 0;
   .user-content {
     &,
     h2,h3 {
@@ -61,7 +61,7 @@
   }
   // Desktop styles
   @include media-md {
-    margin-top: grid(12);
+    margin: grid(6) 0 grid(8);
     .text {
       padding: grid(12) columns(2,10);
     }
