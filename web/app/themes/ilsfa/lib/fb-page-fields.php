@@ -372,6 +372,27 @@ function metaboxes() {
   /**
    * Environmental Justice Community fields
    */
+  $ejc_mid_fields = new_cmb2_box([
+    'id'            => $prefix . 'ejc_mid_fields',
+    'title'         => esc_html__( 'Midpage Prompt With Image', 'cmb2' ),
+    'object_types'  => ['page'],
+    'show_slugs'    => ['environmental-justice-communities'],
+    'show_on_cb'    => '\Firebelly\CMB2\show_for_slugs',
+    'context'       => 'normal',
+    'priority'      => 'high',
+  ]);
+  $ejc_mid_fields->add_field([
+    'id'   => $prefix .'midpage_prompt',
+    'type' => 'wysiwyg',
+    'options' => [
+      'textarea_rows' => 8,
+    ],
+  ]);
+  $ejc_mid_fields->add_field([
+    'id'   => $prefix .'midpage_prompt_image',
+    'title' => 'Image',
+    'type' => 'file',
+  ]);
   $ejc_fields = new_cmb2_box([
     'id'            => $prefix . 'ejc_fields',
     'title'         => __( 'EJC Blocks', 'cmb2' ),
@@ -411,27 +432,6 @@ function metaboxes() {
     'options' => [
       'textarea_rows' => 6,
     ],
-  ]);
-  $ejc_mid_fields = new_cmb2_box([
-    'id'            => $prefix . 'ejc_mid_fields',
-    'title'         => esc_html__( 'Midpage Prompt With Image', 'cmb2' ),
-    'object_types'  => ['page'],
-    'show_slugs'    => ['environmental-justice-communities'],
-    'show_on_cb'    => '\Firebelly\CMB2\show_for_slugs',
-    'context'       => 'normal',
-    'priority'      => 'high',
-  ]);
-  $ejc_mid_fields->add_field([
-    'id'   => $prefix .'midpage_prompt',
-    'type' => 'wysiwyg',
-    'options' => [
-      'textarea_rows' => 8,
-    ],
-  ]);
-  $ejc_mid_fields->add_field([
-    'id'   => $prefix .'midpage_prompt_image',
-    'title' => 'Image',
-    'type' => 'file',
   ]);
 
 
