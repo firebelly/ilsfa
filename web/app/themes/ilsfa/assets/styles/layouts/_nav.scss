@@ -164,8 +164,11 @@
     margin-top: 22px;
     a {
       display: block;
-      color: $yellow;
+      color: $white;
       padding: grid(1);
+    }
+    li.primary a {
+      color: $yellow;
     }
     a:hover,
     li.active a {
