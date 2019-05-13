@@ -630,9 +630,10 @@ var ILSFA = (function($) {
   function _initJumpTo() {
     if ($jumpTo.length) {
       var title;
+      var jumpToLinks = [];
+
       // Clear out dummy li for spacing
       $jumpTo.find('li').remove();
-      jumpToLinks = [];
 
       // Get page-content headers
       $('main .page-content h2').each(function() {
@@ -643,9 +644,12 @@ var ILSFA = (function($) {
 
       // Find manually added [data-jumpto] areas
       $('[data-jumpto]').each(function() {
-        title = $(this).attr('data-jumpto');
-        jumpToLinks.push({title: title, el: this});
-        $(this).attr('data-jumpto-hash', _slugify(title));
+        // Skip if jumpto link has already been processed above
+        if (!$(this).attr('data-jumpto-hash')) {
+          title = $(this).attr('data-jumpto');
+          jumpToLinks.push({title: title, el: this});
+          $(this).attr('data-jumpto-hash', _slugify(title));
+        }
       });
 
       // Any jump links found?
