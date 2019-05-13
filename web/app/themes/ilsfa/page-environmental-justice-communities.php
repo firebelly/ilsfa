@@ -42,8 +42,10 @@ get_template_part('templates/page', 'header');
 <?php // Eligibility Blocks ?>
 <?php if (!empty($post_meta['_cmb2_ejc_blocks'])): ?>
   <?php if (!empty($post_meta['_cmb2_ejc_blocks_intro'])): ?>
-    <div class="page-content block-intro user-content">
-      <?= apply_filters('the_content', $post_meta['_cmb2_ejc_blocks_intro'][0]) ?>
+    <div class="page-content block-intro -breakout-images">
+      <div class="user-content">
+        <?= apply_filters('the_content', $post_meta['_cmb2_ejc_blocks_intro'][0]) ?>
+      </div>
     </div>
   <?php endif; ?>
   <ul class="midpage-blocks">

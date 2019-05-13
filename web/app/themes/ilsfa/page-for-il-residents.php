@@ -20,8 +20,10 @@ get_template_part('templates/page', 'header');
 <?php // Eligibility Blocks ?>
 <?php if (!empty($post_meta['_cmb2_eligibility_blocks'])): ?>
   <?php if (!empty($post_meta['_cmb2_eligibility_blocks_intro'])): ?>
-    <div class="page-content block-intro user-content">
-      <?= apply_filters('the_content', $post_meta['_cmb2_eligibility_blocks_intro'][0]) ?>
+    <div class="page-content block-intro">
+      <div class="user-content">
+        <?= apply_filters('the_content', $post_meta['_cmb2_eligibility_blocks_intro'][0]) ?>
+      </div>
     </div>
   <?php endif; ?>
   <ul class="midpage-blocks">
