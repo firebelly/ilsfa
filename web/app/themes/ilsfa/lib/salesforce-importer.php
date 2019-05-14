@@ -186,7 +186,7 @@ class SalesforceImporter {
         update_post_meta($event_id, $this->prefix.'salesforce_last_modified', strtotime($event['LastModifiedDate']));
         update_post_meta($event_id, $this->prefix.'date_start', strtotime($event['Event_Date__c']));
         update_post_meta($event_id, $this->prefix.'date_end', strtotime($event['Event_Date__c']));
-        update_post_meta($event_id, $this->prefix.'venue', strtotime($event['Event_Organization2__r']));
+        update_post_meta($event_id, $this->prefix.'venue', $event['Event_Organization2__r']);
 
         // Set address meta fields
         $address = [
