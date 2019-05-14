@@ -42,7 +42,7 @@ class SalesforceImporter {
     // Pull events from Salesforce
     try {
 
-      $response = $salesforce->searchSOQL("SELECT id, CreatedDate, LastModifiedDate, Name, State__c, City__c, Zip_Code__c, Event_Date__c, Event_Details__c, Event_Name_Grassroot__c, Event_Topic__c, Region__c FROM ISEIF_and_EI2_Events__c WHERE Event_Date__c != null AND Event_Name_Grassroot__c != null AND is_Community__c = true AND (Event_Status__c = 'Event Scheduled' OR Event_Status__c = 'Event Complete')", true);
+      $response = $salesforce->searchSOQL("SELECT id, CreatedDate, LastModifiedDate, Name, State__c, City__c, Zip_Code__c, Event_Date__c, Event_Details__c, Event_Name_Grassroot__c, Event_Topic__c, Region__c, Event_Organization2__r.Name FROM ISEIF_and_EI2_Events__c WHERE Event_Date__c != null AND Event_Name_Grassroot__c != null AND is_Community__c = true AND (Event_Status__c = 'Event Scheduled' OR Event_Status__c = 'Event Complete')", true);
 
       $this->log['notice'][] = 'Salesforce API: '.$response['totalSize'].' total events found';
 
@@ -186,6 +186,7 @@ class SalesforceImporter {
         update_post_meta($event_id, $this->prefix.'salesforce_last_modified', strtotime($event['LastModifiedDate']));
         update_post_meta($event_id, $this->prefix.'date_start', strtotime($event['Event_Date__c']));
         update_post_meta($event_id, $this->prefix.'date_end', strtotime($event['Event_Date__c']));
+        update_post_meta($event_id, $this->prefix.'venue', strtotime($event['Event_Organization2__r']));
 
         // Set address meta fields
         $address = [
