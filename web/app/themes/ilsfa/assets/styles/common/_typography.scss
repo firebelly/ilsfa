@@ -96,6 +96,11 @@ $font-mono: 'GT Pressura Mono', sans-serif;
 }
 @mixin h1 {
   @include font-header;
+  font-size: 60px;
+  line-height: 72px;
+}
+@mixin h1-xl {
+  @include h1;
   font-size: 72px;
   line-height: 80px;
 }
@@ -124,18 +129,33 @@ $font-mono: 'GT Pressura Mono', sans-serif;
 
 @mixin p1 {
   @include font-regular;
-  font-size: 32px;
-  line-height: 48px;
+  font-size: 28px;
+  line-height: 40px;
   letter-spacing: 1px;
 }
+@mixin p1-xl {
+  @include p1;
+  font-size: 32px;
+  line-height: 48px;
+}
 %p1,
-p.intro { @include p1; }
+p.intro {
+  @include p1;
+
+  @include media-xl {
+    @include p1-xl;
+  }
+}
 
 @mixin p2 {
   @include font-regular;
-  font-size: 22px;
-  line-height: 32px;
+  font-size: 18px;
+  line-height: 1.6;
   letter-spacing: 0.75px;
+}
+@mixin p2-xl {
+  @include p2;
+  font-size: 22px;
 }
 
 @mixin p3 {
@@ -156,6 +176,9 @@ p.small {
   @include h2;
   @include media-md {
     @include h1;
+  }
+  @include media-xl {
+    @include h1-xl;
   }
 }
 %h2,.h2,h2 {
@@ -197,7 +220,7 @@ p,
 figcaption {
   @include p3;
 
-  @include media-md {
+  @include media-xl {
     @include p2;
   }
 }

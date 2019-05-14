@@ -42,8 +42,10 @@
           width: columns(13,16);
         }
       }
+    }
+    @include media-xl {
       p {
-        @include p1;
+        @include p2-xl;
       }
     }
   }
