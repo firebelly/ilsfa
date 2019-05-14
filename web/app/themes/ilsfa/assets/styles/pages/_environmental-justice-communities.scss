@@ -1,0 +1,12 @@
+// Environmental Justice Communities
+
+.page.environmental-justice-communities {
+  @include media-md {
+    .midpage-blocks {
+      li:last-child {
+        padding-bottom: grid(4);
+        border-bottom: 2px solid $black;
+      }
+    }
+  }
+}
