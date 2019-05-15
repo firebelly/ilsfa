@@ -92,15 +92,22 @@ var ILSFA = (function($) {
 
     // Track GA event for outbound links
     $('a[href^="http"]:not([href*="' + currentDomain + '"])').on('click', function(e) {
+      // Just return if Analytics isn't initiated
       if (typeof ga === 'undefined') {
         return;
       }
+      // .. otherwise track outbound link
       e.preventDefault();
-      var url = this.href;
-      ga('send', 'event', 'outbound', 'click', url, {
+      var $this = $(this);
+      ga('send', 'event', 'outbound', 'click', $this.attr('href'), {
         'transport': 'beacon',
         'hitCallback': function() {
-          window.location = url;
+          // Open in new tab/window if specified
+          if ($this.attr('target')) {
+            window.open(url, $this.attr('target'));
+          } else {
+            window.location = $this.attr('href');
+          }
         }
       });
     });
