@@ -93,7 +93,7 @@ var ILSFA = (function($) {
     // Track GA event for outbound links
     $('a[href^="http"]:not([href*="' + currentDomain + '"])').on('click', function(e) {
       // Just return if Analytics isn't initiated
-      if (typeof gtag === 'undefined') {
+      if (typeof ga === 'undefined') {
         return;
       }
       // .. otherwise cancel click & track outbound link
