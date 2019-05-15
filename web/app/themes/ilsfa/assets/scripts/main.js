@@ -106,7 +106,7 @@ var ILSFA = (function($) {
         'event_callback': function(){
           // Open in new tab/window if specified
           if ($this.attr('target')) {
-            window.open(url, $this.attr('target'));
+            window.open($this.attr('href'), $this.attr('target'));
           } else {
             window.location = $this.attr('href');
           }
