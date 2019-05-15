@@ -32,18 +32,16 @@ $event_ids = \Firebelly\PostTypes\Event\get_events([
 ]);
 
 // Find regions used by events
-if (is_array($event_ids)) {
+if (!empty($event_ids)) {
   $regions = \Firebelly\Utils\get_active_terms_for_posts($event_ids, 'region');
 } else {
   $regions = [];
 }
 
-?>
-
-<?php
 get_template_part('templates/page', 'header-tertiary');
 ?>
 <div class="events-listing" id="events" data-load-more-parent>
+  <?php if (!empty($region) || !empty($event_ids)): ?>
   <div class="grid filters">
     <div class="one-half">
       <h4>Sort By</h4>
@@ -73,6 +71,7 @@ get_template_part('templates/page', 'header-tertiary');
       </div>
     </div>
   </div>
+  <?php endif; ?>
 
   <ul class="cards compact-grid" data-load-more-container>
   <?= $events ?>

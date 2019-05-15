@@ -4,6 +4,10 @@
 	background: $blurple-dark;
 	@include global-padding(12);
 
+	p.nothing-found {
+		color: $white;
+	}
+
 	.cards {
 		>li h3 {
 			margin-bottom: grid(2);

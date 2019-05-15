@@ -129,7 +129,7 @@ $events = \Firebelly\PostTypes\Event\get_events(['numberposts' => 3]);
 <?php endif; ?>
 
 <?php // Events ?>
-<?php if (!empty($events)): ?>
+<?php if (strpos($events, 'nothing-found')===false): ?>
 <div class="events-listing">
   <h2>Events</h2>
   <ul class="cards compact-grid">

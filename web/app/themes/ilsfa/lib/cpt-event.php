@@ -156,7 +156,11 @@ function get_events($opts=[]) {
 
   $event_posts = get_posts($args);
   if (!$event_posts) {
-    return '<p class="nothing-found">No posts found.</p>';
+    if (!empty($opts['output']) && $opts['output'] == 'array') {
+      return [];
+    } else {
+      return '<p class="nothing-found">No events at this time.</p>';
+    }
   }
 
   // Just count posts (used for load-more buttons)
