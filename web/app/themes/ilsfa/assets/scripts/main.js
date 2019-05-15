@@ -92,17 +92,17 @@ var ILSFA = (function($) {
 
     // Track GA event for outbound links
     $('a[href^="http"]:not([href*="' + currentDomain + '"])').on('click', function(e) {
-        if (typeof ga === 'undefined') {
-          return;
+      if (typeof ga === 'undefined') {
+        return;
+      }
+      e.preventDefault();
+      var url = this.href;
+      ga('send', 'event', 'outbound', 'click', url, {
+        'transport': 'beacon',
+        'hitCallback': function() {
+          window.location = url;
         }
-        e.preventDefault();
-        var url = this.href;
-        ga('send', 'event', 'outbound', 'click', url, {
-          'transport': 'beacon',
-          'hitCallback': function() {
-            document.location = url;
-          }
-        });
+      });
     });
 
     // Null links
