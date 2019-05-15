@@ -96,10 +96,11 @@ var ILSFA = (function($) {
           return;
         }
         e.preventDefault();
-        ga('send', 'event', 'outbound', 'click', this.href, {
+        var url = this.href;
+        ga('send', 'event', 'outbound', 'click', url, {
           'transport': 'beacon',
           'hitCallback': function() {
-            document.location = this.href;
+            document.location = url;
           }
         });
     });
