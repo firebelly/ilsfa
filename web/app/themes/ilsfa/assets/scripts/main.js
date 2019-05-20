@@ -91,28 +91,29 @@ var ILSFA = (function($) {
     });
 
     // Track GA event for outbound links
-    $('a[href^="http"]:not([href*="' + currentDomain + '"])').on('click', function(e) {
-      // Just return if Analytics isn't initiated
-      if (typeof ga === 'undefined') {
-        return;
-      }
-      // .. otherwise cancel click & track outbound link
-      e.preventDefault();
-      var $this = $(this);
-      gtag('event', 'click', {
-        'event_category': 'outbound',
-        'event_label': $this.attr('href'),
-        'transport_type': 'beacon',
-        'event_callback': function(){
-          // Open in new tab/window if specified
-          if ($this.attr('target')) {
-            window.open($this.attr('href'), $this.attr('target'));
-          } else {
-            window.location = $this.attr('href');
-          }
-        }
-      });
-    });
+    // (disabled to use GTM for this)
+    // $('a[href^="http"]:not([href*="' + currentDomain + '"])').on('click', function(e) {
+    //   // Just return if Analytics isn't initiated
+    //   if (typeof ga === 'undefined') {
+    //     return;
+    //   }
+    //   // .. otherwise cancel click & track outbound link
+    //   e.preventDefault();
+    //   var $this = $(this);
+    //   gtag('event', 'click', {
+    //     'event_category': 'outbound',
+    //     'event_label': $this.attr('href'),
+    //     'transport_type': 'beacon',
+    //     'event_callback': function(){
+    //       // Open in new tab/window if specified
+    //       if ($this.attr('target')) {
+    //         window.open($this.attr('href'), $this.attr('target'));
+    //       } else {
+    //         window.location = $this.attr('href');
+    //       }
+    //     }
+    //   });
+    // });
 
     // Null links
     $('body').on('click', 'a[href="#"]', function(e) {

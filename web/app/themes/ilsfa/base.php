@@ -8,6 +8,12 @@ use Roots\Sage\Wrapper;
 <html <?php language_attributes(); ?>>
   <?php get_template_part('templates/head'); ?>
   <body <?php body_class(); ?>>
+    <?php if (WP_ENV === 'production'): ?>
+      <!-- Google Tag Manager (noscript) -->
+      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8HZKG9"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      <!-- End Google Tag Manager (noscript) -->
+    <?php endif; ?>
     <div id="breakpoint-indicator"></div>
     <div class="hide" aria-hidden="true"><?php include_once(get_template_directory().'/dist/svgs/build/svgs-defs.svg'); ?></div>
     <?php
