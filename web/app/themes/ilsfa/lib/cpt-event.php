@@ -379,3 +379,18 @@ function salesforce_import_admin_form() {
   </div>
 <?php
 }
+
+/**
+ * Fix bug where Announcements is marked as active when there are no events
+ */
+function force_events_active_nav($classes, $item) {
+  if((is_post_type_archive('event') || is_singular('event'))) {
+    if ($item->title != 'Events') {
+      $classes = array_diff($classes, ['active', 'current_page_parent']);
+    } else {
+      $classes[] = 'active';
+    }
+  }
+  return $classes;
+}
+add_filter('nav_menu_css_class', __NAMESPACE__.'\force_events_active_nav', 10, 2);
