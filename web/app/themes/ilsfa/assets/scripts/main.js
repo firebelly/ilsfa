@@ -974,44 +974,45 @@ var ILSFA = (function($) {
       }, 500);
 
       $.ajax({
-          url: wp_ajax_url,
-          method: 'post',
-          data: {
-              action: 'load_more_posts',
-              post_type: post_type,
-              page: page+1,
-              per_page: per_page,
-              sort: $load_more.attr('data-org-sort'),
-              region: $load_more.attr('data-org-region'),
-              org_type: $load_more.attr('data-org-type')
-          },
-          success: function(data) {
-            var $data = $(data);
+        url: wp_ajax_url,
+        method: 'post',
+        data: {
+          action: 'load_more_posts',
+          post_type: post_type,
+          page: page+1,
+          per_page: per_page,
+          sort: $load_more.attr('data-org-sort'),
+          region: $load_more.attr('data-org-region'),
+          org_category: $load_more.attr('data-org-category'),
+          org_type: $load_more.attr('data-org-type')
+        },
+        success: function(data) {
+          var $data = $(data);
 
-            if (loadingTimer) {
-              clearTimeout(loadingTimer);
-            }
-            // Append new posts to more_container
-            $more_container.append($data).removeClass('loading');
-
-            // Increase page in data attribute
-            $load_more.attr('data-page-at', page+1);
-
-            // Tell masonry we appended some items
-            if ($more_container.hasClass('compact-grid')) {
-              $more_container.masonry('appended', $data, true);
-            }
-
-            if (map) {
-              _addMapPoints();
-              Waypoint.refreshAll();
-            }
-
-            // Hide load more if last page
-            if ($load_more.attr('data-total-pages') <= page + 1) {
-              $load_more.addClass('hidden');
-            }
+          if (loadingTimer) {
+            clearTimeout(loadingTimer);
           }
+          // Append new posts to more_container
+          $more_container.append($data).removeClass('loading');
+
+          // Increase page in data attribute
+          $load_more.attr('data-page-at', page+1);
+
+          // Tell masonry we appended some items
+          if ($more_container.hasClass('compact-grid')) {
+            $more_container.masonry('appended', $data, true);
+          }
+
+          if (map) {
+            _addMapPoints();
+            Waypoint.refreshAll();
+          }
+
+          // Hide load more if last page
+          if ($load_more.attr('data-total-pages') <= page + 1) {
+            $load_more.addClass('hidden');
+          }
+        }
       });
     });
   }
