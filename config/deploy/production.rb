@@ -1,9 +1,10 @@
 set :stage, :production
-set :domain, '104.130.212.116'
+set :domain, 'www.illinoissfa.com'
 set :login, 'developer'
 set :composer_command, -> { '/usr/bin/composer' }
 set :deploy_to, -> { "/var/www/vhosts/illinoissfa.com-887/#{fetch(:application)}" }
 set :tmp_dir, -> { "/home/#{fetch(:login)}/tmp" }
+set :wpcli_remote_url, "https://#{fetch(:domain)}"
 
 # Simple Role Syntax
 # ==================

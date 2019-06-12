@@ -5,8 +5,11 @@ set :login, 'firebelly'
 set :repo_url, 'git@github.com:firebelly/ilsfa.git'
 set :composer_command, -> { "php72 /home/#{fetch(:login)}/bin/composer.phar" }
 
-# Hardcodes branch to always be master
-# This could be overridden in a stage config file
+# For wpcli db command search-replace
+set :wpcli_remote_url, "http://#{fetch(:domain)}"
+set :wpcli_local_url, "http://#{fetch(:theme)}.localhost"
+
+# This can be overridden in a stage config file to pull from a different branch
 set :branch, :master
 
 set :deploy_to, -> { "/home/#{fetch(:login)}/webapps/#{fetch(:application)}" }
